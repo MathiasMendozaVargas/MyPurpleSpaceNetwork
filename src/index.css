@@ -1,0 +1,457 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Saira+Condensed&display=swap');
+
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+font-family: 'Saira Condensed', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Navbar */
+.navbar{
+  position: fixed;
+  top: 0%;
+  width: 100%;
+  color: rgb(224, 224, 224);
+  background-color: purple;
+  display: inline-flex;
+  align-items: center;
+}
+
+
+.navbar-brand{
+  width: 30%;
+  padding-left: 17px;
+  display: inline-flex;
+  align-items: center;
+}
+.navbar-brand .logo{
+  width: 42px;
+  margin-right: 7px;
+}
+.navbar-brand span{
+  font-weight: 600;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.navbar-nav{
+  width: 70%;
+  justify-content: right;
+  text-align: right;
+  display: inline-flex;
+  margin-right: 15px;
+}
+
+.navbar-nav li{
+  margin-right: 20px;
+  list-style: none;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 16px;
+}
+.navbar-nav li a{  
+  color: rgb(224, 224, 224);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.navbar-nav li a:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 1.7px;
+  left: 50%;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.548);
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+.navbar-nav li a:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+
+.navbar-nav i{
+  margin-right: 2px;
+  color: black;
+}
+
+
+
+/* About Section */
+.about{
+  display: flex;
+  margin-top: 57px;
+  width: 100%;
+  height: 90vh;
+  background-image: url('./assets/aboutBg.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.left-about{
+  width: 45%;
+  text-align: center;
+}
+.left-about img{
+  width: 90%;
+  margin-top: 10px;
+  animation: rotation 28s infinite linear;
+}
+
+@keyframes rotation {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+.right-about{
+  width: 55%;
+  height: fit-content;
+  text-align: left;
+  padding: 0px 50px 30px 25px;
+  border-radius: 0px 0px 0px 13px;
+  color: whitesmoke;
+  background-color: rgba(27, 27, 27, 0.63);
+}
+
+.right-about h1{
+  font-size: 38px;
+  margin-top: 40px;
+  margin-bottom: 12px !important;
+}
+.personConnecteds{
+  text-align: center;
+  margin-bottom: 15px;
+}
+.personConnecteds img{
+  width: 150px;
+}
+
+.right-about p{
+  margin-top: 0px !important;
+}
+
+.right-about button{
+  font-size: 13px;
+  padding: 8px 14px;
+  color: white;
+  background-color: purple;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.5s;
+}
+.right-about button:hover{
+  transform: scale(1.02);
+  background-color: rgb(117, 0, 117);
+  cursor: pointer;
+}
+
+
+/* Login Page */
+.loginPage{
+  width: 100%;
+  height: 90vh;
+  margin-top: 57px;
+  background-image: url('./assets/aboutBg.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: whitesmoke;
+}
+
+.loginPage-header{
+  text-align: center;
+  padding-top: 50px;
+}
+
+.loginPage-header h1{
+  font-size: 40px;
+  font-style: italic;
+  margin-bottom: 0px;
+}
+.loginPage-header h3{
+  margin-top: 5px;  
+}
+
+.loginPage-login{
+  margin: auto auto;
+  padding: 16px 22px 10px 12px;
+  border-radius: 10px;
+  background-color: purple;
+  box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.747);
+  width: 300px;
+}
+
+.loginPage-login form{
+  width: 100%;
+  display: block;
+}
+
+.loginPage-login form input{
+  width: 100%;
+  height: 28px;
+  padding-left: 10px;
+  color: whitesmoke;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  margin-bottom: 10px;
+}
+
+.loginPage-login form input:focus{
+  border: none;
+  outline: none;
+}
+
+.loginPage-login form textarea{
+  width: 96%;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.842);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.loginPage-login form textarea:focus{
+  border: none;
+  outline: none;
+}
+
+
+.forgotLink{
+  text-align: right;
+  margin-bottom: 5px;
+  width: 100%;
+  font-size: 11px;
+  color: blue;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.showPasswordDiv{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.showPasswordBox{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.loginPage-login .showPasswordDiv input{
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+}
+
+.loginPage-login .showPasswordDiv p{
+  text-align: left;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.loginPage-login form button{
+  margin-left: 5px;
+  width: 100%;
+  padding: 7px 0px;
+  background-color: black;
+  color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 7px;
+}
+
+.loginPage-login form button:hover{
+  cursor: pointer;
+  background-color: rgb(19, 19, 19);
+}
+
+.dontAccount{
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+}
+.dontAccountLink{
+  margin-left: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11.5px;
+}
+
+.age-and-age-div{
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  padding-left: 5px;
+  margin: 4px 0px 5px 0px;
+}
+.age-and-age-div select{
+  background-color: black;
+  color: gray;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 6px 6px 6px;
+}
+.age-and-age-div select:focus{
+  outline: none;
+  border: none;
+}
+
+
+/* Home Section */
+.home{
+  margin-top: 57px;
+  padding: 35px 0px;
+  background-color: rgb(10, 10, 10);
+}
+
+.floatingBtn{
+  position: fixed;
+  top: 86vh;
+  left: 92vw;
+}
+
+.floatingBtn button{
+  width: 100%;
+  height: 100%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  color: whitesmoke;
+  background-color: rgb(141, 0, 141);
+  border: none;
+  font-size: 20px;
+  transition: all 0.6s;
+}
+.floatingBtn button:hover{
+  cursor: pointer;
+  background-color: rgb(160, 0, 160);
+  transform: scale(1.09);
+}
+
+
+/* Post Card Styles */
+
+.post-card{
+  color: whitesmoke;
+  background-color: purple;
+  box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.514);
+  border-radius: 12px;
+  width: 60%;
+  margin: auto auto;
+  padding: 0px 15px 0px 15px;
+  margin-bottom: 20px;
+}
+.post-card-header{
+  width: 100%;
+  padding-top: 10px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.post-card-header .avatar{
+  width: 50px;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+.post-author{
+  color: whitesmoke;
+  font-style: italic;
+  font-size: 19px;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+
+.post-card-header p{
+  margin-left: auto;
+  margin-top: 10px;
+  margin-right: 5px;
+  font-style: italic;
+}
+
+
+.post-card-body{
+  padding-bottom: 1px;
+}
+
+.post-card-body p{
+  margin-top: 0px
+}
+
+
+
+/* Profile Page */
+.profile{
+  margin-top: 57px;
+  width: 100%;
+}
+
+.profile-header{
+  width: 100%;
+  height: 30vh;
+  background-image: url('./assets/aboutBg.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.profile-header img{
+  width: 150px;
+  border-radius: 50%;
+  position: relative;
+  top: 30%;
+  left: 42%;
+  border: 2.5px solid rgb(17, 17, 17);
+}
+
+.profile-content{
+  width: 100%;
+  display: inline-flex;
+}
+
+.profile-content-info{
+  width: 25%;
+  height: 100vh;
+  padding: 20px;
+  background-color: purple;
+  color: whitesmoke;
+  border-radius: 0px 0px 40px 0px;
+}
+
+.profile-content-info h1{
+  margin-top: 0px;
+}
+
+.profile-content-info h2{
+  margin-bottom: 0px;
+}
+
+.profile-content-info h4{
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.profile-content-posts{
+  width: 75%;
+  padding-top: 60px;
+}
