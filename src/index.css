@@ -375,21 +375,41 @@ code {
   margin-right: 10px;
 }
 
+.spanAuthor{
+  display: inline;
+  padding-top: 5px;
+}
+
 .post-author{
   color: whitesmoke;
   font-style: italic;
   font-size: 19px;
-  margin-top: 3px;
-  margin-bottom: 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
+
 .post-card-header p{
-  margin-left: auto;
-  margin-top: 10px;
+  margin-top: 0px;
   margin-right: 5px;
+  font-size: 12px;
+  margin-bottom: 20px;
   font-style: italic;
 }
 
+.optionsBtn{
+  margin-left: auto;
+  color: white;
+  margin-bottom: 45px;
+  padding: 0px 5px 0px 5px;
+}
+
+.optionsBtn:hover{
+  background-color: rgba(255, 255, 255, 0.26);
+  border-radius: 50%;
+  color: purple;
+  
+}
 
 .post-card-body{
   padding-bottom: 1px;
@@ -430,12 +450,36 @@ code {
 }
 
 .profile-content-info{
-  width: 25%;
+  width: 30%;
   height: 100vh;
   padding: 20px;
   background-color: purple;
   color: whitesmoke;
   border-radius: 0px 0px 40px 0px;
+}
+
+.profileInfoSpan{
+  width: 100%;
+  font-weight: 500 !important;
+  display: inline-flex;
+  align-items: center;
+}
+
+.profileInfoSpan h1{
+  font-size: 2rem;
+}
+
+.profileInfoSpan a{
+  color: whitesmoke;
+  margin-left: auto;
+  height: fit-content;
+  padding: 3px 4px 3px 4px;
+  border-radius: 50%;
+  transition: all 0.4s;
+}
+
+.profileInfoSpan a:hover{
+  transform: scale(1.05);
 }
 
 .profile-content-info h1{
@@ -452,6 +496,194 @@ code {
 }
 
 .profile-content-posts{
-  width: 75%;
+  width: 70%;
   padding-top: 60px;
+}
+
+.actionFriendIcon{
+  width: 23px;
+  border-radius: 50%;
+  padding: 3px;
+}
+
+.isFriend{
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+}
+
+
+
+/* Edit Profile Page */
+.editProfile{
+  margin-top: 57px;
+  width: 100%;
+}
+
+.editProfile-header{
+  width: 100%;
+  height: 30vh;
+  background-image: url('./assets/aboutBg.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.editProfile img{
+  width: 150px;
+  border-radius: 50%;
+  position: relative;
+  top: 32%;
+  left: 42%;
+  border: 2.5px solid rgb(17, 17, 17);
+}
+
+.chooseNewPic{
+  width: 100%;
+  position: relative;
+  top: 13%;
+  left: 38.5%;
+}
+
+.chooseNewPic i{
+  color: white;
+  background-color: rgb(140, 43, 129);
+  padding: 9px;
+  border-radius: 50%;
+  border: 2px solid rgb(17, 17, 17);
+}
+
+.chooseNewPic i:hover{
+  cursor: pointer;
+}
+
+.editProfile-content{
+  margin: auto;
+  margin-top: 0px;
+  padding: 50px 22px 10px 12px;
+  border-radius: 0px 0px 10px 10px;
+  background-color: purple;
+  box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.507);
+  width: 400px;
+}
+
+
+.editProfile-content form{
+  width: 100%;
+  display: block;
+}
+
+.editProfile-content form input{
+  width: 100%;
+  height: 28px;
+  padding-left: 10px;
+  color: whitesmoke;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: black;
+  margin-bottom: 15px;
+}
+
+.editProfile-content form input:focus{
+  border: none;
+  outline: none;
+}
+
+.editProfile-content form textarea{
+  width: 96%;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.842);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.editProfile-content form textarea:focus{
+  border: none;
+  outline: none;
+}
+
+
+.forgotLink{
+  text-align: right;
+  margin-bottom: 5px;
+  width: 100%;
+  font-size: 11px;
+  color: blue;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.showPasswordDiv{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.showPasswordBox{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.editProfile-content .showPasswordDiv input{
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+}
+
+.editProfile-content .showPasswordDiv p{
+  text-align: left;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.editProfile-content form button{
+  margin-left: 5px;
+  width: 100%;
+  padding: 7px 0px;
+  background-color: black;
+  color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 7px;
+}
+
+.editProfile-content form button:hover{
+  cursor: pointer;
+  background-color: rgb(19, 19, 19);
+}
+
+.dontAccount{
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+}
+.dontAccountLink{
+  margin-left: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11.5px;
+}
+
+.age-and-age-div{
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  padding-left: 5px;
+  margin: 4px 0px 5px 0px;
+}
+.age-and-age-div select{
+  background-color: black;
+  color: gray;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 6px 6px 6px;
+}
+.age-and-age-div select:focus{
+  outline: none;
+  border: none;
 }

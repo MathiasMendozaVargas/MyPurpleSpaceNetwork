@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import avatar from '../assets/basedProfile.png'
 import moment from "moment/moment";
+import { useSelector } from "react-redux";
+import { supabase } from "../lib/supabaseClient";
+import { Link } from 'react-router-dom'
 
 const PostCard = (postData) => {
     const [post, setPost] = useState(postData);
 
-    // const list_of_effects = ['fade-up', 'fade-down', 'fade-left', 'fade-right']
-
-    // const random_effect = String(list_of_effects[Math.floor(Math.random() * 4)])
+    const user = useSelector(state => state.user.user)
 
     const author = post.postData.author;
     const postDate = post.postData.date;
     const postContent = post.postData.content;
+    const user_id = post.postData.user_id;
 
 
     const calculateTimeDifference = (timePost) => {
@@ -73,14 +75,14 @@ const PostCard = (postData) => {
     }
 
     const current_time = post.postData.created_at
-    const timeDiff = calculateTimeDifference(current_time)
+    const timeDiff = calculateTimeDifference(current_time);
 
     return (
         <div className="post-card">
             <div className="post-card-header">
                 <img className="avatar" src={avatar} alt="" />
-                <h4 className="post-author">{author}</h4>
-                <p>{timeDiff}</p>
+                <span className="spanAuthor"><Link to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
+                <a className="optionsBtn" href=""><i class="fa-solid fa-ellipsis"></i></a>
             </div>
             <div className="post-card-body">
                 <div className="post-card-body-inner">
