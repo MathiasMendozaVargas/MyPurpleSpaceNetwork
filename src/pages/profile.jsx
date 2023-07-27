@@ -81,6 +81,42 @@ const Profile = () => {
             }
         }
     }
+
+    const addFriend = async (loggedUserId, current_user_id) => {
+
+        console.log("Heloooooooo");
+
+        // Get friend list of current logged in user
+        const { data, error } = await supabase.from('users_data').select()
+
+        if(error){
+            console.log(error);
+        }
+
+        if(data){
+            for(var i=0; i<data.length; i++){
+                if(data[i].user_id === loggedUserId){
+                    // Get frends list and push new friend
+                    let new_friends_list = data[i].friends
+                    new_friends_list.push(current_user_id)
+
+                    // Update friends list on the database
+                    const { error } = await supabase
+                        .from('users_data')
+                        .update({ friends: new_friends_list })
+                        .eq({ user_id: loggedUserId })
+                    
+                    if(error){
+                        console.log(error);
+                    }
+                    else{
+                        // Reload page so we get the new data and our new friend added up 
+                        window.location.reload();
+                    }
+                }
+            }
+        }
+    }
     
     
     const getAllPostofUser = async (current_user_id) => {
@@ -127,50 +163,7 @@ const Profile = () => {
 
 
     if(!user_data) {
-        return null
-    }
-
-    if(!user_posts){
-        return (
-            <>
-            <Navbar />
-            <div className="profile">
-                <div className="profile-header">
-                    <img src={based_profileImg} alt="" />
-                </div>
-                <div className="profile-content">
-                    <div className="profile-content-info">
-                        <span className="profileInfoSpan">
-                            <h1>{user_data.first_name + ' ' + user_data.last_name}</h1>
-                            { isLoggedUser ? (
-                                <Link to={'/editProfile/' + profile_id}><a><i class="fa-solid fa-pen"></i></a></Link>
-                            ) : (
-                                <Link to={''}><img className="actionFriendIcon" src={addFriendIcon}></img></Link>
-                            )}
-                        </span>
-                        <h4>Username: {user_data.username}</h4>
-                        <h4>Age: {user_data.age}</h4>
-                        <h4>Gender: {(user_data.gender).toUpperCase()}</h4>
-                        <h2>Contact Info</h2>
-                        <h4>Email: exampleemail14@gmail.com</h4>
-                        { isFriend ? (
-                            <Link to={''}><img className="actionFriendIcon" src={friendsIcon}></img></Link>
-                        ) : (
-                            <h1>Not Friend</h1>
-                        )}
-                    </div>
-                    <div className="profile-content-posts">
-                            <h2 style={{textAlign: 'center', marginTop: '50px'}}>{user_data.first_name + ' ' + user_data.last_name + ' '} hasn't purple anything!</h2>
-                        </div>
-                </div>
-            </div>
-            <div className="floatingBtn">
-                    <button onClick={() => {
-                        navigate('/createNewPost')
-                    }}><i class="fa-solid fa-pen-to-square"></i></button>
-                </div>
-            </>
-        )
+        return <h1>Loading...</h1>
     }
 
     if(user_posts){
@@ -193,7 +186,7 @@ const Profile = () => {
                             { isLoggedUser ? (
                                 <Link to={'/editProfile/' + profile_id}><a><i class="fa-solid fa-pen"></i></a></Link>
                             ) : (
-                                <Link to={''}><img className="actionFriendIcon" src={addFriendIcon}></img></Link>
+                                <button onClick={() => { addFriend(logged_user.id, profile_id) }}><img className="actionFriendIcon" src={addFriendIcon}></img></button>
                             )}
                         </span>
                         
@@ -205,9 +198,14 @@ const Profile = () => {
                         
                     </div>
                     <div className="profile-content-posts">
-                        {user_posts.map((post) => {
-                            return <PostCard key={post.id} postData={post}/>
-                        })}
+                        { user_posts ? (
+                            user_posts.map((post) => {
+                                return <PostCard key={post.id} postData={post}/>
+                            })
+                        ) : (
+                            <h2 style={{textAlign: 'center', marginTop: '50px'}}>{user_data.first_name + ' ' + user_data.last_name + ' '} hasn't purple anything!</h2>
+                        ) }
+                        
                     </div>
                 </div>
             </div>
