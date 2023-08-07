@@ -178,15 +178,12 @@ const Profile = () => {
                     <div className="profile-content-info">
                         <span className="profileInfoSpan">
                             <h1>{user_data.first_name + ' ' + user_data.last_name}</h1>
-                            { isFriend ? (
+                            { isLoggedUser ? (
+                                <Link to={'/editProfile/' + profile_id}><a><i class="fa-solid fa-pen"></i></a></Link>   
+                            ) : isFriend ? (
                                 <span className="isFriend"><img className="actionFriendIcon" src={friendsIcon}></img> Friends</span>
                             ): (
-                                <h1>Not Friend</h1>
-                            )}
-                            { isLoggedUser ? (
-                                <Link to={'/editProfile/' + profile_id}><a><i class="fa-solid fa-pen"></i></a></Link>
-                            ) : (
-                                <button onClick={() => { addFriend(logged_user.id, profile_id) }}><img className="actionFriendIcon" src={addFriendIcon}></img></button>
+                                <><h1>Not Friend</h1><button onClick={() => { addFriend(logged_user.id, profile_id); } }><img className="actionFriendIcon" src={addFriendIcon}></img></button></>
                             )}
                         </span>
                         
