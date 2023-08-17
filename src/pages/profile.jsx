@@ -36,6 +36,7 @@ const Profile = () => {
     const [ user_data, set_user_data] = useState(null)
     const [ user_posts, set_user_posts ] = useState(null)
     const [ isFriend, set_isFriend ] = useState(false)
+    const [ current_friendsList, set_current_friendsList] = useState(null)
 
     ////// Get User Metadata //////
     const getUserMetaData = async (current_user_id) => {
@@ -170,6 +171,25 @@ const Profile = () => {
                     }
                 }
             }
+        }
+    }
+
+    // Get all Current User's friends
+    const getAllFriends = async (current_user_id) => {
+        try {
+            const {data, error} = await supabase.from('users_data').select()
+
+            // check for db errors
+            if(error){
+                console.log(error);
+            }
+
+            if(data){
+                // set Current Friends List state
+                set_current_friendsList(data)
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
     
