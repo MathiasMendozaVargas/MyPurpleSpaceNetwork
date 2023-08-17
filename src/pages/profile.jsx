@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import friendsIcon from '../assets/users-alt.svg'
 import deleteFriendIcon from '../assets/delete-user.webp'
 import addFriendIcon from '../assets/user-plus.svg'
+import { current } from "@reduxjs/toolkit";
 
 
 // Profile Page
@@ -36,6 +37,7 @@ const Profile = () => {
     const [ user_posts, set_user_posts ] = useState(null)
     const [ isFriend, set_isFriend ] = useState(false)
 
+    ////// Get User Metadata //////
     const getUserMetaData = async (current_user_id) => {
         const { data, error } = await supabase.from('users_data').select()
     
@@ -55,6 +57,7 @@ const Profile = () => {
         }
     }
 
+    ////// Check Relation //////
     const checkRelation = async (loggedUserId, current_user_id) => {
         const { data, error } = await supabase.from('users_data').select()
 
@@ -82,6 +85,7 @@ const Profile = () => {
         }
     }
 
+    ////// Add Friend //////
     const addFriend = async (loggedUserId, current_user_id) => {
 
         console.log("Heloooooooo");
@@ -95,30 +99,81 @@ const Profile = () => {
 
         if(data){
             for(var i=0; i<data.length; i++){
+                // double layer of security from authentication
                 if(data[i].user_id === loggedUserId){
-                    // Get frends list and push new friend
-                    let new_friends_list = data[i].friends
-                    new_friends_list.push(current_user_id)
-
-                    // Update friends list on the database
-                    const { error } = await supabase
-                        .from('users_data')
-                        .update({ friends: new_friends_list })
-                        .eq({ user_id: loggedUserId })
-                    
-                    if(error){
-                        console.log(error);
+                    // Check if the current user is not already a friend
+                    var checkIfAlreadyFriends = false
+                    for(var i=0; data[i].friends.length; i++){
+                        if(current_user_id === data[i].user_id){
+                            checkIfAlreadyFriends = true
+                        }
                     }
-                    else{
-                        // Reload page so we get the new data and our new friend added up 
-                        window.location.reload();
+                    if(checkIfAlreadyFriends){
+                        // Get frends list and push new friend
+                        let new_friends_list = data[i].friends
+                        new_friends_list.push(current_user_id)
+
+                        // Update friends list on the database
+                        const { error } = await supabase
+                            .from('users_data')
+                            .update({ friends: new_friends_list })
+                            .eq({ user_id: loggedUserId })
+                        
+                        if(error){
+                            console.log(error);
+                        }
+                        else{
+                            // Reload page so we get the new data and our new friend added up 
+                            window.location.reload();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Delete a friend
+    const deleteFriend = async (loggedUserId, current_user_id) => {
+        // Get friend list of current logged in user
+        const { data, error } = supabase.from('users_data').select()
+
+        if(error){
+            console.log(error);
+        }
+
+        if(data){
+            for(let i=0; i<data.length; i++){
+                // Double layer of security to make sure that only the owner can remove other users as their friends
+                if(data[i].user_id === loggedUserId){
+                    // Remove friend from array
+                    let updatedList = []
+                    for(let j=0;j<data[i].frinds.length; j++){
+                        if(!((data[i].friend[j] == current_user_id))){
+                            updatedList.push(data[i].friend[j])
+                        }
+                    }
+                    // Send request to update DB with new list
+                    try{
+                        // updating user's friends list on database
+                        const { error } = await supabase.from('users_data').update({
+                            friends: updatedList
+                        })
+                        .eq('user_id', current_user_id)
+                        
+                        // check for errors
+                        if(error){
+                            console.log(error);
+                        }
+                        // catch errors
+                    } catch(e){
+                        console.log(e);
                     }
                 }
             }
         }
     }
     
-    
+    ////// Get all User's Posts //////
     const getAllPostofUser = async (current_user_id) => {
         const { data, error } = await supabase.from('posts').select().order('created_at', { ascending: false })
     
@@ -183,7 +238,7 @@ const Profile = () => {
                             ) : isFriend ? (
                                 <span className="isFriend"><img className="actionFriendIcon" src={friendsIcon}></img> Friends</span>
                             ): (
-                                <><h1>Not Friend</h1><button onClick={() => { addFriend(logged_user.id, profile_id); } }><img className="actionFriendIcon" src={addFriendIcon}></img></button></>
+                                <button onClick={() => { addFriend(logged_user.id, profile_id); } }><img className="actionFriendIcon" src={addFriendIcon}></img></button>
                             )}
                         </span>
                         

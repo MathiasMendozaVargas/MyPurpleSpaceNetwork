@@ -62,7 +62,7 @@ const EditProfile = () => {
 
     const updateProfile = async () => {
         try {
-            const { data, error } = await supabase.from('users_data').update({
+            const { error } = await supabase.from('users_data').update({
                 username: usernameRef.current.value,
                 first_name: firstNameRef.current.value,
                 last_name: lastNameRef.current.value,
