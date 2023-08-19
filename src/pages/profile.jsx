@@ -100,18 +100,20 @@ const Profile = () => {
 
         if(data){
             for(var i=0; i<data.length; i++){
-                // double layer of security from authentication
+                // Get the right User from all the users metadata table
                 if(data[i].user_id === loggedUserId){
+                    // assign current friends list of the current logged in user
+                    let new_friends_list = data[i].friends
                     // Check if the current user is not already a friend
                     var checkIfAlreadyFriends = false
-                    for(var i=0; data[i].friends.length; i++){
-                        if(current_user_id === data[i].user_id){
+                    for(var j=0; j<data[i].friends.length; j++){
+                        if(current_user_id === data[i].friends[j]){
                             checkIfAlreadyFriends = true
                         }
                     }
-                    if(checkIfAlreadyFriends){
-                        // Get frends list and push new friend
-                        let new_friends_list = data[i].friends
+                    // if current user is not a friend of logged User
+                    if(!checkIfAlreadyFriends){
+                        // Push new friend to friends list
                         new_friends_list.push(current_user_id)
 
                         // Update friends list on the database
@@ -130,6 +132,7 @@ const Profile = () => {
                     }
                 }
             }
+            
         }
     }
 
@@ -258,7 +261,10 @@ const Profile = () => {
                             ) : isFriend ? (
                                 <span className="isFriend"><img className="actionFriendIcon" src={friendsIcon}></img> Friends</span>
                             ): (
-                                <button onClick={() => { addFriend(logged_user.id, profile_id); } }><img className="actionFriendIcon" src={addFriendIcon}></img></button>
+                                <button onClick={(e) => {
+                                    e.preventDefault();
+                                    addFriend(logged_user.id, profile_id);
+                                }}><img className="actionFriendIcon" src={addFriendIcon}></img></button>
                             )}
                         </span>
                         
