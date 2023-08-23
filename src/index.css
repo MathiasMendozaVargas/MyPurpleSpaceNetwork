@@ -687,3 +687,87 @@ code {
   outline: none;
   border: none;
 }
+
+/* Friends Page */
+.friends{
+  width: 100%;
+  text-align: center;
+  background-color: black;
+}
+.container{
+  padding: 50px;
+}
+.header{
+  height: auto !important ;
+  width: 100%;
+  text-align: left;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.header i{
+  font-size: 28px;
+  color: white !important;
+  margin-right: 10px;
+}
+
+.body{
+  width: 100%;
+  margin: auto auto;
+  display: inline;
+}
+.friend-card{
+  width: 80%;
+  height: 100px;
+  box-shadow: rgba(76, 76, 76, 0.2) 0px 2px 8px;
+  display: inline-flex;
+  margin: auto auto;
+  background-color: purple;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.friend-card img{
+  width: 15%;
+  height: 99%;
+  border-radius: 5px 0px 0px 5px;
+}
+
+.friend-info{
+  width: 35%;
+  text-align: left;
+  margin-left: 20px;
+  display: inline;
+}
+
+.friend-info .fullName{
+  color: white;
+  font-size: 20px;
+  margin-bottom: -17px !important;
+}
+
+.friend-info .username{
+  font-size: 14px;
+  color: rgb(237, 237, 237);
+}
+
+.friends-btns{
+  width: 50%;
+  text-align: right;
+  padding-top: 14px;
+  padding-right: 15px;
+}
+
+.friends-btns .deleteBtn{
+  height: 28px;
+  font-size: 60%;
+  text-align: center;
+  background-color: red;
+  color: white;
+  border: 2px solid rgba(57, 57, 57, 0.785);
+}
+
+.friends-btns .deleteBtn i{
+  margin-right: 5px;
+}

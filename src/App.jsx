@@ -8,6 +8,7 @@ import SignUp from './pages/signUp'
 import About from './pages/about'
 import ConfigNewUser from './pages/configNewUser';
 import CreatePost from './pages/createPost';
+import Friends from './pages/friends';
 import Profile from './pages/profile'
 import EditProfile from './pages/editProfile';
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path='/configNewUser' element={<ConfigNewUser/>} />
           <Route path='/createNewPost' element={<CreatePost/>} />
+          <Route path='/friends' element={<Friends/>} />
           <Route path='/profile/:profile_id' element={<Profile/>} />
           <Route path='/editProfile/:profile_id' element={<EditProfile/>} />
         </Route>

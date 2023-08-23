@@ -108,6 +108,7 @@ const Profile = () => {
                     var checkIfAlreadyFriends = false
                     for(var j=0; j<data[i].friends.length; j++){
                         if(current_user_id === data[i].friends[j]){
+                            console.log("User is already a friend!");
                             checkIfAlreadyFriends = true
                         }
                     }
@@ -115,6 +116,7 @@ const Profile = () => {
                     if(!checkIfAlreadyFriends){
                         // Push new friend to friends list
                         new_friends_list.push(current_user_id)
+                        console.log("New friend in progress....");
 
                         // Update friends list on the database
                         const { error } = await supabase

@@ -25,6 +25,7 @@ function Navbar() {
                 </div>
                 <ul className="navbar-nav">
                     <li><Link to="/home"><i class="fa-solid fa-house"></i> Home</Link></li>
+                    <li><Link to="/friends"><i class="fa-solid fa-user-group"></i> Friends</Link></li>
                     <li><Link to={'/profile/' + user.id}><i class="fa-solid fa-user"></i> Profile</Link></li>
                     <li><Link onClick={handleLogout} to="/"><i class="fa-solid fa-right-from-bracket"></i> Logout</Link></li>
                     
