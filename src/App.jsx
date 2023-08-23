@@ -34,7 +34,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path='/configNewUser' element={<ConfigNewUser/>} />
           <Route path='/createNewPost' element={<CreatePost/>} />
-          <Route path='/friends' element={<Friends/>} />
+          <Route path='/friends/:profile_id' element={<Friends/>} />
           <Route path='/profile/:profile_id' element={<Profile/>} />
           <Route path='/editProfile/:profile_id' element={<EditProfile/>} />
         </Route>
