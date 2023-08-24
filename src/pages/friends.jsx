@@ -34,16 +34,29 @@ function Friends() {
         try {
             const {data, error} = await supabase.from('users_data').select()
 
-            // check for errors
             if(error){
                 console.log(error);
             }
+
             if(data){
+                console.log(data);
                 // Look for the User's Row on database
                 for(let i=0; i<data.length; i++){
                     if(current_user_id === data[i].user_id){
                         // assigning friends list to current state of friends
-                        setFriends(data[i].friends)
+                        let friends = data[i].friends
+                        // Extract the metadata from all the friends
+                        var friendList = []
+                        for(var j=0; j<friends.length; j++){
+                            // Loop through the friends list and get the metadata from All Users List
+                            for(var x=0; x<data.length; x++){
+                                if(friends[j] === data[x].user_id){
+                                    // Pushing Metadata into Friendlist Array
+                                    friendList.push(data[x])
+                                }
+                            }
+                        }
+                        setFriends(friendList)
                     }
                 }
             }
@@ -52,27 +65,10 @@ function Friends() {
         }
     }
 
-
-    const getMetadataFromFriends = async (friends) => {
-        var friendList = []
-        for(var j in friends){
-            // Getting Profile Data From Database
-            const { user , error } = await supabase.from("users_data").select().eq('user_id', friends[j])
-            if(!isLoggedUser && !friendList.includes(user)){
-                friendList.push({...user})
-            }
-        }
-        console.log(friendList);
-        setFriends(friendList)
-    }
-
     useEffect(() => {
 
         // get all friends of a user
         getAllFriends(profile_id)
-
-        // Set Friends Metadata to Friends State
-        getMetadataFromFriends(friends)
     
     }, [])
 
@@ -83,7 +79,7 @@ function Friends() {
                 <div className="container">
                     {/* header */}
                     <div className="header">
-                        <i class="fa-solid fa-user-group"></i>
+                        <i className="fa-solid fa-user-group"></i>
                         <h1>Friends</h1>
                     </div>
                     {/* body */}
@@ -95,37 +91,7 @@ function Friends() {
                                 <p className='username'>@markzuck</p>
                             </div>
                             <div className="friends-btns">
-                                <button className='deleteBtn'><i class="fa-solid fa-user-xmark"></i>Delete Friend</button>
-                            </div>
-                        </div>
-                        <div className="friend-card">
-                            <img src={based_profileImg} alt="" />
-                            <div className="friend-info">
-                                <p className='fullName'>Mark Zuckerberg</p>
-                                <p className='username'>@markzuck</p>
-                            </div>
-                            <div className="friends-btns">
-                                <button className='deleteBtn'><i class="fa-solid fa-user-xmark"></i>Delete Friend</button>
-                            </div>
-                        </div>
-                        <div className="friend-card">
-                            <img src={based_profileImg} alt="" />
-                            <div className="friend-info">
-                                <p className='fullName'>Mark Zuckerberg</p>
-                                <p className='username'>@markzuck</p>
-                            </div>
-                            <div className="friends-btns">
-                                <button className='deleteBtn'><i class="fa-solid fa-user-xmark"></i>Delete Friend</button>
-                            </div>
-                        </div>
-                        <div className="friend-card">
-                            <img src={based_profileImg} alt="" />
-                            <div className="friend-info">
-                                <p className='fullName'>Mark Zuckerberg</p>
-                                <p className='username'>@markzuck</p>
-                            </div>
-                            <div className="friends-btns">
-                                <button className='deleteBtn'><i class="fa-solid fa-user-xmark"></i>Delete Friend</button>
+                                <button className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
                             </div>
                         </div>
                     </div>
