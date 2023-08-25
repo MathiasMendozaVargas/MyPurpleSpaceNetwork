@@ -8,6 +8,9 @@ import Navbar from '../components/Navbar'
 // media
 import based_profileImg from '../assets/basedProfile.png'
 
+// import FriendCard component
+import FriendCard from "../components/FriendCard"
+
 
 // import all libraries
 import { useNavigate, useParams } from 'react-router-dom'
@@ -52,6 +55,7 @@ function Friends() {
                             for(var x=0; x<data.length; x++){
                                 if(friends[j] === data[x].user_id){
                                     // Pushing Metadata into Friendlist Array
+                                    console.log(data[x]);
                                     friendList.push(data[x])
                                 }
                             }
@@ -72,6 +76,10 @@ function Friends() {
     
     }, [])
 
+    if(!friends){
+        return <div style={{color: 'white'}}>Loading...</div>;
+    }
+
     return (
         <>
             <Navbar />
@@ -84,16 +92,9 @@ function Friends() {
                     </div>
                     {/* body */}
                     <div className="body">
-                        <div className="friend-card">
-                            <img src={based_profileImg} alt="" />
-                            <div className="friend-info">
-                                <p className='fullName'>Mark Zuckerberg</p>
-                                <p className='username'>@markzuck</p>
-                            </div>
-                            <div className="friends-btns">
-                                <button className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
-                            </div>
-                        </div>
+                        {friends.map((friend) => {
+                            return <FriendCard key={friend.id} data={friend}></FriendCard>
+                        })}
                     </div>
                 </div>
             </div>

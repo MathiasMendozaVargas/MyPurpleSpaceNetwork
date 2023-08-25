@@ -138,47 +138,6 @@ const Profile = () => {
         }
     }
 
-    // Delete a friend
-    const deleteFriend = async (loggedUserId, current_user_id) => {
-        // Get friend list of current logged in user
-        const { data, error } = supabase.from('users_data').select()
-
-        if(error){
-            console.log(error);
-        }
-
-        if(data){
-            for(let i=0; i<data.length; i++){
-                // Double layer of security to make sure that only the owner can remove other users as their friends
-                if(data[i].user_id === loggedUserId){
-                    // Remove friend from array
-                    let updatedList = []
-                    for(let j=0;j<data[i].frinds.length; j++){
-                        if(!((data[i].friend[j] == current_user_id))){
-                            updatedList.push(data[i].friend[j])
-                        }
-                    }
-                    // Send request to update DB with new list
-                    try{
-                        // updating user's friends list on database
-                        const { error } = await supabase.from('users_data').update({
-                            friends: updatedList
-                        })
-                        .eq('user_id', current_user_id)
-                        
-                        // check for errors
-                        if(error){
-                            console.log(error);
-                        }
-                        // catch errors
-                    } catch(e){
-                        console.log(e);
-                    }
-                }
-            }
-        }
-    }
-
     // Get all Current User's friends
     const getAllFriends = async (current_user_id) => {
         try {
