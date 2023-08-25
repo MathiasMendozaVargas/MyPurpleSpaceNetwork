@@ -448,6 +448,7 @@ code {
 .profile-content{
   width: 100%;
   display: inline-flex;
+  background-color: white;
 }
 
 .profile-content-info{
