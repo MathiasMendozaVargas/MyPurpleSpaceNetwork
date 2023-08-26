@@ -696,9 +696,11 @@ code {
   text-align: center;
   background-color: black;
 }
+
 .container{
   padding: 50px;
 }
+
 .header{
   height: auto !important ;
   width: 100%;
@@ -719,10 +721,11 @@ code {
   margin: auto auto;
   display: inline;
 }
+
 .friend-card{
   width: 80%;
   height: 100px;
-  box-shadow: rgba(76, 76, 76, 0.2) 0px 2px 8px;
+  box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.514);
   display: inline-flex;
   margin: auto auto;
   background-color: purple;
