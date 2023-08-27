@@ -113,6 +113,7 @@ const Profile = () => {
                     }
                     // if current user is not a friend of logged User
                     if(!checkIfAlreadyFriends){
+                        console.log("New Friend!!!!!!!!");
                         // Push new friend to friends list
                         new_friends_list.push(current_user_id)
 
