@@ -462,9 +462,11 @@ code {
 
 .profileInfoSpan{
   width: 100%;
+  margin-bottom: -10px;
   font-weight: 500 !important;
   display: inline-flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .profileInfoSpan h1{
@@ -489,12 +491,13 @@ code {
 }
 
 .profile-content-info h2{
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 .profile-content-info h4{
   margin-top: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  margin-left: 1px;
 }
 
 .profile-content-posts{
@@ -503,9 +506,21 @@ code {
 }
 
 .actionFriendIcon{
-  width: 23px;
-  border-radius: 50%;
-  padding: 3px;
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+  margin-bottom: 30px;
+  margin-right: 5px;
+  background-color: rgb(172, 0, 172);
+  border: none;
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+
+.actionFriendIcon:hover{
+  cursor: pointer;
+  background-color: rgb(191, 0, 191);
+  transform: scale(1.03);
 }
 
 .isFriend{

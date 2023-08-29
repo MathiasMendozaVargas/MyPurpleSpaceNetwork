@@ -82,7 +82,7 @@ const PostCard = (postData) => {
             <div className="post-card-header">
                 <img className="avatar" src={avatar} alt="" />
                 <span className="spanAuthor"><Link to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
-                <a className="optionsBtn" href=""><i class="fa-solid fa-ellipsis"></i></a>
+                <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
             </div>
             <div className="post-card-body">
                 <div className="post-card-body-inner">
