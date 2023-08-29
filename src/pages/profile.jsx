@@ -215,7 +215,7 @@ const Profile = () => {
                         { isLoggedUser ? (
                             <Link to={'/editProfile/' + profile_id}><a><i className="fa-solid fa-pen"></i></a></Link>   
                         ) : isFriend ? (
-                            <span className="isFriend"><img className="actionFriendIcon" src={friendsIcon}></img> Friends</span>
+                            <span className="isFriend"><img className="actionIsFriendIcon" src={friendsIcon}></img> Friends</span>
                         ): (
                             <button className="actionFriendIcon" onClick={(e) => {
                                 e.preventDefault();

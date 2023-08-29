@@ -88,6 +88,21 @@ const PostCard = (postData) => {
                 <div className="post-card-body-inner">
                     <p>{postContent}</p>
                 </div>
+                <div className="reactions">
+                    <div className="likes">
+                        <i class="fa-regular fa-heart"></i><p className="nLikes">150</p>
+                    </div>
+                    <div className="comments">
+                        <i class="fa-regular fa-comment"></i><p className="nComments">23</p>
+                    </div>
+                </div>
+                <div className="comment-field">
+                    <input type="text" />
+                    <div className="btn-comment">
+                        <button className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
+                        <button className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
+                    </div>
+                </div>
             </div>
         </div>
     )
