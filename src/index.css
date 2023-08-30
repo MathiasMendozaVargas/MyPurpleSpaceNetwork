@@ -360,12 +360,12 @@ code {
   border-radius: 12px;
   width: 60%;
   margin: auto auto;
-  padding: 0px 15px 0px 15px;
+  padding: 0px 12px;
   margin-bottom: 20px;
 }
 .post-card-header{
   width: 100%;
-  padding-top: 10px;
+  padding-top: 5px;
   display: inline-flex;
   align-items: center;
 }
@@ -412,16 +412,15 @@ code {
   
 }
 
-.post-card-body{
-  padding-bottom: 1px;
-}
 
 .post-card-body p{
-  margin-top: 0px
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 .reactions{
   width: 100%;
+  height: 30px;
   display: inline-flex;
 }
 
@@ -446,6 +445,41 @@ code {
   margin-right: 5px;
 }
 
+.reactions-btns{
+  width: fit-content;
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: -12px;
+}
+
+.reactions-btns button{
+  background-color: rgb(156, 8, 156);
+  border-left: 1.8px solid rgba(232, 232, 232, 0.841);
+  border-top: 1.8px solid rgba(232, 232, 232, 0.841);
+  border-right: none;
+  border-bottom: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px 0px 12px 0px;
+  margin-right: 2px;
+  font-style: italic;
+  font-size: 80%;
+}
+
+.reactions-btns .left{
+  border-radius: 5px 0px 0px 0px;
+  margin-right: -3px;
+  padding-right: 13px;
+}
+
+.reactions-btns .right{
+  border-top-left-radius: 0px;
+}
+
+.reactions-btns button:hover{
+  cursor: pointer;
+  background-color: rgb(168, 8, 168);
+}
 
 .comment-field{
   width: 100%;
@@ -460,7 +494,7 @@ code {
   background-color: whitesmoke;
   border: none;
   border-radius: 5px 5px 0px 0px;
-  margin-bottom: -7px;
+  margin-bottom: -9px;
   font-size: small;
   overflow: hidden;
   resize: none;

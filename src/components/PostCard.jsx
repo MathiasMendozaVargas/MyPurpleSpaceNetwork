@@ -12,7 +12,10 @@ import Picker from '@emoji-mart/react'
 const PostCard = (postData) => {
     const [post, setPost] = useState(postData);
     const [showEmojis, setShowEmojis] = useState(false)
+    const [showCommentForm, setShowCommentForm] = useState(false)
+    const [btnCommentText, setBtnCommentText] = useState('Write Comment')
     const [commentText, setCommentText] = useState('')
+
 
     const user = useSelector(state => state.user.user)
 
@@ -109,8 +112,20 @@ const PostCard = (postData) => {
                     <div className="comments">
                         <i class="fa-regular fa-comment"></i><p className="nComments">23</p>
                     </div>
+                    <div className="reactions-btns">
+                        <button className="left" onClick={() => {
+                            if(!showCommentForm){
+                                setBtnCommentText('Hide Form')
+                            }else{
+                                setBtnCommentText('Write Comment')
+                            }
+                            setShowCommentForm(!showCommentForm)
+                            
+                        }}><i class="fa-solid fa-comment"></i> {btnCommentText}</button>
+                        <button className="right"><i class="fa-solid fa-share"></i> Share</button>
+                    </div>
                 </div>
-                <div className="comment-field">
+                {showCommentForm && <div className="comment-field">
                     <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
                     <div className="btn-comment">
                         <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
@@ -119,7 +134,7 @@ const PostCard = (postData) => {
                     {showEmojis && <div className="emojiPicker">
                         <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
                     </div>}
-                </div>
+                </div>}
             </div>
         </div>
     )
