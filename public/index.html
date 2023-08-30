@@ -14,6 +14,13 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <!-- Jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <!-- Emojionarea CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
+
     <!-- Font Awesome CDN -->
     <script src="https://kit.fontawesome.com/919c0a277c.js" crossorigin="anonymous"></script>
 
@@ -50,5 +57,8 @@
   </body>
   <script>
     AOS.init()
+    $('#commentsIconPicker').emojioneArea({
+      pickerPosition: 'top',
+    })
   </script>
 </html>

@@ -5,8 +5,14 @@ import { useSelector } from "react-redux";
 import { supabase } from "../lib/supabaseClient";
 import { Link } from 'react-router-dom'
 
+// Emoji Picker
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
+
 const PostCard = (postData) => {
     const [post, setPost] = useState(postData);
+    const [showEmojis, setShowEmojis] = useState(false)
+    const [commentText, setCommentText] = useState('')
 
     const user = useSelector(state => state.user.user)
 
@@ -14,6 +20,14 @@ const PostCard = (postData) => {
     const postDate = post.postData.date;
     const postContent = post.postData.content;
     const user_id = post.postData.user_id;
+
+    const addEmoji = (e) => {
+        const sym = e.unified.split("_")
+        const codeArray = []
+        sym.forEach((el) => codeArray.push("0x" + el))
+        let emoji = String.fromCodePoint(...codeArray)
+        setCommentText(commentText + emoji)
+    }
 
 
     const calculateTimeDifference = (timePost) => {
@@ -97,11 +111,14 @@ const PostCard = (postData) => {
                     </div>
                 </div>
                 <div className="comment-field">
-                    <input type="text" />
+                    <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
                     <div className="btn-comment">
-                        <button className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
+                        <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
                         <button className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
                     </div>
+                    {showEmojis && <div className="emojiPicker">
+                        <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
+                    </div>}
                 </div>
             </div>
         </div>

@@ -453,16 +453,20 @@ code {
   display: inline-block;
 }
 
-.comment-field input{
+.comment-field textarea{
   width: 98% !important;
-  height: 20px;
-  padding: 4px 6px;
+  height: 17px;
+  padding: 6px;
   background-color: whitesmoke;
   border: none;
   border-radius: 5px 5px 0px 0px;
+  margin-bottom: -7px;
+  font-size: small;
+  overflow: hidden;
+  resize: none;
 }
 
-.comment-field input:focus{
+.comment-field textarea:focus{
   outline:none ;   /* remove the focus */
 }
 
@@ -482,8 +486,8 @@ code {
   font-size: 10px;
   font-weight: 600;
   font-style: italic;
-  background-color: rgb(192, 192, 192);
-  color: rgb(148, 6, 148);
+  background-color: rgb(148, 6, 148);
+  color: white;
   border-radius: 5px;
   border: none;
   margin-bottom: 3px;
@@ -492,6 +496,11 @@ code {
 
 .btn-comment .extra-content-btn:hover{
   cursor: pointer;
+}
+
+.emojiPicker{
+  position: absolute;
+  
 }
 
 .btn-comment .postCommentBtn{
