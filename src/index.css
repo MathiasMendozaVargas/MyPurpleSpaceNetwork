@@ -560,12 +560,12 @@ code {
   width: 40%;
 }
 
-.newPostPage-body form{
-  width: 100%;
+.newPostPage-body{
+  width: 400px;
   display: block;
 }
 
-.newPostPage-body form textarea{
+.newPostPage-body textarea{
   width: 96%;
   height: 60px;
   background-color: rgba(0, 0, 0, 0.842);
@@ -577,7 +577,7 @@ code {
   overflow: hidden;
 }
 
-.newPostPage-body form textarea:focus{
+.newPostPage-body textarea:focus{
   border: none;
   outline: none;
 }
@@ -591,15 +591,17 @@ code {
 }
 
 .extra-btns .emojis{
-  width: 20px;
-  height: 20px;
+  width: 23px;
+  height: 23px;
+  font-size: 70%;
   background-color: black;
   color: white;
   border: none;
+  border-radius: 5px;
   margin-right: 5px;
 }
 
-.newPostPage-body form .postBtn{
+.newPostPage-body .postBtn{
   margin-left: 5px;
   width: 100%;
   padding: 7px 0px;
@@ -612,7 +614,7 @@ code {
   margin-top: 7px;
 }
 
-.newPostPage-body form .postBtn:hover{
+.newPostPage-body .postBtn:hover{
   cursor: pointer;
   background-color: rgb(19, 19, 19);
 }

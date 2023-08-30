@@ -7,12 +7,12 @@ import { supabase } from '../lib/supabaseClient';
 // importing Navbar
 import Navbar from '../components/Navbar'
 
-
-// importing media files
+// Emoji Picker
+import data from '@emoji-mart/data'
+import Picker from '@emoji-mart/react'
 
 
 // Login Page Template
-
 const CreatePost = () => {
 
     const navigate = useNavigate()
@@ -91,18 +91,19 @@ const CreatePost = () => {
                 <div className='newPostPage-header'>
                     <h1 style={{marginBottom: '30px'}}>Create a new Purple Post!</h1>
                     <div className='newPostPage-body'>
-                        <form>
-                            <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
-                            <div className="extra-btns">
-                                <button onClick={() => {setShowEmojis(!showEmojis)}} className="emojis"><i class="fa-solid fa-face-smile"></i></button>
-                                <button className='emojis'></button>
-                                <button className='emojis'></button>
-                            </div>
-                            <button className='postBtn' style={{fontStyle: 'italic'}} onClick={(e) => {
-                                e.preventDefault();
-                                insertNewPost()
-                            } }><i class="fa-solid fa-paper-plane"></i> Post Purple</button>
-                        </form>
+                        <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
+                        <div className="extra-btns">
+                            <button onClick={() => {setShowEmojis(!showEmojis)}} className="emojis"><i class="fa-solid fa-face-smile"></i></button>
+                            <button className='emojis'><i class="fa-solid fa-images"></i></button>
+                            <button className='emojis'><i class="fa-solid fa-video"></i></button>
+                        </div>
+                        {showEmojis && <div className="emojiPicker">
+                            <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
+                        </div>}
+                        <button className='postBtn' style={{fontStyle: 'italic'}} onClick={(e) => {
+                            e.preventDefault();
+                            insertNewPost()
+                        } }><i class="fa-solid fa-paper-plane"></i> Post Purple</button>
                     </div>
                 </div>
             </div>
