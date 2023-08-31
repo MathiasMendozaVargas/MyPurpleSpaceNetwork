@@ -95,48 +95,51 @@ const PostCard = (postData) => {
     const timeDiff = calculateTimeDifference(current_time);
 
     return (
-        <div className="post-card">
-            <div className="post-card-header">
-                <img className="avatar" src={avatar} alt="" />
-                <span className="spanAuthor"><Link to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
-                <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
-            </div>
-            <div className="post-card-body">
-                <div className="post-card-body-inner">
-                    <p>{postContent}</p>
+        // Gotta work on the individual post page for personalized page
+        // <Link style={{textDecoration: 'none'}} to={'/posts/post_id'}>
+            <div className="post-card">
+                <div className="post-card-header">
+                    <img className="avatar" src={avatar} alt="" />
+                    <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
+                    <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
                 </div>
-                <div className="reactions">
-                    <div className="likes">
-                        <i class="fa-regular fa-heart"></i><p className="nLikes">150</p>
+                <div className="post-card-body">
+                    <div className="post-card-body-inner">
+                        <p>{postContent}</p>
                     </div>
-                    <div className="comments">
-                        <i class="fa-regular fa-comment"></i><p className="nComments">23</p>
+                    <div className="reactions">
+                        <div className="likes">
+                            <i class="fa-regular fa-heart"></i><p className="nLikes">150</p>
+                        </div>
+                        <div className="comments">
+                            <i class="fa-regular fa-comment"></i><p className="nComments">23</p>
+                        </div>
+                        <div className="reactions-btns">
+                            <button className="left" onClick={() => {
+                                if(!showCommentForm){
+                                    setBtnCommentText('Hide Form')
+                                }else{
+                                    setBtnCommentText('Write Comment')
+                                }
+                                setShowCommentForm(!showCommentForm)
+                                
+                            }}><i class="fa-solid fa-comment"></i> {btnCommentText}</button>
+                            <button className="right"><i class="fa-solid fa-share"></i> Share</button>
+                        </div>
                     </div>
-                    <div className="reactions-btns">
-                        <button className="left" onClick={() => {
-                            if(!showCommentForm){
-                                setBtnCommentText('Hide Form')
-                            }else{
-                                setBtnCommentText('Write Comment')
-                            }
-                            setShowCommentForm(!showCommentForm)
-                            
-                        }}><i class="fa-solid fa-comment"></i> {btnCommentText}</button>
-                        <button className="right"><i class="fa-solid fa-share"></i> Share</button>
-                    </div>
-                </div>
-                {showCommentForm && <div className="comment-field">
-                    <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
-                    <div className="btn-comment">
-                        <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
-                        <button className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
-                    </div>
-                    {showEmojis && <div className="emojiPicker">
-                        <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
+                    {showCommentForm && <div className="comment-field">
+                        <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
+                        <div className="btn-comment">
+                            <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
+                            <button className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
+                        </div>
+                        {showEmojis && <div className="emojiPicker">
+                            <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
+                        </div>}
                     </div>}
-                </div>}
+                </div>
             </div>
-        </div>
+        // </Link>
     )
 }
 

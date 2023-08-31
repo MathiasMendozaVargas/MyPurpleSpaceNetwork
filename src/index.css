@@ -381,12 +381,17 @@ code {
   padding-top: 5px;
 }
 
+.spanAuthor .userLink{
+  text-decoration: none;
+}
+
 .post-author{
   color: whitesmoke;
   font-style: italic;
   font-size: 19px;
   margin-top: 0px;
   margin-bottom: 0px;
+  text-decoration: none;
 }
 
 
