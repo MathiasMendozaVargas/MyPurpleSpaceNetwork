@@ -23,6 +23,7 @@ const PostCard = (postData) => {
     const postDate = post.postData.date;
     const postContent = post.postData.content;
     const user_id = post.postData.user_id;
+    const post_id = post.postData.id
 
     const addEmoji = (e) => {
         const sym = e.unified.split("_")
@@ -30,6 +31,23 @@ const PostCard = (postData) => {
         sym.forEach((el) => codeArray.push("0x" + el))
         let emoji = String.fromCodePoint(...codeArray)
         setCommentText(commentText + emoji)
+    }
+
+    const insertNewParentComment = async (user_id, post_id, comment) => {
+        const { error } = await supabase.from('comments').insert({
+            body: comment,
+            post_id: post_id,
+            user_id: user_id
+        })
+
+        if(error){
+            console.log(error);
+        }
+
+        if(!error){
+            console.log("Comment created!");
+            window.location.reload()
+        }
     }
 
 
@@ -48,10 +66,7 @@ const PostCard = (postData) => {
         if(days === -1){
             timeDiff = 'Just now';
         }
-        
         if(days !== 0){
-            
-
             if(days === 1){
                 timeDiff = days + '1 day ago'
             }
@@ -86,9 +101,7 @@ const PostCard = (postData) => {
                 timeDiff = seconds + ' secs ago'
             }
         }
-
         return timeDiff;
-
     }
 
     const current_time = post.postData.created_at
@@ -131,7 +144,11 @@ const PostCard = (postData) => {
                         <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
                         <div className="btn-comment">
                             <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
-                            <button className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
+                            <button onClick={(e) => {
+                                e.preventDefault()
+                                console.log(commentText);
+                                insertNewParentComment(user.id, post_id, commentText)
+                            }} className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
                         </div>
                         {showEmojis && <div className="emojiPicker">
                             <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
