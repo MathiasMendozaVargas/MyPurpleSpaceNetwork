@@ -151,7 +151,6 @@ const PostCardView = (postData) => {
                             <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
                             <button onClick={(e) => {
                                 e.preventDefault()
-                                console.log(commentText);
                                 insertNewParentComment(user.id, post_id, commentText)
                             }} className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
                         </div>

@@ -93,9 +93,14 @@ function PostView() {
                                 <h2>Comments</h2>
                             </div>
                             <div className="body">
-                                {comments.map((comment) => {
-                                    return <Comment key={comment.id} data={comment}></Comment>
-                                })}
+                                { comments.length > 0 && 
+                                    comments.map((comment) => {
+                                        return <Comment key={comment.id} data={comment}></Comment>
+                                    })
+                                }
+                                { comments.length === 0 && 
+                                    <h3 className='no-comments'><i class="fa-regular fa-face-sad-tear"></i>No Comments Yet</h3>
+                                }
                             </div>
                         </div>
                     </div>

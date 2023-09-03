@@ -1134,3 +1134,10 @@ code {
   margin-top: 0px !important;
   margin-bottom: 5px;
 }
+
+.no-comments{
+  color: white;
+  font-size: medium;
+  text-align: center;
+  margin-top: 20px;
+}
