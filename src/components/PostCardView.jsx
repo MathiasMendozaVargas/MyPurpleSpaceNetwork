@@ -130,7 +130,11 @@ const PostCardView = (postData) => {
                             <i class="fa-regular fa-heart"></i><p className="nLikes">150</p>
                         </div>
                         <div className="comments">
-                            <i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p>
+                            <i class="fa-regular fa-comment"></i><p className="nComments">{nComments ? (
+                                nComments
+                            ) : (
+                                <i class="fa-solid fa-ellipsis"></i>
+                            )}</p>
                         </div>
                         <div className="reactions-btns">
                             <button className="left" onClick={() => {
