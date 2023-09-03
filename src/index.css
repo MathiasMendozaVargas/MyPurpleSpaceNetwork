@@ -468,7 +468,9 @@ code {
   border-radius: 5px 0px 12px 0px;
   margin-right: 2px;
   font-style: italic;
-  font-size: 80%;
+  font-size: 10px;
+  display: inline-flex;
+  align-items: baseline;
 }
 
 .reactions-btns .left{
@@ -1042,4 +1044,92 @@ code {
 
 .friends-btns .deleteBtn i{
   margin-right: 5px;
+}
+
+/* Post View Page */
+.postView{
+  width: 100%; 
+}
+.container{
+  width: 100%;
+  padding: 80px 10px;
+}
+.comments{
+  width: 100%;
+}
+
+.comments .container{
+  width: 50%;
+  margin: auto auto;
+  padding: 0px 10px;
+  padding-bottom: 15px;
+  background-color: purple;
+  box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.514);
+  border-radius: 5px 5px 15px 15px;
+  display: inline;
+}
+
+.comments .head{
+  width: 100%;
+  display: inline-flex;
+  border-bottom: 1px solid whitesmoke;
+  margin-bottom: 5px;
+}
+
+.comments .head h2{
+  color: white;
+  font-style: italic;
+  margin: 10px 5px;
+}
+
+.comments .body{
+  width: 100%;
+  display: inline-block;
+  padding: 0px 8px !important;
+}
+
+/* Comment */
+.comment{
+  width: 96%;
+  display: inline-block;
+  height: fit-content;
+
+}
+
+.comment .top{
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: -5px;
+}
+
+.comment .top .avatar{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.comment .top .author{
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  padding: 0px 5px;
+  font-style: italic;
+}
+.comment .top .time{
+  font-size: 10px;
+  color: whitesmoke;
+  margin-top: 15px;
+  padding-left: 3px;
+}
+
+.comment .bottom{
+  width: 100%;
+  display: inline-flex;
+}
+
+.comment .bottom p{
+  color: white;
+  margin-top: 0px !important;
+  margin-bottom: 5px;
 }

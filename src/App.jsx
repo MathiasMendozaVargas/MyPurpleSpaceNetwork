@@ -11,6 +11,7 @@ import CreatePost from './pages/createPost';
 import Friends from './pages/friends';
 import Profile from './pages/profile'
 import EditProfile from './pages/editProfile';
+import PostView from './pages/postView';
 
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path='/friends/:profile_id' element={<Friends/>} />
           <Route path='/profile/:profile_id' element={<Profile/>} />
           <Route path='/editProfile/:profile_id' element={<EditProfile/>} />
+          <Route path='/posts/:post_id' element={<PostView/>}></Route>
         </Route>
 
         <Route path="/login" element={<Login />} />

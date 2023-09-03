@@ -46,6 +46,7 @@ function Home() {
             <Navbar />
             <div className="home">
                 {posts.map((post) => {
+                    console.log(post);
                     return <PostCard key={post.id} postData={post}/>
                 })}
                 <div className="floatingBtn">

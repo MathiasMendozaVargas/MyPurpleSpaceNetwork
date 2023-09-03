@@ -3,9 +3,6 @@ import { useState } from 'react'
 import avatar from '../assets/basedProfile.png'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
-
-// media
-import based_profileImg from '../assets/basedProfile.png'
 import { useSelector } from 'react-redux'
 
 const FriendCard = (data) => {
@@ -68,7 +65,7 @@ const FriendCard = (data) => {
     return (
         <Link to={'/profile/' + friend_id}>
             <div className="friend-card">
-                <img src={based_profileImg} alt="" />
+                <img src={avatar} alt="" />
                 <div className="friend-info">
                     <p className='fullName'>{fullName}</p>
                     <p className='username'>@{username}</p>
