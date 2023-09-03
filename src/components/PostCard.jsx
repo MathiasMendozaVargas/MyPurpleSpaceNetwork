@@ -15,6 +15,7 @@ const PostCard = (postData) => {
     const [showCommentForm, setShowCommentForm] = useState(false)
     const [btnCommentText, setBtnCommentText] = useState('Write Comment')
     const [commentText, setCommentText] = useState('')
+    const [nComments, setnComments] = useState(null)
 
 
     const user = useSelector(state => state.user.user)
@@ -50,6 +51,25 @@ const PostCard = (postData) => {
         }
     }
 
+    const getAmountComments = async (post_id) => {
+        try {
+            const {data, e} = await supabase.from('comments').select()
+            if(data){
+                let nComments = 0
+                for(let i=0; i<data.length; i++){
+                    if(Number(data[i].post_id) === post_id){
+                        nComments++
+                    }
+                }
+                setnComments(nComments)
+            }
+            else{
+                console.log(e);
+            }
+        } catch (e) {
+            console.log(e); 
+        }
+    }
 
     const calculateTimeDifference = (timePost) => {
         const startDate = new Date(timePost);
@@ -85,6 +105,10 @@ const PostCard = (postData) => {
     const current_time = post.postData.created_at
     const timeDiff = calculateTimeDifference(current_time);
 
+    useEffect(() => {
+        getAmountComments(post_id)
+    })
+
     return (
         // Gotta work on the individual post page for personalized page
         // <Link style={{textDecoration: 'none'}} to={'/posts/post_id'}>
@@ -103,7 +127,7 @@ const PostCard = (postData) => {
                             <i class="fa-regular fa-heart"></i><p className="nLikes">150</p>
                         </div>
                         <div className="comments">
-                            <i class="fa-regular fa-comment"></i><p className="nComments">23</p>
+                            <i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p>
                         </div>
                         <div className="reactions-btns">
                             <button className="left" onClick={() => {
