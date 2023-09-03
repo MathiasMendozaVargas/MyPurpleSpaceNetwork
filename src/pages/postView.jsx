@@ -48,7 +48,7 @@ function PostView() {
 
     const getComments = async (post_id) => {
         try {
-            const { data, e } = await supabase.from('comments').select()
+            const { data, e } = await supabase.from('comments').select().order('created_at', { ascending: false })
             if(e){
                 console.log(e);
             }
@@ -86,7 +86,7 @@ function PostView() {
             <Navbar />
             <div className="postView">
                 <div className="container">
-                    <PostCardView postData={postData}/>
+                    <PostCardView nComments={comments.length} postData={postData}/>
                     <div className="comments">
                         <div className="container">
                             <div className="head">

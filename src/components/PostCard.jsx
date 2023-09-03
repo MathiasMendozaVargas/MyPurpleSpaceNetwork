@@ -53,56 +53,34 @@ const PostCard = (postData) => {
 
     const calculateTimeDifference = (timePost) => {
         const startDate = new Date(timePost);
-        const curretTime = new Date();
-        const difference = curretTime.getTime() - startDate.getTime();
-    
+        const currentTime = new Date();
+        const difference = currentTime.getTime() - startDate.getTime();
+        
         const seconds = Math.floor(difference / 1000);
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
-
-        var timeDiff = ''
-
-        if(days === -1){
-            timeDiff = 'Just now';
+    
+        if (days === 0) {
+            if (hours === 0) {
+                if (minutes === 0) {
+                    if (seconds === 0) {
+                        return 'Just now';
+                    } else {
+                        return `${seconds} ${seconds === 1 ? 'sec' : 'secs'} ago`;
+                    }
+                } else {
+                    return `${minutes} ${minutes === 1 ? 'min' : 'mins'} ago`;
+                }
+            } else {
+                return `${hours} ${hours === 1 ? 'hour' : 'hrs'} ago`;
+            }
+        } else if (days === 1) {
+            return '1 day ago';
+        } else {
+            return `${days} days ago`;
         }
-        if(days !== 0){
-            if(days === 1){
-                timeDiff = days + '1 day ago'
-            }
-            else{
-                timeDiff = days + ' days ago'
-            }
-        }
-
-        else if(hours !== 0){
-            if(hours === 1){
-                timeDiff = hours + '1 hour ago'
-            }
-            else{
-                timeDiff = hours + ' hrs ago'
-            }
-        }
-
-        else if(minutes !== 0){
-            if(minutes === 1){
-                timeDiff = minutes + ' min ago'
-            }
-            else{
-                timeDiff = minutes + ' mins ago'
-            }
-        }
-
-        else if(seconds !== '0'){
-            if(seconds === 1){
-                timeDiff = seconds + ' sec ago'
-            }
-            else{
-                timeDiff = seconds + ' secs ago'
-            }
-        }
-        return timeDiff;
-    }
+    };
 
     const current_time = post.postData.created_at
     const timeDiff = calculateTimeDifference(current_time);

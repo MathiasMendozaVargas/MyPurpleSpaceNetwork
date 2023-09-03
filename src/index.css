@@ -1049,6 +1049,7 @@ code {
 /* Post View Page */
 .postView{
   width: 100%; 
+  overflow: hidden;
 }
 .container{
   width: 100%;

@@ -31,6 +31,39 @@ function Comment(data) {
         }
     }
 
+    const calculateTimeDifference = (timePost) => {
+        const startDate = new Date(timePost);
+        const currentTime = new Date();
+        const difference = currentTime.getTime() - startDate.getTime();
+        
+        const seconds = Math.floor(difference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+    
+        if (days === 0) {
+            if (hours === 0) {
+                if (minutes === 0) {
+                    if (seconds === 0) {
+                        return 'Just now';
+                    } else {
+                        return `${seconds} ${seconds === 1 ? 'sec' : 'secs'} ago`;
+                    }
+                } else {
+                    return `${minutes} ${minutes === 1 ? 'min' : 'mins'} ago`;
+                }
+            } else {
+                return `${hours} ${hours === 1 ? 'hour' : 'hrs'} ago`;
+            }
+        } else if (days === 1) {
+            return '1 day ago';
+        } else {
+            return `${days} days ago`;
+        }
+    };
+
+    let time = calculateTimeDifference(data.data.created_at)
+
     useEffect(() => {
         getUserMetaData(data.data.user_id)
     }, [])
@@ -41,7 +74,7 @@ function Comment(data) {
                 <div className="top">
                     <img className='avatar' src={avatar}/>
                     <h4 className='author'>{metadata.username}</h4>
-                    <p className='time'>1hr ago</p>
+                    <p className='time'>{time}</p>
                 </div>
                 <div className="bottom">
                     <p>{data.data.body}</p>
