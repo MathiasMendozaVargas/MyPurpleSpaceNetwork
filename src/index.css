@@ -432,12 +432,24 @@ code {
 .likes{
   display: inline-flex;
   align-items: baseline;
-  margin-right: 10px;
   font-size: 14px;
 }
 
+.likes a{
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.likes a:hover{
+  cursor: pointer;
+}
+
+.likes p{
+  margin-right: 12px;
+}
+
 .likes i{
-  margin-right: 5px;
+  padding-right: 4px;
 }
 
 .comments{
@@ -446,8 +458,16 @@ code {
   font-size: 14px;
 }
 
+.comments a{
+  display: inline-flex;
+  align-items: baseline;
+}
+.comments a:hover{
+  cursor:pointer ;
+}
+
 .comments i{
-  margin-right: 5px;
+  margin-right: 4px;
 }
 
 .reactions-btns{

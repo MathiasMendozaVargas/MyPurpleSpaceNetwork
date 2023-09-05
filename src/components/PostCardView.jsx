@@ -114,6 +114,10 @@ const PostCardView = (postData) => {
         getAmountComments(post.postData.id)
     }, [])
 
+    if(!nComments){
+        return <div>Loading...</div>;
+    }
+
     return (
             <div className="post-card">
                 <div className="post-card-header">

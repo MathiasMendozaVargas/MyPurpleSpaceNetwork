@@ -4,7 +4,7 @@
 
 // importing Components
 import Navbar from '../components/Navbar'
-import PostCardView from '../components/PostCardView'
+import PostCard from '../components/PostCard'
 import Comment from '../components/Comment'
 
 // media
@@ -86,7 +86,7 @@ function PostView() {
             <Navbar />
             <div className="postView">
                 <div className="container">
-                    <PostCardView nComments={comments.length} postData={postData}/>
+                    <PostCard postData={postData}/>
                     <div className="comments">
                         <div className="container">
                             <div className="head">

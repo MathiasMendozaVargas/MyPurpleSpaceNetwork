@@ -16,6 +16,10 @@ const PostCard = (postData) => {
     const [btnCommentText, setBtnCommentText] = useState('Write Comment')
     const [commentText, setCommentText] = useState('')
     const [nComments, setnComments] = useState(null)
+    const [likes, setLikes] = useState(null)
+    const [nLikes, setnLikes] = useState(null)
+    const [dislikes, setDislikes] = useState(null)
+    const [nDislikes, setnDislikes] = useState(null)
 
 
     const user = useSelector(state => state.user.user)
@@ -71,6 +75,36 @@ const PostCard = (postData) => {
         }
     }
 
+    const getVotes = async (post_id) => {
+        try {
+            const {data, e} = await supabase.from('post_votes').select()
+            if(data){
+                let likes = []
+                let dislikes = []
+                // Get all the votes from post
+                for(let i=0; i<data.length; i++){
+                    if(Number(data[i].post_id) == Number(post_id)){
+                        if(Number(data[i].voteType) === -1){
+                            dislikes.push(data[i])
+                        }
+                        if(Number(data[i].voteType) === +1 ){
+                            likes.push(data[i])
+                        }
+                    }
+                }
+                setLikes(likes)
+                setnLikes(likes.length)
+                setDislikes(dislikes)
+                setnDislikes(dislikes.length)
+            }
+            if(e){
+                console.log(e);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     const calculateTimeDifference = (timePost) => {
         const startDate = new Date(timePost);
         const currentTime = new Date();
@@ -107,6 +141,7 @@ const PostCard = (postData) => {
 
     useEffect(() => {
         getAmountComments(post_id)
+        getVotes(post_id)
     })
 
     return (
@@ -125,10 +160,11 @@ const PostCard = (postData) => {
                 </Link>
                 <div className="reactions">
                     <div className="likes">
-                        <i class="fa-regular fa-heart"></i><p className="nLikes">150</p>
+                        <a><i class="fa-regular fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
+                        <a><i class="fa-regular fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
                     </div>
                     <div className="comments">
-                        <i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p>
+                        <a><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
                     </div>
                     <div className="reactions-btns">
                         <button className="left" onClick={() => {
