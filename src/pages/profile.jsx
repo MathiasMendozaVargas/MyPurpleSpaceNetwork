@@ -155,7 +155,7 @@ const Profile = () => {
     
     ////// Get all User's Posts //////
     const getAllPostofUser = async (current_user_id) => {
-        const { data, error } = await supabase.from('posts').select().order('created_at', { ascending: false })
+        const { data, error } = await supabase.from('posts').select().eq('user_id', current_user_id).order('created_at', { ascending: false })
     
         if (error){
             console.log(error);

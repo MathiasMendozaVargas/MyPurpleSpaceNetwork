@@ -57,7 +57,7 @@ const PostCard = (postData) => {
 
     const getAmountComments = async (post_id) => {
         try {
-            const {data, e} = await supabase.from('comments').select()
+            const {data, e} = await supabase.from('comments').select().eq('post_id', post_id)
             if(data){
                 let nComments = 0
                 for(let i=0; i<data.length; i++){
@@ -77,7 +77,7 @@ const PostCard = (postData) => {
 
     const getVotes = async (post_id) => {
         try {
-            const {data, e} = await supabase.from('post_votes').select()
+            const {data, e} = await supabase.from('post_votes').select().eq('post_id', post_id)
             if(data){
                 let likes = []
                 let dislikes = []
@@ -97,6 +97,21 @@ const PostCard = (postData) => {
                 setDislikes(dislikes)
                 setnDislikes(dislikes.length)
             }
+            if(e){
+                console.log(e);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const votePost = async (post_id, voteType) => {
+        try {
+            const {e} = await supabase.from('post_votes').insert({
+                post_id: post_id,
+                user_id: user_id,
+                voteType: voteType
+            })
             if(e){
                 console.log(e);
             }
@@ -160,8 +175,14 @@ const PostCard = (postData) => {
                 </Link>
                 <div className="reactions">
                     <div className="likes">
-                        <a><i class="fa-regular fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
-                        <a><i class="fa-regular fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
+                        <a onClick={(e) => {
+                            e.preventDefault()
+                            votePost(post_id, 1)
+                        }}><i class="fa-regular fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
+                        <a onClick={(e) => {
+                            e.preventDefault()
+                            votePost(post_id, -1)
+                        }}><i class="fa-regular fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
                     </div>
                     <div className="comments">
                         <a><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
