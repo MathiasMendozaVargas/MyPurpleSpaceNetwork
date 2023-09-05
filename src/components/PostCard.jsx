@@ -12,14 +12,19 @@ import Picker from '@emoji-mart/react'
 const PostCard = (postData) => {
     const [post, setPost] = useState(postData);
     const [showEmojis, setShowEmojis] = useState(false)
+    // Comments states
     const [showCommentForm, setShowCommentForm] = useState(false)
     const [btnCommentText, setBtnCommentText] = useState('Write Comment')
     const [commentText, setCommentText] = useState('')
     const [nComments, setnComments] = useState(null)
+    // likes states
     const [likes, setLikes] = useState(null)
     const [nLikes, setnLikes] = useState(null)
+    const [wasLiked, setWasLiked] = useState(false)
+    // dislikes states
     const [dislikes, setDislikes] = useState(null)
     const [nDislikes, setnDislikes] = useState(null)
+    const [wasDisliked, setWasDisliked] = useState(false)
 
 
     const user = useSelector(state => state.user.user)
@@ -175,10 +180,19 @@ const PostCard = (postData) => {
                 </Link>
                 <div className="reactions">
                     <div className="likes">
-                        <a onClick={(e) => {
-                            e.preventDefault()
-                            votePost(post_id, 1)
-                        }}><i class="fa-regular fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
+                        {wasLiked ? (
+                            <a onClick={(e) => {
+                                e.preventDefault()
+                                votePost(post_id, 1)
+                                setWasLiked(false)
+                            }}><i class="fa-solid fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
+                        ) : (
+                            <a onClick={(e) => {
+                                e.preventDefault()
+                                votePost(post_id, 1)
+                                setWasLiked(true)
+                            }}><i class="fa-regular fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
+                        )}
                         <a onClick={(e) => {
                             e.preventDefault()
                             votePost(post_id, -1)
