@@ -125,6 +125,49 @@ const PostCard = (postData) => {
         }
     }
 
+    const undoVote = async (post_id, voteType) => {
+        try {
+            const {data, e} = await supabase.from('post_votes').select().eq('post_id', post_id)
+            if(data){
+                for(var i=0;i<data.length;i++){
+                    if(data[i].user_id === user_id){
+                        if(data[i].voteType === voteType){
+                            const {e} = await supabase.from('post_votes').delete().eq('id', data[i].id)
+                            if(e){
+                                console.log(e);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const checkIfLikedAndDisliked = async (post_id) => {
+        try {
+            const {data, e} = await supabase.from('post_votes').select().eq('post_id', post_id)
+            if(data){
+                for(var i=0;i<data.length;i++){
+                    if(data[i].user_id === user_id){
+                        if(data[i].voteType === 1){
+                            setWasLiked(true)
+                        }
+                        else if(data[i].voteType === -1){
+                            setWasDisliked(true)
+                        }
+                    }
+                }
+            }
+            if(e){
+                console.log(e);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     const calculateTimeDifference = (timePost) => {
         const startDate = new Date(timePost);
         const currentTime = new Date();
@@ -162,6 +205,7 @@ const PostCard = (postData) => {
     useEffect(() => {
         getAmountComments(post_id)
         getVotes(post_id)
+        checkIfLikedAndDisliked(post_id)
     })
 
     return (
@@ -182,21 +226,26 @@ const PostCard = (postData) => {
                     <div className="likes">
                         {wasLiked ? (
                             <a onClick={(e) => {
-                                e.preventDefault()
-                                votePost(post_id, 1)
                                 setWasLiked(false)
+                                undoVote(post_id, 1)
                             }}><i class="fa-solid fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
                         ) : (
                             <a onClick={(e) => {
-                                e.preventDefault()
-                                votePost(post_id, 1)
                                 setWasLiked(true)
+                                votePost(post_id, 1)
                             }}><i class="fa-regular fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
                         )}
-                        <a onClick={(e) => {
-                            e.preventDefault()
-                            votePost(post_id, -1)
-                        }}><i class="fa-regular fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
+                        {wasDisliked ? (
+                            <a onClick={(e) => {
+                                setWasDisliked(false)
+                                undoVote(post_id, -1)
+                            }}><i class="fa-solid fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
+                        ) : (
+                            <a onClick={(e) => {
+                                setWasDisliked(true)
+                                votePost(post_id, -1)
+                            }}><i class="fa-regular fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
+                        )}
                     </div>
                     <div className="comments">
                         <a><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
