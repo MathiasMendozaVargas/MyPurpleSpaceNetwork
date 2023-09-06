@@ -224,31 +224,25 @@ const PostCard = (postData) => {
                 </Link>
                 <div className="reactions">
                     <div className="likes">
-                        {wasLiked ? (
-                            <a onClick={(e) => {
-                                setWasLiked(false)
-                                undoVote(post_id, 1)
-                            }}><i class="fa-solid fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
-                        ) : (
-                            <a onClick={(e) => {
-                                setWasLiked(true)
-                                votePost(post_id, 1)
-                            }}><i class="fa-regular fa-thumbs-up"></i><p className="nLikes">{nLikes}</p></a>
-                        )}
-                        {wasDisliked ? (
-                            <a onClick={(e) => {
-                                setWasDisliked(false)
-                                undoVote(post_id, -1)
-                            }}><i class="fa-solid fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
-                        ) : (
-                            <a onClick={(e) => {
-                                setWasDisliked(true)
-                                votePost(post_id, -1)
-                            }}><i class="fa-regular fa-thumbs-down"></i><p className="nLikes">{nDislikes}</p></a>
-                        )}
+                        <a onClick={(e) => {
+                            setWasLiked(!wasLiked)
+                            {wasLiked ? (undoVote(post_id, 1)) : (votePost(post_id, 1))}
+                        }}>{wasLiked ? (<i class="fa-solid fa-thumbs-up"></i>):(<i class="fa-regular fa-thumbs-up"></i>)}<p className="nLikes">{nLikes}</p></a>
+                        <a onClick={(e) => {
+                            setWasDisliked(!wasDisliked)
+                            {wasDisliked ? (undoVote(post_id, -1)) : (votePost(post_id, -1))}
+                        }}>{wasDisliked ? (<i class="fa-solid fa-thumbs-down"></i>):(<i class="fa-regular fa-thumbs-down"></i>)}<p className="nLikes">{nDislikes}</p></a>
                     </div>
                     <div className="comments">
-                        <a><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
+                        <a onClick={(e) => {
+                            e.preventDefault()
+                            if(!showCommentForm){
+                                setBtnCommentText('Hide Form')
+                            }else{
+                                setBtnCommentText('Write Comment')
+                            }
+                            setShowCommentForm(!showCommentForm)
+                        }}><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
                     </div>
                     <div className="reactions-btns">
                         <button className="left" onClick={() => {
