@@ -1144,6 +1144,22 @@ code {
   padding-left: 3px;
 }
 
+.comment .top .dltComment{
+  margin-left: auto;
+  color: white;
+  margin-top: 25px;
+  font-size: 10px;
+  padding: 5px 4px;
+  padding-left: 8px;
+  border-radius: 50%;
+  transition: all 0.4s;
+}
+.comment .top .dltComment:hover{
+  cursor: pointer;
+  background-color: rgba(196, 196, 196, 0.271);
+  transform: scale(1.08);
+}
+
 .comment .bottom{
   width: 100%;
   display: inline-flex;
@@ -1160,4 +1176,58 @@ code {
   font-size: medium;
   text-align: center;
   margin-top: 20px;
+}
+
+/* Delete Comment Modal */
+.deleteCommentModal{
+  width: fit-content;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto auto;
+  padding: 20px;
+  height: fit-content;
+  background-color: rgb(47, 47, 47);
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  display: inline-block;
+}
+
+.deleteCommentModal i{
+  color: red;
+  font-size: large;
+  padding: 6px 7px;
+  background-color: rgba(255, 95, 95, 0.411);
+  border-radius: 50%;
+}
+
+.deleteCommentModal .btn-container{
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+
+.deleteCommentModal .btn-container .no{
+  background-color: rgb(209, 0, 0);
+  color: white;
+  border: none;
+  padding: 4px 18px;
+  border-radius: 5px;
+}
+.deleteCommentModal .btn-container .no:hover{
+  cursor: pointer;
+  background-color: red;
+}
+.deleteCommentModal .btn-container .yes{
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 4px 18px;
+  border-radius: 5px;
+}
+.deleteCommentModal .btn-container .yes:hover{
+  cursor: pointer;
+  background-color: rgb(0, 151, 0);
 }

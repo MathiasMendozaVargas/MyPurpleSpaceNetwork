@@ -11,11 +11,15 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { supabase } from '../lib/supabaseClient'
 
+// Modals
+import DeleteCommentModal from '../modals/deleteCommentModal' 
+
 // About Page Template
 function Comment(data) {
     const logged_user = useSelector(state => state.user.user)
 
     const [metadata, setMetaData] = useState(null)
+    const [isAuthor, setIsAuthor] = useState(false)
 
     const getUserMetaData = async (user_id) => {
         try {
@@ -28,6 +32,12 @@ function Comment(data) {
             }
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    const checkifIsAuthor = async () => {
+        if(data.data.user_id === logged_user.id){
+            setIsAuthor(true)
         }
     }
 
@@ -66,6 +76,7 @@ function Comment(data) {
 
     useEffect(() => {
         getUserMetaData(data.data.user_id)
+        checkifIsAuthor()
     }, [])
 
     if(metadata){
@@ -75,10 +86,12 @@ function Comment(data) {
                     <img className='avatar' src={avatar}/>
                     <h4 className='author'>{metadata.username}</h4>
                     <p className='time'>{time}</p>
+                    <a className='dltComment'><i class="fa-solid fa-trash"></i></a>
                 </div>
                 <div className="bottom">
                     <p>{data.data.body}</p>
                 </div>
+                <DeleteCommentModal></DeleteCommentModal>
             </div>
         )
     }
