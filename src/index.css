@@ -1188,18 +1188,18 @@ code {
   margin: auto auto;
   padding: 20px;
   height: fit-content;
-  background-color: rgb(47, 47, 47);
+  background-color: white;
   border-radius: 15px;
-  color: white;
+  color: purple;
   text-align: center;
   display: inline-block;
 }
 
 .deleteCommentModal i{
-  color: red;
+  color: purple;
   font-size: large;
   padding: 6px 7px;
-  background-color: rgba(255, 95, 95, 0.411);
+  background-color: rgba(126, 113, 126, 0.301);
   border-radius: 50%;
 }
 
@@ -1210,7 +1210,7 @@ code {
 }
 
 .deleteCommentModal .btn-container .no{
-  background-color: rgb(209, 0, 0);
+  background-color: purple;
   color: white;
   border: none;
   padding: 4px 18px;
@@ -1218,10 +1218,10 @@ code {
 }
 .deleteCommentModal .btn-container .no:hover{
   cursor: pointer;
-  background-color: red;
+  background-color: rgb(154, 0, 154);
 }
 .deleteCommentModal .btn-container .yes{
-  background-color: green;
+  background-color: rgb(191, 0, 166);
   color: white;
   border: none;
   padding: 4px 18px;
@@ -1229,5 +1229,5 @@ code {
 }
 .deleteCommentModal .btn-container .yes:hover{
   cursor: pointer;
-  background-color: rgb(0, 151, 0);
+  background-color: rgb(167, 0, 145);
 }

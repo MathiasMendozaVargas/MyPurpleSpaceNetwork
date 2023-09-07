@@ -11,8 +11,6 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { supabase } from '../lib/supabaseClient'
 
-// Modals
-import DeleteCommentModal from '../modals/deleteCommentModal' 
 
 // About Page Template
 function Comment(data) {
@@ -20,6 +18,7 @@ function Comment(data) {
 
     const [metadata, setMetaData] = useState(null)
     const [isAuthor, setIsAuthor] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false)
 
     const getUserMetaData = async (user_id) => {
         try {
@@ -38,6 +37,20 @@ function Comment(data) {
     const checkifIsAuthor = async () => {
         if(data.data.user_id === logged_user.id){
             setIsAuthor(true)
+        }
+    }
+
+    const deleteComment = async () => {
+        try {
+            const {e} = await supabase.from('comments').delete().eq('id', data.data.id)
+            if(e){
+                console.log(e);
+            }
+            else{
+                window.location.reload()
+            }
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -86,12 +99,25 @@ function Comment(data) {
                     <img className='avatar' src={avatar}/>
                     <h4 className='author'>{metadata.username}</h4>
                     <p className='time'>{time}</p>
-                    <a className='dltComment'><i class="fa-solid fa-trash"></i></a>
+                    {isAuthor && <a onClick={() => setModalOpen(true)} className='dltComment'><i class="fa-solid fa-trash"></i></a>}
                 </div>
                 <div className="bottom">
                     <p>{data.data.body}</p>
                 </div>
-                <DeleteCommentModal></DeleteCommentModal>
+                { modalOpen && (
+                    <div className="deleteCommentModal">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <h4>Are you sure you want to delete this comment?</h4>
+                        <div className="btn-container">
+                            <button onClick={() => {setModalOpen(false)}} className='no'>No</button>
+                            <button onClick={(e) => {
+                                e.preventDefault()
+                                // call the function that deletes a post and refresh page
+                                deleteComment()
+                            }} className='yes'>Yes</button>
+                        </div>
+                    </div>
+                )}
             </div>
         )
     }
