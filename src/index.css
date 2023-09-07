@@ -1179,7 +1179,7 @@ code {
 }
 
 /* Delete Comment Modal */
-.deleteCommentModal{
+.deleteModal{
   width: fit-content;
   position: fixed;
   left: 50%;
@@ -1195,7 +1195,7 @@ code {
   display: inline-block;
 }
 
-.deleteCommentModal i{
+.deleteModal i{
   color: purple;
   font-size: large;
   padding: 6px 7px;
@@ -1203,31 +1203,31 @@ code {
   border-radius: 50%;
 }
 
-.deleteCommentModal .btn-container{
+.deleteModal .btn-container{
   width: 100%;
   display: inline-flex;
   justify-content: space-evenly;
 }
 
-.deleteCommentModal .btn-container .no{
+.deleteModal .btn-container .no{
   background-color: purple;
   color: white;
   border: none;
   padding: 4px 18px;
   border-radius: 5px;
 }
-.deleteCommentModal .btn-container .no:hover{
+.deleteModal .btn-container .no:hover{
   cursor: pointer;
   background-color: rgb(154, 0, 154);
 }
-.deleteCommentModal .btn-container .yes{
+.deleteModal .btn-container .yes{
   background-color: rgb(191, 0, 166);
   color: white;
   border: none;
   padding: 4px 18px;
   border-radius: 5px;
 }
-.deleteCommentModal .btn-container .yes:hover{
+.deleteModal .btn-container .yes:hover{
   cursor: pointer;
   background-color: rgb(167, 0, 145);
 }

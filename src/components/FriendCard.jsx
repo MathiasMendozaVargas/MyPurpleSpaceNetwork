@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 const FriendCard = (data) => {
 
     const [ friend, setFriend ] = useState(data)
+    const [ showModal, setShowModal ] = useState(false)
 
     const fullName = friend.data.first_name + ' ' + friend.data.last_name
     const username = friend.data.username
@@ -73,8 +74,25 @@ const FriendCard = (data) => {
                 <div className="friends-btns">
                     <button onClick={(e) => {
                         e.preventDefault()
-                        deleteFriend(loggedUserId, friend_id)
+                        setShowModal(true)
                     }} className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
+                    { showModal && (
+                        <div className="deleteModal">
+                            <i class="fa-solid fa-face-sad-tear"></i>
+                            <h4>Are you sure you want to delete your friend?</h4>
+                            <div className="btn-container">
+                                <button onClick={(e) => {
+                                    e.preventDefault()
+                                    setShowModal(false)
+                                }} className='no'>No</button>
+                                <button onClick={(e) => {
+                                    e.preventDefault()
+                                    // call the function that deletes a post and refresh page
+                                    deleteFriend(loggedUserId, friend_id)
+                                }} className='yes'>Yes</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </Link>

@@ -105,7 +105,7 @@ function Comment(data) {
                     <p>{data.data.body}</p>
                 </div>
                 { modalOpen && (
-                    <div className="deleteCommentModal">
+                    <div className="deleteModal">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         <h4>Are you sure you want to delete this comment?</h4>
                         <div className="btn-container">
