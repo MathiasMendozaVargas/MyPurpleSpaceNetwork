@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { supabase } from '../lib/supabaseClient'
 
+
 // About Page Template
 function Friends() {
     const { profile_id } = useParams()
@@ -74,7 +75,7 @@ function Friends() {
         // get all friends of a user
         getAllFriends(profile_id)
     
-    }, [])
+    })
 
     if(!friends){
         return <div style={{color: 'white'}}>Loading...</div>;

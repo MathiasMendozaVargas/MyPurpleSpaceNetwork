@@ -64,6 +64,7 @@ const PostCard = (postData) => {
             toast.success('Comment Posted!🎉', {
                 position: toast.POSITION.TOP_RIGHT
             });
+            getAmountComments(post_id)
         }
     }
 
@@ -102,6 +103,10 @@ const PostCard = (postData) => {
                         if(Number(data[i].voteType) === +1 ){
                             likes.push(data[i])
                         }
+                        else{
+                            setWasLiked(false)
+                            setWasDisliked(false)
+                        }
                     }
                 }
                 setLikes(likes)
@@ -127,6 +132,9 @@ const PostCard = (postData) => {
             if(e){
                 console.log(e);
             }
+            else{
+                getVotes(post_id)
+            }
         } catch (e) {
             console.log(e);
         }
@@ -142,6 +150,9 @@ const PostCard = (postData) => {
                             const {e} = await supabase.from('post_votes').delete().eq('id', data[i].id)
                             if(e){
                                 console.log(e);
+                            }
+                            else{
+                                getVotes(post_id)
                             }
                         }
                     }
@@ -217,7 +228,7 @@ const PostCard = (postData) => {
         getAmountComments(post_id)
         getVotes(post_id)
         checkIfLikedAndDisliked(post_id)
-    })
+    }, [])
 
     return (
         // Gotta work on the individual post page for personalized page
@@ -239,11 +250,11 @@ const PostCard = (postData) => {
                         <a onClick={(e) => {
                             setWasLiked(!wasLiked)
                             {wasLiked ? (undoVote(post_id, 1)) : (votePost(post_id, 1))}
-                        }}>{wasLiked ? (<i class="fa-solid fa-thumbs-up"></i>):(<i class="fa-regular fa-thumbs-up"></i>)}<p className="nLikes">{nLikes}</p></a>
+                        }}>{wasLiked ? <i class="fa-solid fa-thumbs-up"></i>:<i class="fa-regular fa-thumbs-up"></i>}<p className="nLikes">{nLikes}</p></a>
                         <a onClick={(e) => {
                             setWasDisliked(!wasDisliked)
                             {wasDisliked ? (undoVote(post_id, -1)) : (votePost(post_id, -1))}
-                        }}>{wasDisliked ? (<i class="fa-solid fa-thumbs-down"></i>):(<i class="fa-regular fa-thumbs-down"></i>)}<p className="nLikes">{nDislikes}</p></a>
+                        }}>{wasDisliked ? <i class="fa-solid fa-thumbs-down"></i>:<i class="fa-regular fa-thumbs-down"></i>}<p className="nLikes">{nDislikes}</p></a>
                     </div>
                     <div className="comments">
                         <a onClick={(e) => {

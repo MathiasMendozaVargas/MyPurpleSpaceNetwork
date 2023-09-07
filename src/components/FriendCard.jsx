@@ -4,6 +4,8 @@ import avatar from '../assets/basedProfile.png'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
 import { useSelector } from 'react-redux'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FriendCard = (data) => {
 
@@ -41,18 +43,19 @@ const FriendCard = (data) => {
                     // Send request to update DB with new list
                     try{
                         // updating user's friends list on database
-                        const { data, error } = await supabase.from('users_data').update({
+                        const { e } = await supabase.from('users_data').update({
                             friends: updatedList
-                        })
-                        .eq('user_id', loggedUserId)
+                        }).eq('user_id', loggedUserId)
                         
                         // check for errors
-                        if(error){
-                            console.log(error);
+                        if(e){
+                            console.log(e);
                         }
 
-                        if(!error){
-                            window.location.reload()
+                        else{
+                            toast.success('Friend Deleted!', {
+                                position: toast.POSITION.TOP_RIGHT
+                            });
                         }
                         // catch errors
                     } catch(e){
@@ -94,6 +97,7 @@ const FriendCard = (data) => {
                         </div>
                     )}
                 </div>
+                <ToastContainer></ToastContainer>
             </div>
         </Link>
     )
