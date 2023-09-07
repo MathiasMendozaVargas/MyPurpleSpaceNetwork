@@ -4,6 +4,9 @@ import moment from "moment/moment";
 import { useSelector } from "react-redux";
 import { supabase } from "../lib/supabaseClient";
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Emoji Picker
 import data from '@emoji-mart/data'
@@ -29,6 +32,7 @@ const PostCard = (postData) => {
 
     const user = useSelector(state => state.user.user)
 
+
     const author = post.postData.author;
     const postDate = post.postData.date;
     const postContent = post.postData.content;
@@ -43,6 +47,7 @@ const PostCard = (postData) => {
         setCommentText(commentText + emoji)
     }
 
+
     const insertNewParentComment = async (user_id, post_id, comment) => {
         const { error } = await supabase.from('comments').insert({
             body: comment,
@@ -55,8 +60,10 @@ const PostCard = (postData) => {
         }
 
         if(!error){
-            console.log("Comment created!");
-            window.location.reload()
+            setShowCommentForm(!showCommentForm)
+            toast.success('Comment Posted!🎉', {
+                position: toast.POSITION.TOP_RIGHT
+            });
         }
     }
 
@@ -140,6 +147,9 @@ const PostCard = (postData) => {
                     }
                 }
             }
+            if(e){
+                console.log(e);
+            }
         } catch (e) {
             console.log(e);
         }
@@ -202,6 +212,7 @@ const PostCard = (postData) => {
     const current_time = post.postData.created_at
     const timeDiff = calculateTimeDifference(current_time);
 
+
     useEffect(() => {
         getAmountComments(post_id)
         getVotes(post_id)
@@ -215,6 +226,7 @@ const PostCard = (postData) => {
                 <img className="avatar" src={avatar} alt="" />
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
+                <ToastContainer></ToastContainer>
             </div>
             <div className="post-card-body">
                 <Link style={{textDecoration: 'none', color: 'whitesmoke'}} to={'/posts/' + post_id}>
@@ -263,7 +275,6 @@ const PostCard = (postData) => {
                         <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
                         <button onClick={(e) => {
                             e.preventDefault()
-                            console.log(commentText);
                             insertNewParentComment(user.id, post_id, commentText)
                         }} className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
                     </div>

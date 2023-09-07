@@ -70,7 +70,7 @@ function PostView() {
     useEffect(() => {
         getPostData(post_id)
         getComments(post_id)
-    }, [])
+    })
 
 
     if(!postData){
