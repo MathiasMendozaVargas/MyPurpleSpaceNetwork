@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { toast } from 'react-toastify'
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
-import { setUser } from '../redux/slice/userSlice'
+import { setUser } from '../redux/slice/userSlice';
+import { ToastContainer, toast, cssTransition } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 // importing Navbar
@@ -23,6 +24,8 @@ const Login = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    
 
     async function getUserMetaData(current_user_id) {
         const { data, error } = await supabase.from('users_data').select()
@@ -70,7 +73,9 @@ const Login = () => {
             
         }
         else{
-            toast.error('Invalid credentials')
+            toast.error('Something Wrong Happened', {
+                position: "top-right",
+            })
         }
     }
 
@@ -115,6 +120,7 @@ const Login = () => {
                         </form>
                     </div>
                 </div>
+                <ToastContainer></ToastContainer>
             </div>
         </>
     )

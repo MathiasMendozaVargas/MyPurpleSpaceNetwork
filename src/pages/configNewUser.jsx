@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { supabase } from '../lib/supabaseClient';
-
+import { ToastContainer, toast, cssTransition } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // importing Navbar
 import Navbar from '../components/Navbar'
@@ -54,7 +55,16 @@ const ConfigNewUser = () => {
             console.log(error);
         }
 
-        setTimeout(() => navigate('/home'), 2000)
+        else{
+            toast.success('Profile created Succesfuly 🎉', {
+                position: "top-right",
+            })
+            setTimeout(() => {
+                navigate('/home')
+            }, 2000)
+        }
+
+        
     }
 
     
@@ -88,6 +98,7 @@ const ConfigNewUser = () => {
                                 await configNewUsertoDB();
                                 }}>Complete Profile!</button>
                         </form>
+                        <ToastContainer></ToastContainer>
                     </div>
                 </div>
             </div>
