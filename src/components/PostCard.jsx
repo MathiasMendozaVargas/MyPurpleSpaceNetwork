@@ -80,7 +80,7 @@ const PostCard = (postData) => {
                 }
                 setnComments(nComments)
             }
-            else{
+            if(e){
                 console.log(e);
             }
         } catch (e) {
