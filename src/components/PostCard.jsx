@@ -231,11 +231,13 @@ const PostCard = (postData) => {
     }, [])
 
     return (
-        // Gotta work on the individual post page for personalized page
         <div className="post-card">
             <div className="post-card-header">
                 <img className="avatar" src={avatar} alt="" />
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
+                <div className="options-post">
+                    
+                </div>
                 <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
                 <ToastContainer></ToastContainer>
             </div>
