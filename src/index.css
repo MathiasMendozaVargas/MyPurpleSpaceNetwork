@@ -356,7 +356,7 @@ code {
 .post-card{
   color: whitesmoke;
   background-color: purple;
-  box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.514);
+  box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.375);
   border-radius: 12px;
   width: 60%;
   margin: auto auto;
@@ -386,6 +386,7 @@ code {
 }
 
 .post-author{
+  width: fit-content;
   color: whitesmoke;
   font-style: italic;
   font-size: 19px;
@@ -403,8 +404,11 @@ code {
   font-style: italic;
 }
 
-.optionsBtn{
+.right-postCard{
   margin-left: auto;
+}
+
+.optionsBtn{
   color: white;
   margin-bottom: 45px;
   padding: 0px 5px 0px 5px;
@@ -413,10 +417,51 @@ code {
 .optionsBtn:hover{
   background-color: rgba(255, 255, 255, 0.26);
   border-radius: 50%;
-  color: purple;
   
 }
 
+.options-post{
+  position: absolute;
+  margin-top: 30px;
+  display: inline-block;
+  background-color: rgb(158, 17, 158);
+  box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.375);
+  width: 20%;
+  height: fit-content;
+  border-radius: 15px 15px 15px 15px !important;
+}
+
+.options-post button{
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  padding: 10px;
+}
+
+.options-post button:hover{
+  cursor: pointer;
+  background-color: rgb(177, 20, 177);
+}
+
+.options-post button:first-child{
+  border-radius: 15px 15px 0px 0px;
+}
+
+.options-post button:last-child{
+  border-radius: 0px 0px 15px 15px;
+}
+
+
+.options-post p{
+  margin: 0 !important;
+  width: 100%;
+  color: white;
+}
+
+.options-post i{
+  margin-right: 5px;
+}
 
 .post-card-body p{
   margin-top: 0px;

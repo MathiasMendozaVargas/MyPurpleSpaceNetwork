@@ -235,10 +235,15 @@ const PostCard = (postData) => {
             <div className="post-card-header">
                 <img className="avatar" src={avatar} alt="" />
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
-                <div className="options-post">
-                    
+                <div className="right-postCard">
+                    <div className="options-post">
+                        <button><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
+                        <button><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
+                        <button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>
+                        <button><p><i class="fa-solid fa-user-xmark"></i> Stop Following</p></button>
+                    </div>
+                    <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
                 </div>
-                <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
                 <ToastContainer></ToastContainer>
             </div>
             <div className="post-card-body">
