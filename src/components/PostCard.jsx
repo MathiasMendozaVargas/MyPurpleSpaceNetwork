@@ -242,7 +242,7 @@ const PostCard = (postData) => {
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
-                    {showOptions && <PostOptions></PostOptions>}
+                    {showOptions && <PostOptions data={postData}></PostOptions>}
                 </div>
                 <ToastContainer></ToastContainer>
             </div>
