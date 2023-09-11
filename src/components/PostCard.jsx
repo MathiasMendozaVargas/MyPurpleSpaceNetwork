@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Components
+import PostOptions from "./PostOptions";
+
 
 // Emoji Picker
 import data from '@emoji-mart/data'
@@ -28,6 +31,8 @@ const PostCard = (postData) => {
     const [dislikes, setDislikes] = useState(null)
     const [nDislikes, setnDislikes] = useState(null)
     const [wasDisliked, setWasDisliked] = useState(false)
+    // Options Box
+    const [showOptions, setShowOptions] = useState(false)
 
 
     const user = useSelector(state => state.user.user)
@@ -236,13 +241,8 @@ const PostCard = (postData) => {
                 <img className="avatar" src={avatar} alt="" />
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
-                    <div className="options-post">
-                        <button><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
-                        <button><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
-                        <button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>
-                        <button><p><i class="fa-solid fa-user-xmark"></i> Stop Following</p></button>
-                    </div>
-                    <a className="optionsBtn" href=""><i className="fa-solid fa-ellipsis"></i></a>
+                    <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
+                    {showOptions && <PostOptions></PostOptions>}
                 </div>
                 <ToastContainer></ToastContainer>
             </div>

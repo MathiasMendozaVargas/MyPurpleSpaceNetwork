@@ -406,6 +406,7 @@ code {
 
 .right-postCard{
   margin-left: auto;
+  margin-top: -30px;
 }
 
 .optionsBtn{
@@ -417,18 +418,28 @@ code {
 .optionsBtn:hover{
   background-color: rgba(255, 255, 255, 0.26);
   border-radius: 50%;
+  cursor: pointer;
   
+}
+
+.box-connector{
+  width: 0px;
+  height: 0px;
+  margin-left: 12px;
+  border-bottom: 10px solid rgb(158, 17, 158); 
+  border-left: 0px solid transparent;
+  border-right: 15px solid transparent;
 }
 
 .options-post{
   position: absolute;
-  margin-top: 30px;
   display: inline-block;
   background-color: rgb(158, 17, 158);
-  box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.375);
-  width: 20%;
+  box-shadow: 3px 3px 3px rgba(59, 59, 59, 0.375);
+  width: 15%;
+  margin-left: 12px;
   height: fit-content;
-  border-radius: 15px 15px 15px 15px !important;
+  border-radius: 0px 15px 15px 15px !important;
 }
 
 .options-post button{
@@ -445,7 +456,7 @@ code {
 }
 
 .options-post button:first-child{
-  border-radius: 15px 15px 0px 0px;
+  border-radius: 0px 15px 0px 0px;
 }
 
 .options-post button:last-child{
