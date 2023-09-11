@@ -19,52 +19,39 @@ const FriendCard = (data) => {
     let logged_user = useSelector(state => state.user.user)
     let loggedUserId = logged_user.id
 
-    // Delete a friend
     const deleteFriend = async (loggedUserId, current_user_id) => {
-        // Get friend list of current logged in user
-        const { data, error } = await supabase.from('users_data').select()
-
-        if(error){
-            console.log(error);
-        }
-
-        if(data){
-            console.log(data);
-            for(let i=0; i<data.length; i++){
-                // Double layer of security to make sure that only the owner can remove other users as their friends
-                if(data[i].user_id === loggedUserId){
-                    // Remove friend from array
-                    let updatedList = []
-                    for(let j=0;j<data[i].friends.length; j++){
-                        if(data[i].friends[j] !== current_user_id){
-                            updatedList.push(data[i].friends[j])
-                        }
-                    }
-                    // Send request to update DB with new list
-                    try{
-                        // updating user's friends list on database
-                        const { e } = await supabase.from('users_data').update({
-                            friends: updatedList
-                        }).eq('user_id', loggedUserId)
-                        
-                        // check for errors
-                        if(e){
-                            console.log(e);
-                        }
-
-                        else{
-                            toast.success('Friend Deleted!', {
-                                position: toast.POSITION.TOP_RIGHT
-                            });
-                        }
-                        // catch errors
-                    } catch(e){
-                        console.log(e);
-                    }
+        try {
+            // Fetch user data
+            const { data, error } = await supabase.from('users_data').select().eq('user_id', loggedUserId);
+    
+            if (error) {
+                console.log(error);
+                return;
+            }
+    
+            if (data && data.length === 1) {
+                const user = data[0];
+                
+                // Remove the friend from the user's friends list
+                const updatedFriends = user.friends.filter(friendId => friendId !== current_user_id);
+    
+                // Update the user's friends list in the database
+                const { error: updateError } = await supabase.from('users_data').update({
+                    friends: updatedFriends
+                }).eq('user_id', loggedUserId);
+    
+                if (updateError) {
+                    console.log(updateError);
+                } else {
+                    toast.success('Friend Deleted!', {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
                 }
             }
+        } catch (e) {
+            console.log(e);
         }
-    }
+    };
 
     return (
         <Link to={'/profile/' + friend_id}>
