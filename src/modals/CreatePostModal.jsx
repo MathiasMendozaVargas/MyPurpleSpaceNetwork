@@ -86,7 +86,7 @@ const CreatePostModal = (props) => {
     return (
         <div className='newPostPage-body'>
             <div className="header-card">
-                <a onClick={props.closeModal}><i class="fa-solid fa-xmark"></i></a>
+                <a onClick={props.closeModal}><i class="fa-solid fa-circle-xmark"></i></a>
                 <h2><i class="fa-solid fa-feather"></i> Create your new Purple </h2>
             </div>
             <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>

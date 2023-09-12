@@ -662,11 +662,22 @@ code {
   display: block;
 }
 
+.newPostPage-body .header-card{
+  width: 100%;
+}
+
+.newPostPage-body .header-card a{
+  font-size: 19px;
+  color: white;
+  margin-left: -8px;
+  cursor: pointer;
+}
+
 .newPostPage-body h2{
   color: white;
-  text-align: center;
   font-size: larger;
-  margin: 12px 0px !important;
+  text-align: center;
+  margin: -12px 0px 12px 0px !important;
 }
 
 .newPostPage-body textarea{

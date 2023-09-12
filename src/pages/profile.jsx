@@ -186,6 +186,10 @@ const Profile = () => {
         }
     }
 
+    function closeModal() {
+        setShowCreatePostModal(false)
+    }
+
 
     useEffect(() => {
 
@@ -247,7 +251,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-        {showCreatePostModal && <CreatePostModal></CreatePostModal>}
+        {showCreatePostModal && <CreatePostModal closeModal={closeModal}></CreatePostModal>}
         <div className="floatingBtn">
                 <button onClick={(e) => {
                     e.preventDefault()
