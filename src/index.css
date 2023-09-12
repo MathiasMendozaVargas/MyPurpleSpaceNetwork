@@ -644,42 +644,29 @@ code {
 }
 
 /* Create Post Page */
-.newPostPage{
-  width: 100%;
-  height: 90vh;
-  margin-top: 57px;
-  background-image: url('./assets/aboutBg.webp');
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: whitesmoke;
-}
-
-.newPostPage-header{
-  text-align: center;
-  padding-top: 50px;
-}
-
-.newPostPage-header h1{
-  font-size: 40px;
-  font-style: italic;
-  margin-bottom: 0px;
-}
-.newPostPage-header h3{
-  margin-top: 5px;  
-}
-
 .newPostPage-body{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin: auto auto;
-  padding: 16px 22px 10px 12px;
+  padding: 0px 22px 15px 13px;
   border-radius: 10px;
-  background-color: purple;
-  box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.747);
-  width: 40%;
+  background-color: rgb(139, 5, 139);
+  box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.857);
+  width: 60%;
 }
 
 .newPostPage-body{
   width: 400px;
   display: block;
+}
+
+.newPostPage-body h2{
+  color: white;
+  text-align: center;
+  font-size: larger;
+  margin: 12px 0px !important;
 }
 
 .newPostPage-body textarea{

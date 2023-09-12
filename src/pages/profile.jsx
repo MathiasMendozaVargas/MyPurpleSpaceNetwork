@@ -11,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
+// Modals
+import CreatePostModal from "../modals/CreatePostModal";
+
 // assets
 import friendsIcon from '../assets/users-alt.svg'
 import deleteFriendIcon from '../assets/delete-user.webp'
@@ -18,7 +21,7 @@ import addFriendIcon from '../assets/user-plus.svg'
 import { current } from "@reduxjs/toolkit";
 
 
-// Profile Page
+// Profile Pages
 
 const Profile = () => {
 
@@ -37,6 +40,7 @@ const Profile = () => {
     const [ user_posts, set_user_posts ] = useState(null)
     const [ isFriend, set_isFriend ] = useState(false)
     const [ current_friendsList, set_current_friendsList] = useState(null)
+    const [showCreatePostModal, setShowCreatePostModal] = useState(false)
 
     ////// Get User Metadata //////
     const getUserMetaData = async (current_user_id) => {
@@ -243,9 +247,11 @@ const Profile = () => {
                 </div>
             </div>
         </div>
+        {showCreatePostModal && <CreatePostModal></CreatePostModal>}
         <div className="floatingBtn">
-                <button onClick={() => {
-                    navigate('/createNewPost')
+                <button onClick={(e) => {
+                    e.preventDefault()
+                    setShowCreatePostModal(!showCreatePostModal)
                 }}><i className="fa-solid fa-pen-to-square"></i></button>
             </div>
         </>

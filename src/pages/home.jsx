@@ -6,6 +6,9 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard';
 
+// Modals
+import CreatePostModal from '../modals/CreatePostModal';
+
 // dummy data
 
 import { supabase } from '../lib/supabaseClient';
@@ -16,6 +19,7 @@ import { supabase } from '../lib/supabaseClient';
 // Home Page Template
 function Home() {
     const [ posts, setPosts ] = useState(null)
+    const [showCreatePostModal, setShowCreatePostModal] = useState(false)
 
     const navigate = useNavigate()
 
@@ -30,6 +34,10 @@ function Home() {
             console.log(data);
             setPosts(data)
         }
+    }
+
+    function closeModal() {
+        setShowCreatePostModal(false)
     }
 
     useEffect(() => {
@@ -50,10 +58,12 @@ function Home() {
                     return <PostCard key={post.id} postData={post}/>
                 })}
                 <div className="floatingBtn">
-                    <button onClick={() => {
-                        navigate('/createNewPost')
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        setShowCreatePostModal(!showCreatePostModal)
                     }}><i class="fa-solid fa-pen-to-square"></i></button>
                 </div>
+                {showCreatePostModal && <CreatePostModal closeModal={closeModal}></CreatePostModal>}
             </div>
         </>
     )
