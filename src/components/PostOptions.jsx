@@ -4,11 +4,15 @@ import { supabase } from '../lib/supabaseClient'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function PostOptions(data) {
-    let post_data = data.data.postData
+// modals
+import EditPostModal from '../modals/EditPostModal';
+
+function PostOptions(props) {
+    let post_data = props.data.postData
 
     const logged_user = useSelector(state => state.user.user)
     const [isFriend, setIsFriend] = useState(false)
+    const [showEditPost, setShowEditPost] = useState(false)
 
     let isAuthor = false
     if(post_data.user_id === logged_user.id){
@@ -116,6 +120,10 @@ function PostOptions(data) {
         }
     };
 
+    function closeModal(){
+        setShowEditPost(false)
+    }
+
     useEffect(() => {
         verifyIsFriend(post_data.user_id)
     }, [])
@@ -124,9 +132,13 @@ function PostOptions(data) {
     if(isAuthor){
         return (
             <>
+                {showEditPost && <EditPostModal postData={post_data} closeModal={closeModal}></EditPostModal>}
                 <div className="box-connector"></div>
                 <div className="options-post">
-                    <button><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        setShowEditPost(true)
+                    }}><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
                     <button><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
                     <button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>
                 </div>

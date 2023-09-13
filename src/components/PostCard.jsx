@@ -33,6 +33,9 @@ const PostCard = (postData) => {
     const [wasDisliked, setWasDisliked] = useState(false)
     // Options Box
     const [showOptions, setShowOptions] = useState(false)
+    function closeOptions(){
+        setShowOptions(false)
+    }
 
 
     const user = useSelector(state => state.user.user)
@@ -242,7 +245,7 @@ const PostCard = (postData) => {
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
-                    {showOptions && <PostOptions data={postData}></PostOptions>}
+                    {showOptions && <PostOptions data={postData} closeOptions={closeOptions}></PostOptions>}
                 </div>
                 <ToastContainer></ToastContainer>
             </div>
