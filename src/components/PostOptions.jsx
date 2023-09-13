@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import EditPostModal from '../modals/EditPostModal';
 
 function PostOptions(props) {
-    let post_data = props.data.postData
+    let post_data = props.data
 
     const logged_user = useSelector(state => state.user.user)
     const [isFriend, setIsFriend] = useState(false)
@@ -132,7 +132,7 @@ function PostOptions(props) {
     if(isAuthor){
         return (
             <>
-                {showEditPost && <EditPostModal postData={post_data} closeModal={closeModal}></EditPostModal>}
+                {showEditPost && <EditPostModal postData={post_data} getPosts={props.getPosts} closeModal={closeModal} closeOptions={props.closeOptions}></EditPostModal>}
                 <div className="box-connector"></div>
                 <div className="options-post">
                     <button onClick={(e) => {

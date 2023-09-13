@@ -13,7 +13,7 @@ import Picker from '@emoji-mart/react'
 // Login Page Template
 const EditPostModal = (props) => {
 
-    console.log(props.postData);
+    console.log(props);
 
     const navigate = useNavigate()
 
@@ -70,13 +70,16 @@ const EditPostModal = (props) => {
 
         if(error){
             console.log(error);
+            
         }
-
         if(!error){
             toast.success("Post updated!", {
                 position: toast.POSITION.TOP_RIGHT
             });
+            props.closeModal()
+            props.closeOptions()
         }
+        
     }
 
     if(!user){

@@ -23,7 +23,7 @@ function Home() {
 
     const navigate = useNavigate()
 
-    const getAllPost = async () => {
+    async function getAllPost(){
         const { data, error } = await supabase.from('posts').select().order('created_at', { ascending: false })
 
         if(error){
@@ -55,7 +55,7 @@ function Home() {
             <div className="home">
                 {posts.map((post) => {
                     console.log(post);
-                    return <PostCard key={post.id} postData={post}/>
+                    return <PostCard key={post.id} postData={post} getPosts={getAllPost}/>
                 })}
                 <div className="floatingBtn">
                     <button onClick={(e) => {

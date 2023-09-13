@@ -15,8 +15,8 @@ import PostOptions from "./PostOptions";
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 
-const PostCard = (postData) => {
-    const [post, setPost] = useState(postData);
+const PostCard = (props) => {
+    const [post, setPost] = useState(props.postData);
     const [showEmojis, setShowEmojis] = useState(false)
     // Comments states
     const [showCommentForm, setShowCommentForm] = useState(false)
@@ -41,11 +41,11 @@ const PostCard = (postData) => {
     const user = useSelector(state => state.user.user)
 
 
-    const author = post.postData.author;
-    const postDate = post.postData.date;
-    const postContent = post.postData.content;
-    const user_id = post.postData.user_id;
-    const post_id = post.postData.id
+    const author = post.author;
+    const postDate = post.date;
+    const postContent = post.content;
+    const user_id = post.user_id;
+    const post_id = post.id
 
     const addEmoji = (e) => {
         const sym = e.unified.split("_")
@@ -228,7 +228,7 @@ const PostCard = (postData) => {
         }
     };
 
-    const current_time = post.postData.created_at
+    const current_time = post.created_at
     const timeDiff = calculateTimeDifference(current_time);
 
 
@@ -245,7 +245,7 @@ const PostCard = (postData) => {
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
-                    {showOptions && <PostOptions data={postData} closeOptions={closeOptions}></PostOptions>}
+                    {showOptions && <PostOptions data={post} closeOptions={closeOptions} getPosts={props.getPosts}></PostOptions>}
                 </div>
                 <ToastContainer></ToastContainer>
             </div>
