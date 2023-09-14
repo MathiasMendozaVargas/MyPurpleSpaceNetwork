@@ -31,6 +31,7 @@ const PostCard = (props) => {
     const [dislikes, setDislikes] = useState(null)
     const [nDislikes, setnDislikes] = useState(null)
     const [wasDisliked, setWasDisliked] = useState(false)
+
     // Options Box
     const [showOptions, setShowOptions] = useState(false)
     function closeOptions(){
@@ -39,12 +40,12 @@ const PostCard = (props) => {
 
 
     const user = useSelector(state => state.user.user)
-
+    const user_id = user.id
 
     const author = post.author;
     const postDate = post.date;
     const postContent = post.content;
-    const user_id = post.user_id;
+    const author_id = post.user_id;
     const post_id = post.id
 
     const addEmoji = (e) => {
@@ -95,6 +96,7 @@ const PostCard = (props) => {
             console.log(e); 
         }
     }
+
 
     const getVotes = async (post_id) => {
         try {
@@ -242,10 +244,10 @@ const PostCard = (props) => {
         <div className="post-card">
             <div className="post-card-header">
                 <img className="avatar" src={avatar} alt="" />
-                <span className="spanAuthor"><Link className="userLink" to={'/profile/' + user_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
+                <span className="spanAuthor"><Link className="userLink" to={'/profile/' + author_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
-                    {showOptions && <PostOptions data={post} closeOptions={closeOptions} getPosts={props.getPosts}></PostOptions>}
+                    {showOptions && <PostOptions data={post} closeOptions={closeOptions}></PostOptions>}
                 </div>
                 <ToastContainer></ToastContainer>
             </div>

@@ -11,8 +11,12 @@ function PostOptions(props) {
     let post_data = props.data
 
     const logged_user = useSelector(state => state.user.user)
+    console.log(logged_user);
+    const user_id = logged_user.id
     const [isFriend, setIsFriend] = useState(false)
     const [showEditPost, setShowEditPost] = useState(false)
+    // isSaved state
+    const [isSaved, setIsSaved] = useState(false)
 
     let isAuthor = false
     if(post_data.user_id === logged_user.id){
@@ -120,12 +124,34 @@ function PostOptions(props) {
         }
     };
 
+    const checkIfSaved = async (post_id, user_id) => {
+        try {
+            let {data, e} = await supabase.from('users_data').select().eq('user_id', user_id)
+            if(data){
+                data = data[0]
+                for(let i=0; i<data.savedPosts.length; i++){
+                    console.log(Number(data.savedPosts[i]));
+                    console.log(post_id);
+                    if(Number(data.savedPosts[i]) === Number(post_id)){
+                        setIsSaved(true)
+                    }
+                }
+            }
+            if(e){
+                console.log(e);
+            }           
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     function closeModal(){
         setShowEditPost(false)
     }
 
     useEffect(() => {
         verifyIsFriend(post_data.user_id)
+        checkIfSaved(post_data.id, user_id)
     }, [])
 
 
@@ -140,7 +166,7 @@ function PostOptions(props) {
                         setShowEditPost(true)
                     }}><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
                     <button><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
-                    <button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>
+                    {isSaved ? (<button><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
                 </div>
             </>
         )
@@ -150,10 +176,10 @@ function PostOptions(props) {
             <>
                 <div className="box-connector"></div>
                 <div className="options-post">
-                    <button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>
-                    {isFriend ? (<button onClick={() => {deleteFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-xmark"></i> Delete {post_data.author} from Friends!</p></button>) : (
-                        <button onClick={() => {addFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-plus"></i> Add {post_data.author} as Friend!</p></button>
-                    )}
+                {isSaved ? (<button><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
+                {isFriend ? (<button onClick={() => {deleteFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-xmark"></i> Delete {post_data.author} from Friends!</p></button>) : (
+                    <button onClick={() => {addFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-plus"></i> Add {post_data.author} as Friend!</p></button>
+                )}
                 </div>
             </>
         )
