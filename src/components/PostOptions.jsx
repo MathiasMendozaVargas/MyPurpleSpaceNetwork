@@ -130,8 +130,6 @@ function PostOptions(props) {
             if(data){
                 data = data[0]
                 for(let i=0; i<data.savedPosts.length; i++){
-                    console.log(Number(data.savedPosts[i]));
-                    console.log(post_id);
                     if(Number(data.savedPosts[i]) === Number(post_id)){
                         setIsSaved(true)
                     }
@@ -140,6 +138,29 @@ function PostOptions(props) {
             if(e){
                 console.log(e);
             }           
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const savePost = async (post_id, user_id) => {
+        try {
+            let {data: savedPosts, e: fetchE} = await supabase.from('users_data').select().eq('user_id', user_id)
+            if(fetchE){
+                console.log(fetchE);
+            }
+            if(savedPosts){
+                let {e} = await supabase.from('users_data').update({
+                    savedPosts: [...new Set([...savedPosts, String(post_id)])]
+                }).eq('user_id', user_id)
+                if(e){console.log(e)}
+                else{
+                    await checkIfSaved(post_id, user_id)
+                    toast.success('Post Saved Succesfuly🎉', {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
+                }
+            }
         } catch (e) {
             console.log(e);
         }
@@ -176,7 +197,10 @@ function PostOptions(props) {
             <>
                 <div className="box-connector"></div>
                 <div className="options-post">
-                {isSaved ? (<button><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
+                {isSaved ? (<button><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button onClick={(e) => {
+                    e.preventDefault()
+                    savePost(post_data.id, user_id)
+                }}><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
                 {isFriend ? (<button onClick={() => {deleteFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-xmark"></i> Delete {post_data.author} from Friends!</p></button>) : (
                     <button onClick={() => {addFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-plus"></i> Add {post_data.author} as Friend!</p></button>
                 )}
