@@ -145,18 +145,24 @@ function PostOptions(props) {
 
     const savePost = async (post_id, user_id) => {
         try {
-            let {data: savedPosts, e: fetchE} = await supabase.from('users_data').select().eq('user_id', user_id)
+            let {data: savedPosts, e: fetchE} = await supabase.from('users_data').select("savedPosts").eq('user_id', user_id)
             if(fetchE){
                 console.log(fetchE);
             }
+            
             if(savedPosts){
-                let {e} = await supabase.from('users_data').update({
-                    savedPosts: [...new Set([...savedPosts, String(post_id)])]
+                let updatedSavedPosts = savedPosts[0].savedPosts
+                updatedSavedPosts.push(String(post_id))
+                let {error: updateError} = await supabase.from('users_data').update({
+                    savedPosts: updatedSavedPosts
                 }).eq('user_id', user_id)
-                if(e){console.log(e)}
+
+                if(updateError){
+                    console.log(updateError)
+                }
                 else{
                     await checkIfSaved(post_id, user_id)
-                    toast.success('Post Saved Succesfuly🎉', {
+                    toast.success('Post Saved Successfully🎉', {
                         position: toast.POSITION.TOP_RIGHT
                     })
                 }
@@ -166,6 +172,43 @@ function PostOptions(props) {
         }
     }
 
+    const unSavePost = async (post_id, user_id) => {
+        try {
+            // Fetch the user's data
+            let { data: savedPosts, error: fetchError } = await supabase.from('users_data').select('savedPosts').eq('user_id', user_id);
+    
+            if (fetchError) {
+                console.log(fetchError);
+            }
+    
+            if (savedPosts && savedPosts.length > 0) {
+                // Remove the post_id from the savedPosts array
+                const updatedSavedPosts = savedPosts[0].savedPosts.filter(
+                    (savedPost) => savedPost !== String(post_id)
+                );
+    
+                // Update the user's data with the updated savedPosts array
+                let { error: updateError } = await supabase
+                    .from('users_data')
+                    .update({
+                        savedPosts: updatedSavedPosts,
+                    })
+                    .eq('user_id', user_id);
+    
+                if (updateError) {
+                    console.log(updateError);
+                } else {
+                    await checkIfSaved(post_id, user_id)
+                    toast.success('Post Unsaved Successfully 🎉', {
+                        position: toast.POSITION.TOP_RIGHT,
+                    });
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     function closeModal(){
         setShowEditPost(false)
     }
@@ -173,7 +216,7 @@ function PostOptions(props) {
     useEffect(() => {
         verifyIsFriend(post_data.user_id)
         checkIfSaved(post_data.id, user_id)
-    }, [])
+    })
 
 
     if(isAuthor){
@@ -187,7 +230,13 @@ function PostOptions(props) {
                         setShowEditPost(true)
                     }}><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
                     <button><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
-                    {isSaved ? (<button><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
+                    {isSaved ? (<button onClick={(e) => {
+                        e.preventDefault()
+                        unSavePost(post_data.id, user_id)
+                    }}><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button onClick={(e) => {
+                        e.preventDefault()
+                        savePost(post_data.id, user_id)
+                    }}><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
                 </div>
             </>
         )
@@ -197,7 +246,10 @@ function PostOptions(props) {
             <>
                 <div className="box-connector"></div>
                 <div className="options-post">
-                {isSaved ? (<button><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button onClick={(e) => {
+                {isSaved ? (<button onClick={(e) => {
+                    e.preventDefault()
+                    unSavePost(post_data.id, user_id)
+                }}><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button onClick={(e) => {
                     e.preventDefault()
                     savePost(post_data.id, user_id)
                 }}><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
