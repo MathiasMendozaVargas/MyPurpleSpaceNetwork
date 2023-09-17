@@ -124,6 +124,22 @@ function PostOptions(props) {
         }
     };
 
+    const deletePost = async (post_id, user_id) => {
+        try {
+            const {error} = await supabase.from('posts').delete().eq('id', post_id)
+            if(error){
+                console.log(error);
+            }
+            else{
+                toast.success('Post Deleted Successfully! 🎊',
+                {position: toast.POSITION.TOP_RIGHT})
+                await props.getPosts()
+            }
+        } catch (error) {
+            
+        }
+    }
+
     const checkIfSaved = async (post_id, user_id) => {
         try {
             let {data, e} = await supabase.from('users_data').select().eq('user_id', user_id)
@@ -229,7 +245,10 @@ function PostOptions(props) {
                         e.preventDefault()
                         setShowEditPost(true)
                     }}><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
-                    <button><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
+                    <button onClick={(e)=>{
+                        e.preventDefault()
+                        deletePost(post_data.id, user_id)
+                    }}><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
                     {isSaved ? (<button onClick={(e) => {
                         e.preventDefault()
                         unSavePost(post_data.id, user_id)
