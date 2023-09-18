@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
@@ -14,8 +14,7 @@ import Picker from '@emoji-mart/react'
 
 
 // Login Page Template
-const SavedPostsView = () => {
-
+const SavedPostsView = (props) => {
 
     const navigate = useNavigate()
 
@@ -37,15 +36,32 @@ const SavedPostsView = () => {
     }
 
     // Get all the Saved Posts from the User's metadata and then get the postdata by the post_id
-    
+    const getAllSavedPosts = async (post_id, user_id) => {
+        try {
+            const {data:metadata, error} = await supabase.from('users_data').select().eq("user_id", user_id)
+            if(error){
+                console.log(error);
+            }
+            if(metadata){
+                console.log(metadata);
+                // for(let i=0; i<metadata.length)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     if(!user){
         return null
     }
 
+    useEffect(() => {
+        getAllSavedPosts(props.postData.post_id, user_id)
+    })
+
     return (
         <div className="savedPost-view">
-            <PostCard></PostCard>
+            {/* <PostCard></PostCard> */}
         </div>
     )
 }
