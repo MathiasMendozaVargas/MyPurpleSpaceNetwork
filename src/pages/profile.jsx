@@ -14,6 +14,9 @@ import { useParams } from "react-router-dom";
 // Modals
 import CreatePostModal from "../modals/CreatePostModal";
 
+// Components
+import SavedPostsView from "../components/SavedPostsView";
+
 // assets
 import friendsIcon from '../assets/users-alt.svg'
 import deleteFriendIcon from '../assets/delete-user.webp'
@@ -38,8 +41,12 @@ const Profile = () => {
 
     const [ user_data, set_user_data] = useState(null)
     const [ user_posts, set_user_posts ] = useState(null)
+    const [saved_posts, setSavedPosts] = useState(null)
     const [ isFriend, set_isFriend ] = useState(false)
     const [showCreatePostModal, setShowCreatePostModal] = useState(false)
+    const [showPosts, setShowPosts] = useState(true)
+    const [showSaved, setShowSaved] = useState(false)
+
 
     ////// Get User Metadata //////
     const getUserMetaData = async (current_user_id) => {
@@ -166,6 +173,36 @@ const Profile = () => {
         }
     }
 
+    // Get all the Saved Posts from the User's metadata and then get the postdata by the post_id
+    const getAllSavedPosts = async (user_id) => {
+        try {
+            const {data:metadata, error} = await supabase.from('users_data').select().eq("user_id", user_id)
+            if(error){
+                console.log(error);
+            }
+            if(metadata){
+                let id_list = metadata[0].savedPosts
+                let saved_list = []
+                for(let i=0; i<id_list.length; i++){
+                    try {
+                        let {data, e} = await supabase.from('posts').select().eq('id', Number(id_list[i]))
+                        if(data){
+                            saved_list.push(data[0])
+                        }
+                        if(e){
+                            console.log(e);
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                setSavedPosts(saved_list)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     function closeModal() {
         setShowCreatePostModal(false)
     }
@@ -182,6 +219,8 @@ const Profile = () => {
         // Check relation between current profile with authenticated User
         checkRelation(logged_user.id, profile_id)
 
+        // Get Saved Posts
+        getAllSavedPosts(logged_user.id)
     })
 
 
@@ -220,13 +259,29 @@ const Profile = () => {
                     
                 </div>
                 <div className="profile-content-posts">
-                    { user_posts ? (
-                        user_posts.map((post) => {
-                            return <PostCard key={post.id} postData={post}/>
-                        })
+                    <div className="switcher-menu">
+                        <a onClick={(e) => {e.preventDefault(); setShowPosts(true); setShowSaved(false)}}>My Posts</a>
+                        <a onClick={(e) => {e.preventDefault(); setShowPosts(false); setShowSaved(true)}}>Saved Posts</a>
+                    </div>
+                    {showPosts ? (
+                        user_posts ? (
+                            user_posts.map((post) => {
+                            return <PostCard key={post.id} postData={post} />;
+                            })
+                        ) : (
+                            <h2 style={{ textAlign: 'center', marginTop: '50px' }}>
+                            {user_data.first_name + ' ' + user_data.last_name + " hasn't posted anything!"}
+                            </h2>
+                        )
                     ) : (
-                        <h2 style={{textAlign: 'center', marginTop: '50px'}}>{user_data.first_name + ' ' + user_data.last_name + ' '} hasn't purple anything!</h2>
-                    ) }
+                        showSaved ? (
+                            saved_posts.map((post) => {
+                            return <PostCard key={post.id} postData={post} />;
+                            })
+                        ) : (
+                            <h2 style={{ textAlign: 'center', marginTop: '50px' }}>No Saved Posts Yet!</h2>
+                        )
+                    )}
                     
                 </div>
             </div>

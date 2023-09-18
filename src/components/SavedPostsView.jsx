@@ -44,20 +44,20 @@ const SavedPostsView = (props) => {
             }
             if(metadata){
                 console.log(metadata);
-                // for(let i=0; i<metadata.length)
             }
         } catch (error) {
             console.log(error);
         }
     }
 
+    useEffect(() => {
+        getAllSavedPosts(props.postData.post_id, user_id)
+    }, [])
+
+    
     if(!user){
         return null
     }
-
-    useEffect(() => {
-        getAllSavedPosts(props.postData.post_id, user_id)
-    })
 
     return (
         <div className="savedPost-view">
