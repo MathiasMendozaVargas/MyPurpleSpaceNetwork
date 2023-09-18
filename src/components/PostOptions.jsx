@@ -235,7 +235,7 @@ function PostOptions(props) {
     useEffect(() => {
         verifyIsFriend(post_data.user_id)
         checkIfSaved(post_data.id, user_id)
-    })
+    }, [])
 
 
     if(isAuthor){

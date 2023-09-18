@@ -36,6 +36,9 @@ const SavedPostsView = () => {
         setPostText(postText + emoji)
     }
 
+    // Get all the Saved Posts from the User's metadata and then get the postdata by the post_id
+    
+
     if(!user){
         return null
     }
