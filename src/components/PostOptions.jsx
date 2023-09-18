@@ -82,8 +82,9 @@ function PostOptions(props) {
             }
     
             // Reload the page to reflect the changes
-            window.location.reload();
-            console.log('Friend added successfully.');
+            toast.success('Friend added successfully! 🎊', {
+                position: toast.POSITION.TOP_RIGHT
+            })
         } catch (e) {
             console.error(e);
         }
@@ -113,10 +114,9 @@ function PostOptions(props) {
                 if (updateError) {
                     console.log(updateError);
                 } else {
-                    toast.success('Friend Deleted!', {
+                    toast.success('Friend Deleted! 🗑️', {
                         position: toast.POSITION.TOP_RIGHT
                     });
-                    window.location.reload()
                 }
             }
         } catch (e) {
