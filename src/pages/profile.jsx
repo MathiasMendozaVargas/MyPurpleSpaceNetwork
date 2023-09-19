@@ -259,9 +259,11 @@ const Profile = () => {
                     
                 </div>
                 <div className="profile-content-posts">
-                    <div className="switcher-menu">
-                        <a onClick={(e) => {e.preventDefault(); setShowPosts(true); setShowSaved(false)}}>My Posts</a>
-                        <a onClick={(e) => {e.preventDefault(); setShowPosts(false); setShowSaved(true)}}>Saved Posts</a>
+                    <div className="head-container">
+                        <div className="switcher-menu">
+                            <a className="active-left" onClick={(e) => {e.preventDefault(); setShowPosts(true); setShowSaved(false)}}>My Posts</a>
+                            <a className="active-right" onClick={(e) => {e.preventDefault(); setShowPosts(false); setShowSaved(true)}}>Saved Posts</a>
+                        </div>
                     </div>
                     {showPosts ? (
                         user_posts ? (
