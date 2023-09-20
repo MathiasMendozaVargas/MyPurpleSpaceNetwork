@@ -46,6 +46,7 @@ const Profile = () => {
     const [showCreatePostModal, setShowCreatePostModal] = useState(false)
     const [showPosts, setShowPosts] = useState(true)
     const [showSaved, setShowSaved] = useState(false)
+    const [activeLeft, setActiveLeft] = useState(true)
 
 
     ////// Get User Metadata //////
@@ -221,7 +222,9 @@ const Profile = () => {
 
         // Get Saved Posts
         getAllSavedPosts(logged_user.id)
-    })
+        console.log("Posts" + showPosts);
+        console.log("Saved" + showSaved);
+    }, [])
 
 
     if(!user_data) {
@@ -261,11 +264,21 @@ const Profile = () => {
                 <div className="profile-content-posts">
                     <div className="head-container">
                         <div className="switcher-menu">
-                            <a className="active-left" onClick={(e) => {e.preventDefault(); setShowPosts(true); setShowSaved(false)}}>My Posts</a>
-                            <a className="active-right" onClick={(e) => {e.preventDefault(); setShowPosts(false); setShowSaved(true)}}>Saved Posts</a>
+                            <a className={activeLeft ? ('active-left') : ('')} onClick={(e) => {
+                                e.preventDefault();
+                                setActiveLeft(true)
+                                setShowPosts(true);
+                                setShowSaved(false)
+                            }}>My Posts</a>
+                            <a className={activeLeft ? ('') : ('active-right')} onClick={(e) => {
+                                e.preventDefault();
+                                setActiveLeft(false)
+                                setShowPosts(false);
+                                setShowSaved(true);
+                            }}>Saved Posts</a>
                         </div>
                     </div>
-                    {showPosts ? (
+                    {showPosts && (
                         user_posts ? (
                             user_posts.map((post) => {
                             return <PostCard key={post.id} postData={post} />;
@@ -275,8 +288,9 @@ const Profile = () => {
                             {user_data.first_name + ' ' + user_data.last_name + " hasn't posted anything!"}
                             </h2>
                         )
-                    ) : (
-                        showSaved ? (
+                    )}
+                    {showSaved && (
+                        saved_posts ? (
                             saved_posts.map((post) => {
                             return <PostCard key={post.id} postData={post} />;
                             })

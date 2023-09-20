@@ -837,7 +837,7 @@ code {
   padding-top: 7px;
   text-align: center;
   background-color: transparent;
-  color: white;
+  color: rgb(230, 230, 230);
   font-style: italic;
   font-weight: bolder;
   align-self: center;
@@ -846,11 +846,21 @@ code {
 
 .switcher-menu a:hover{
   color: rgb(228, 228, 228);
+  transform: scale(1.01);
   cursor: pointer;
 }
 
 .switcher-menu .active-left{
   border-radius: 0px 0px 0px 10px;
+  background-color: rgb(91, 11, 91);
+  color: white;
+  border-bottom: 4px solid rgb(180, 15, 180);
+}
+
+.switcher-menu .active-right{
+  border-radius: 0px 0px 10px 0px;
+  color: white;
+  background-color: rgb(91, 11, 91);
   border-bottom: 4px solid rgb(162, 13, 162);
 }
 

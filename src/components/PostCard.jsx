@@ -279,18 +279,6 @@ const PostCard = (props) => {
                             setShowCommentForm(!showCommentForm)
                         }}><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
                     </div>
-                    <div className="reactions-btns">
-                        <button className="left" onClick={() => {
-                            if(!showCommentForm){
-                                setBtnCommentText('Hide Form')
-                            }else{
-                                setBtnCommentText('Write Comment')
-                            }
-                            setShowCommentForm(!showCommentForm)
-                            
-                        }}><i class="fa-solid fa-comment"></i> {btnCommentText}</button>
-                        <button className="right"><i class="fa-solid fa-share"></i> Share</button>
-                    </div>
                 </div>
                 {showCommentForm && <div className="comment-field">
                     <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
