@@ -1330,3 +1330,76 @@ code {
   cursor: pointer;
   background-color: rgb(167, 0, 145);
 }
+
+
+/* Edit Profile Photo Modal */
+.image-upload-container {
+  position: fixed;
+  padding-top: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: purple;
+  border: 2.3px solid rgba(0, 0, 0, 0.739);
+  border-radius: 15px;
+  width: 350px;
+  text-align: center;
+}
+
+.box-decoration {
+  
+  display: inline;
+}
+
+.image-upload-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  height: 10%;
+  color: white;
+}
+
+.image-upload-container input{
+  text-align: center;
+  
+}
+
+.imageBox{
+  margin: 15px 0px 5px 0px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  height: 75%;
+  transform: translateX(-41.4%);
+}
+
+.img-display {
+  height: 70%;
+  max-width: 100%;
+  border: 2px solid rgb(17, 17, 17) !important;
+}
+
+.image-upload-input {
+  display: none;
+}
+
+.uploadPicBtn-container{
+  height: 15%;
+}
+
+.image-upload-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  margin: 1rem 0rem 1.4rem 0rem;
+  cursor: pointer;
+  border-radius: 5px;
+
+}
+
+.image-upload-button:hover {
+  background-color: #3e8e41;
+}
+

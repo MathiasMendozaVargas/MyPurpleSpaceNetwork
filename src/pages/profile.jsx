@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 
 // Modals
 import CreatePostModal from "../modals/CreatePostModal";
+import EditProfilePhoto from "../modals/EditProfilePhoto";
 
 // Components
 import SavedPostsView from "../components/SavedPostsView";
@@ -237,6 +238,7 @@ const Profile = () => {
         <div className="profile">
             <div className="profile-header">
                 <img src={based_profileImg} alt="" />
+                <EditProfilePhoto></EditProfilePhoto>
             </div>
             <div className="profile-content">
                 <div className="profile-content-info">
