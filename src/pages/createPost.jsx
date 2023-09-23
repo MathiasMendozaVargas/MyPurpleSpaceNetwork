@@ -25,7 +25,7 @@ const CreatePost = () => {
 
     // Post References
     const user_id = user.id
-
+ 
     const addEmoji = (e) => {
         const sym = e.unified.split("_")
         const codeArray = []
