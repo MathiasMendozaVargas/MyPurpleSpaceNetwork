@@ -61,7 +61,8 @@ const EditProfilePhoto = () => {
             try {
                 let fileName = file.name
                 let extension = fileName.substring(fileName.lastIndexOf('.') + 1)
-                const {error} = await supabase.storage.from('profile_photos').upload(String(user_id + "." + extension), file)
+                const {data, error} = await supabase.storage
+                  .from('profile_photos').upload(String(user_id + "/profile." + extension), file)
                 if(error){
                     console.log(error);
                 }else{
@@ -102,7 +103,10 @@ const EditProfilePhoto = () => {
                 />
 
                 <div className="uploadPicBtn-container">
-                    <button className="image-upload-button" onClick={handleUploadButtonClick(logged_user.id, image)}>Upload Photo</button>
+                    <button className="image-upload-button" onClick={(e)=>{
+                        e.preventDefault()
+                        handleUploadButtonClick(logged_user.id, image)
+                    }}>Upload Photo</button>
                 </div>
             </div>
         </div>
