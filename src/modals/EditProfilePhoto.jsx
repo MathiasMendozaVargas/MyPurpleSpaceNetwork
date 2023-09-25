@@ -5,9 +5,17 @@
 // libraries
 import { useRef, useState } from "react";
 
+// import media
+import SelectPhoto from '../assets/select_photo.png'
+import { supabase } from "../lib/supabaseClient";
+import { useSelector } from "react-redux";
+
 
 
 const EditProfilePhoto = () => {
+
+    const logged_user = useSelector(state => state.user.user)
+
     const [image, setImage] = useState(null)
 
     const hiddenFileInput = useRef(null);
@@ -48,8 +56,24 @@ const EditProfilePhoto = () => {
         };
     };
     
-    const handleUploadButtonClick = (file) => {
-        console.log(file);
+    const handleUploadButtonClick = async (user_id, file) => {
+        if(user_id === logged_user.id){
+            try {
+                let fileName = file.name
+                let extension = fileName.substring(fileName.lastIndexOf('.') + 1)
+                const {error} = await supabase.storage.from('profile_photos').upload(String(user_id + "." + extension), file)
+                if(error){
+                    console.log(error);
+                }else{
+                    window.location.reload()
+                }
+            } catch (error) {
+                console.log(error);   
+            }
+        }
+        else{
+            console.log("Permission Denied!");
+        }
     };
     
     const handleClick = (event) => {
@@ -66,7 +90,7 @@ const EditProfilePhoto = () => {
                     {image ? (
                         <img src={URL.createObjectURL(image)} className="img-display" />
                     ) : (
-                        <img src="./photo.png" alt="upload image" className="img-display" />
+                        <img src={SelectPhoto} alt="upload image" className="img-display" />
                     )}
                 </div>
                 <input
@@ -78,7 +102,7 @@ const EditProfilePhoto = () => {
                 />
 
                 <div className="uploadPicBtn-container">
-                    <button className="image-upload-button" onClick={handleUploadButtonClick}>Upload Photo</button>
+                    <button className="image-upload-button" onClick={handleUploadButtonClick(logged_user.id, image)}>Upload Photo</button>
                 </div>
             </div>
         </div>

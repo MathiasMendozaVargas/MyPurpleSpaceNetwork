@@ -1377,7 +1377,8 @@ code {
 .img-display {
   height: 70%;
   max-width: 100%;
-  border: 2px solid rgb(17, 17, 17) !important;
+  border: 0px !important;
+  border-radius: 0% !important;
 }
 
 .image-upload-input {
