@@ -749,6 +749,14 @@ code {
   background-repeat: no-repeat;
 }
 
+.profile-header a{
+  color: white;
+  background-color: purple;
+  padding: 3.5px 7px;
+  border-radius: 50%;
+  font-size: 13px;
+}
+
 .profile-header img{
   width: 150px;
   border-radius: 50%;
@@ -1335,7 +1343,6 @@ code {
 /* Edit Profile Photo Modal */
 .image-upload-container {
   position: fixed;
-  padding-top: 20px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -1346,9 +1353,16 @@ code {
   text-align: center;
 }
 
-.box-decoration {
-  
-  display: inline;
+.close-top{
+  width: 100%;
+  text-align: left;
+  padding-top: 3px;
+}
+.close-top a{
+  font-size: 18px;
+  color: black;
+  margin-left: 8px;
+  cursor: pointer;
 }
 
 .image-upload-label {

@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 
 
 
-const EditProfilePhoto = () => {
+const EditProfilePhoto = (props) => {
 
     const logged_user = useSelector(state => state.user.user)
 
@@ -59,10 +59,10 @@ const EditProfilePhoto = () => {
     const handleUploadButtonClick = async (user_id, file) => {
         if(user_id === logged_user.id){
             try {
-                let fileName = file.name
-                let extension = fileName.substring(fileName.lastIndexOf('.') + 1)
-                const {data, error} = await supabase.storage
-                  .from('profile_photos').upload(String(user_id + "/profile." + extension), file)
+                // let fileName = file.name
+                // let extension = fileName.substring(fileName.lastIndexOf('.') + 1)
+                const {error} = await supabase.storage
+                  .from('profile_photos').upload(String(user_id + "/profile"), file)
                 if(error){
                     console.log(error);
                 }else{
@@ -83,6 +83,9 @@ const EditProfilePhoto = () => {
     
     return(
         <div className="image-upload-container">
+            <div className="close-top">
+                <a onClick={props.closeModal}><i class="fa-solid fa-circle-xmark closeUploadModal"></i></a>
+            </div>
             <div className="box-decoration">
                 <label htmlFor="image-upload-input" className="image-upload-label">
                 <i class="fa-solid fa-image"></i> Upload Profile Photo 

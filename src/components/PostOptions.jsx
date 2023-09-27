@@ -171,7 +171,7 @@ function PostOptions(props) {
             
             if(savedPosts){
                 let updatedSavedPosts = savedPosts[0].savedPosts
-                updatedSavedPosts.push(String(post_id))
+                updatedSavedPosts.unshift(String(post_id))
                 let {error: updateError} = await supabase.from('users_data').update({
                     savedPosts: updatedSavedPosts
                 }).eq('user_id', user_id)

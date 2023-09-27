@@ -41,6 +41,7 @@ const Profile = () => {
     const navigate = useNavigate()
 
     const [ user_data, set_user_data] = useState(null)
+    const [profile_photo, setProfilePhoto] = useState(null)
     const [ user_posts, set_user_posts ] = useState(null)
     const [saved_posts, setSavedPosts] = useState(null)
     const [ isFriend, set_isFriend ] = useState(false)
@@ -48,7 +49,7 @@ const Profile = () => {
     const [showPosts, setShowPosts] = useState(true)
     const [showSaved, setShowSaved] = useState(false)
     const [activeLeft, setActiveLeft] = useState(true)
-
+    const [showEditProfilePhoto, setShowEditProfilePhoto] = useState(false)
 
     ////// Get User Metadata //////
     const getUserMetaData = async (current_user_id) => {
@@ -205,8 +206,33 @@ const Profile = () => {
         }
     }
 
-    function closeModal() {
+    const getProfilePhoto = async(profile_id) => {
+        try {
+            let filepath = String(profile_id + '/profile')
+            const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
+            if(data){
+                var http = new XMLHttpRequest()
+                http.open('HEAD', data.publicUrl, true)
+                http.send()
+                console.log(http.status);
+                if((http.status == "403") || (!http)){
+                    setProfilePhoto(null)
+                }
+                else{
+                    setProfilePhoto(data.publicUrl)
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function closeCreatePostModal() {
         setShowCreatePostModal(false)
+    }
+
+    function closeEditProfilePicModal() {
+        setShowEditProfilePhoto(false)
     }
 
 
@@ -217,6 +243,7 @@ const Profile = () => {
 
         // Get User Metadata
         getUserMetaData(profile_id);
+        getProfilePhoto(profile_id)
 
         // Check relation between current profile with authenticated User
         checkRelation(logged_user.id, profile_id)
@@ -237,8 +264,14 @@ const Profile = () => {
         <Navbar />
         <div className="profile">
             <div className="profile-header">
-                <img src={based_profileImg} alt="" />
-                <EditProfilePhoto></EditProfilePhoto>
+                <img src={profile_photo} onError={(e) => {
+                    e.preventDefault()
+                    setProfilePhoto(based_profileImg)
+                }}/>
+                <a onClick={(e)=>{
+                    e.preventDefault()
+                    setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>
+                {showEditProfilePhoto && <EditProfilePhoto closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
             </div>
             <div className="profile-content">
                 <div className="profile-content-info">
@@ -304,7 +337,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-        {showCreatePostModal && <CreatePostModal closeModal={closeModal}></CreatePostModal>}
+        {showCreatePostModal && <CreatePostModal closeModal={closeCreatePostModal}></CreatePostModal>}
         <div className="floatingBtn">
                 <button onClick={(e) => {
                     e.preventDefault()
