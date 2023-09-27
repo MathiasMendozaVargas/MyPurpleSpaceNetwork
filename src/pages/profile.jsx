@@ -206,21 +206,13 @@ const Profile = () => {
         }
     }
 
-    const getProfilePhoto = async(profile_id) => {
+    const getProfilePhoto = (profile_id) => {
         try {
             let filepath = String(profile_id + '/profile')
             const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
             if(data){
-                var http = new XMLHttpRequest()
-                http.open('HEAD', data.publicUrl, true)
-                http.send()
-                console.log(http.status);
-                if((http.status == "403") || (!http)){
-                    setProfilePhoto(null)
-                }
-                else{
-                    setProfilePhoto(data.publicUrl)
-                }
+                console.log(data);
+                setProfilePhoto(data.publicUrl)
             }
         } catch (error) {
             console.log(error);
@@ -264,14 +256,14 @@ const Profile = () => {
         <Navbar />
         <div className="profile">
             <div className="profile-header">
-                <img src={profile_photo} onError={(e) => {
-                    e.preventDefault()
-                    setProfilePhoto(based_profileImg)
+                <img src={profile_photo} onError={()=>{
+                    setProfilePhoto(null)
+                    return based_profileImg
                 }}/>
-                <a onClick={(e)=>{
+                {isLoggedUser && <a onClick={(e)=>{
                     e.preventDefault()
-                    setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>
-                {showEditProfilePhoto && <EditProfilePhoto closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
+                    setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>}
+                {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
             </div>
             <div className="profile-content">
                 <div className="profile-content-info">
