@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import avatar from '../assets/basedProfile.png'
-import moment from "moment/moment";
+import based_profileImg from '../assets/basedProfile.png'
 import { useSelector } from "react-redux";
 import { supabase } from "../lib/supabaseClient";
 import { Link } from 'react-router-dom'
@@ -18,6 +17,7 @@ import Picker from '@emoji-mart/react'
 const PostCard = (props) => {
     const [post, setPost] = useState(props.postData);
     const [showEmojis, setShowEmojis] = useState(false)
+    const [profile_photo, setProfilePhoto] = useState(false)
     // Comments states
     const [showCommentForm, setShowCommentForm] = useState(false)
     const [btnCommentText, setBtnCommentText] = useState('Write Comment')
@@ -199,6 +199,19 @@ const PostCard = (props) => {
         }
     }
 
+    const getProfilePhoto = async (profile_id) => {
+        try {
+            let filepath = String(profile_id + '/profile')
+            const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
+            if(data){
+                console.log(data);
+                setProfilePhoto(data.publicUrl)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const calculateTimeDifference = (timePost) => {
         const startDate = new Date(timePost);
         const currentTime = new Date();
@@ -238,12 +251,16 @@ const PostCard = (props) => {
         getAmountComments(post_id)
         getVotes(post_id)
         checkIfLikedAndDisliked(post_id)
+        getProfilePhoto(author_id)
     }, [])
 
     return (
         <div className="post-card">
             <div className="post-card-header">
-                <img className="avatar" src={avatar} alt="" />
+                <img className="avatar" src={profile_photo} onError={(e)=>{
+                    e.target.src = based_profileImg
+                    e.onError = null
+                }}/>
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + author_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>

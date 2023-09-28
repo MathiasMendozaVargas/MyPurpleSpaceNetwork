@@ -19,6 +19,7 @@ function Comment(data) {
     const [metadata, setMetaData] = useState(null)
     const [isAuthor, setIsAuthor] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
+    const [profile_photo, setProfilePhoto] = useState(null)
 
     const getUserMetaData = async (user_id) => {
         try {
@@ -51,6 +52,19 @@ function Comment(data) {
             }
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    const getProfilePhoto = async (profile_id) => {
+        try {
+            let filepath = String(profile_id + '/profile')
+            const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
+            if(data){
+                console.log(data);
+                setProfilePhoto(data.publicUrl)
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -90,13 +104,17 @@ function Comment(data) {
     useEffect(() => {
         getUserMetaData(data.data.user_id)
         checkifIsAuthor()
+        getProfilePhoto(data.data.user_id)
     }, [])
 
     if(metadata){
         return (
             <div className="comment">
                 <div className="top">
-                    <img className='avatar' src={avatar}/>
+                    <img className='avatar' src={profile_photo} onError={(e)=>{
+                        e.target.src = avatar
+                        e.onError = null
+                    }}/>
                     <h4 className='author'>{metadata.username}</h4>
                     <p className='time'>{time}</p>
                     {isAuthor && <a onClick={() => setModalOpen(true)} className='dltComment'><i class="fa-solid fa-trash"></i></a>}
