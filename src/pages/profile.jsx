@@ -263,7 +263,7 @@ const Profile = () => {
                 {isLoggedUser && <a onClick={(e)=>{
                     e.preventDefault()
                     setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>}
-                {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
+                {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} getProfilePhoto={getProfilePhoto} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
             </div>
             <div className="profile-content">
                 <div className="profile-content-info">

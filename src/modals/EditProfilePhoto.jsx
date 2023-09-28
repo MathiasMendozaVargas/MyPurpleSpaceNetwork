@@ -18,7 +18,8 @@ const EditProfilePhoto = (props) => {
     const logged_user = useSelector(state => state.user.user)
     console.log(props);
 
-    const [image, setImage] = useState(props.profile_photo ? props.profile_photo : null)
+    const [newImage, setNewImage] = useState(null)
+    const [oldImage, setOldImage] = useState(props.profile_photo ? props.profile_photo : null)
 
     const hiddenFileInput = useRef(null);
       
@@ -47,9 +48,8 @@ const EditProfilePhoto = (props) => {
                 type: "image/png",
                 lastModified: Date.now(),
                 });
-    
-                console.log(file);
-                setImage(file);
+
+                setNewImage(file);
             },
             "image/jpeg",
             0.8
@@ -69,7 +69,7 @@ const EditProfilePhoto = (props) => {
                     window.location.reload()
                 }
             } catch (error) {
-                console.log(error);   
+                console.log(error);
             }
         }
         else{
@@ -80,7 +80,7 @@ const EditProfilePhoto = (props) => {
     const handleUpdateButtonClick = async (user_id, new_photo) => {
         if(user_id === logged_user.id){
             try {
-                const {data, e} = await supabase.storage.from('profile_photos')
+                const {e} = await supabase.storage.from('profile_photos')
                   .update(String(user_id + '/profile'), new_photo, {
                     cacheControl: '3600',
                     upsert: true
@@ -90,6 +90,7 @@ const EditProfilePhoto = (props) => {
                         position: toast.POSITION.TOP_RIGHT
                     })
                 }else{
+                    props.getProfilePhoto()
                     toast.success('Profile Photo Updated! 😎',{
                         position: toast.POSITION.TOP_RIGHT
                     })
@@ -118,10 +119,10 @@ const EditProfilePhoto = (props) => {
                 <i class="fa-solid fa-image"></i> Upload Profile Photo 
                 </label>
                 <div onClick={handleClick} className="imageBox">
-                    {image ? (
-                        props.profile_photo ?
-                        (<img src={props.profile_photo} className="img-display" />):
-                        (<img src={URL.createObjectURL(image)} className="img-display" />)
+                    {oldImage ? (
+                        newImage ?
+                        (<img src={URL.createObjectURL(newImage)} className="img-display" />):
+                        (<img src={oldImage} className="img-display" />)
                         
                     ) : (
                         <img src={SelectPhoto} alt="upload image" className="img-display" />
@@ -138,7 +139,7 @@ const EditProfilePhoto = (props) => {
                 <div className="uploadPicBtn-container">
                     <button className="image-upload-button" onClick={(e)=>{
                         e.preventDefault()
-                        {props.profile_photo ? (handleUploadButtonClick(logged_user.id, image)) : (handleUpdateButtonClick(logged_user.id, image))}
+                        {oldImage ? (handleUpdateButtonClick(logged_user.id, newImage)) : (handleUploadButtonClick(logged_user.id, newImage))}
                     }}>Upload Photo</button>
                 </div>
             </div>
