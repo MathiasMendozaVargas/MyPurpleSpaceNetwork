@@ -58,13 +58,15 @@ const EditProfilePhoto = (props) => {
         };
     };
     
-    const handleUploadButtonClick = async (user_id, photo) => {
+    const uploadNewProfilePhoto = async (user_id, photo) => {
         if(user_id === logged_user.id){
             try {
-                const {error} = await supabase.storage
+                const {e} = await supabase.storage
                   .from('profile_photos').upload(String(user_id + "/profile"), photo)
-                if(error){
-                    console.log(error);
+                if(e){
+                    toast.warning(e, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
                 }else{
                     window.location.reload()
                 }
@@ -77,24 +79,16 @@ const EditProfilePhoto = (props) => {
         }
     };
 
-    const handleUpdateButtonClick = async (user_id, new_photo) => {
+    const updateProfilePhoto = async (user_id, new_photo) => {
         if(user_id === logged_user.id){
             try {
-                const {e} = await supabase.storage.from('profile_photos')
-                  .update(String(user_id + '/profile'), new_photo, {
-                    cacheControl: '3600',
-                    upsert: true
-                  })
+                const {e} = await supabase.storage.from('profile_photos').remove(String(user_id + '/profile'))
                 if(e){
                     toast.warning(e, {
                         position: toast.POSITION.TOP_RIGHT
                     })
                 }else{
-                    props.getProfilePhoto()
-                    toast.success('Profile Photo Updated! 😎',{
-                        position: toast.POSITION.TOP_RIGHT
-                    })
-                    window.location.reload()
+                    await uploadNewProfilePhoto(user_id, new_photo)
                 }
             } catch (error) {
                 console.log(error);   
@@ -139,7 +133,7 @@ const EditProfilePhoto = (props) => {
                 <div className="uploadPicBtn-container">
                     <button className="image-upload-button" onClick={(e)=>{
                         e.preventDefault()
-                        {oldImage ? (handleUpdateButtonClick(logged_user.id, newImage)) : (handleUploadButtonClick(logged_user.id, newImage))}
+                        {oldImage ? (updateProfilePhoto(logged_user.id, newImage)) : (uploadNewProfilePhoto(logged_user.id, newImage))}
                     }}>Upload Photo</button>
                 </div>
             </div>

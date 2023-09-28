@@ -206,7 +206,7 @@ const Profile = () => {
         }
     }
 
-    const getProfilePhoto = (profile_id) => {
+    const getProfilePhoto = async (profile_id) => {
         try {
             let filepath = String(profile_id + '/profile')
             const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
@@ -242,9 +242,7 @@ const Profile = () => {
 
         // Get Saved Posts
         getAllSavedPosts(logged_user.id)
-        console.log("Posts" + showPosts);
-        console.log("Saved" + showSaved);
-    }, [])
+    })
 
 
     if(!user_data) {
