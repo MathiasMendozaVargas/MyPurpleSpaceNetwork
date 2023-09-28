@@ -683,11 +683,11 @@ code {
 .newPostPage-body textarea{
   width: 96%;
   height: 60px;
-  background-color: rgba(0, 0, 0, 0.842);
+  background-color: rgb(86, 2, 86);
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   resize: none;
   overflow: hidden;
 }
@@ -696,6 +696,18 @@ code {
   border: none;
   outline: none;
 }
+
+.newPostPage-body .media{
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  margin-left: 2px;
+}
+.newPostPage-body .media img{
+  width: 100%;
+  border-radius: 5px;
+}
+
 
 .extra-btns{
   width: 100%;

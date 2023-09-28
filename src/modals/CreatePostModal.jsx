@@ -14,11 +14,12 @@ import Picker from '@emoji-mart/react'
 const CreatePostModal = (props) => {
 
     const navigate = useNavigate()
-
+    const hiddenFileInput = useRef()
     const user = useSelector(state => state.user.user)
 
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState('')
+    const [images, setImages] = useState(null)
     
 
     // Post References
@@ -79,6 +80,42 @@ const CreatePostModal = (props) => {
         return () => {}
     }
 
+    const handleImageChange = async (event) => {
+        const file = event.target.files[0];
+        const imgname = file.name;
+        
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onloadend = async () => {
+            const img = new Image();
+            img.src = reader.result;
+        
+            img.onload = async () => {
+            const maxSize = Math.max(img.width, img.height);
+            const canvas = document.createElement("canvas");
+            canvas.width = canvas.height = maxSize;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, (maxSize - img.width) / 2, (maxSize - img.height) / 2);
+        
+            const blob = await new Promise((resolve) => {
+                canvas.toBlob(resolve, "image/jpeg", 0.8);
+            });
+        
+            const newFile = new File([blob], imgname, {
+                type: "image/png",
+                lastModified: Date.now(),
+            });
+        
+            setImages(newFile);
+            };
+        };
+    };
+
+    const handleClick = (event) => {
+        hiddenFileInput.current.click();
+    };
+
     if(!user){
         return null
     }
@@ -90,10 +127,23 @@ const CreatePostModal = (props) => {
                 <h2><i class="fa-solid fa-feather"></i> Create your new Purple </h2>
             </div>
             <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
+            {images ? (
+                <div className='media'>
+                    <img src={URL.createObjectURL(images)} className='post-image'></img>
+                </div>
+            ):(null)}
             <div className="extra-btns">
                 <button onClick={() => {setShowEmojis(!showEmojis)}} className="emojis"><i class="fa-solid fa-face-smile"></i></button>
-                <button className='emojis'><i class="fa-solid fa-images"></i></button>
+                <button onClick={handleClick} className='emojis'><i class="fa-solid fa-images"></i></button>
                 <button className='emojis'><i class="fa-solid fa-video"></i></button>
+                <input
+                    id="image-upload-input"
+                    type="file"
+                    onChange={handleImageChange}
+                    ref={hiddenFileInput}
+                    accept="image/*"
+                    style={{ display: "none" }}
+                />
             </div>
             {showEmojis && <div className="emojiPicker">
                 <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />

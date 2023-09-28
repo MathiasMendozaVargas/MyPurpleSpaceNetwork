@@ -23,38 +23,35 @@ const EditProfilePhoto = (props) => {
 
     const hiddenFileInput = useRef(null);
       
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         const file = event.target.files[0];
-        const imgname = event.target.files[0].name;
+        const imgname = file.name;
+        
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onloadend = () => {
-        const img = new Image();
-        img.src = reader.result;
-        img.onload = () => {
-            const canvas = document.createElement("canvas");
+        
+        reader.onloadend = async () => {
+            const img = new Image();
+            img.src = reader.result;
+        
+            img.onload = async () => {
             const maxSize = Math.max(img.width, img.height);
-            canvas.width = maxSize;
-            canvas.height = maxSize;
+            const canvas = document.createElement("canvas");
+            canvas.width = canvas.height = maxSize;
             const ctx = canvas.getContext("2d");
-            ctx.drawImage(
-            img,
-            (maxSize - img.width) / 2,
-            (maxSize - img.height) / 2
-            );
-            canvas.toBlob(
-            (blob) => {
-                const file = new File([blob], imgname, {
+            ctx.drawImage(img, (maxSize - img.width) / 2, (maxSize - img.height) / 2);
+        
+            const blob = await new Promise((resolve) => {
+                canvas.toBlob(resolve, "image/jpeg", 0.8);
+            });
+        
+            const newFile = new File([blob], imgname, {
                 type: "image/png",
                 lastModified: Date.now(),
-                });
-
-                setNewImage(file);
-            },
-            "image/jpeg",
-            0.8
-            );
-        };
+            });
+        
+            setNewImage(newFile);
+            };
         };
     };
     
@@ -127,6 +124,7 @@ const EditProfilePhoto = (props) => {
                     type="file"
                     onChange={handleImageChange}
                     ref={hiddenFileInput}
+                    accept="image/*"
                     style={{ display: "none" }}
                 />
 
