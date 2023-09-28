@@ -1392,7 +1392,7 @@ code {
   height: 70%;
   max-width: 100%;
   border: 0px !important;
-  border-radius: 0% !important;
+  border-radius: 50% !important;
 }
 
 .image-upload-input {
