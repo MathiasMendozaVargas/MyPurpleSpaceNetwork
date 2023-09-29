@@ -120,6 +120,7 @@ function PostOptions(props) {
                     toast.success('Friend Deleted! 🗑️', {
                         position: toast.POSITION.TOP_RIGHT
                     });
+                    window.location.reload()
                 }
             }
         } catch (e) {
@@ -136,10 +137,10 @@ function PostOptions(props) {
             else{
                 toast.success('Post Deleted Successfully! 🎊',
                 {position: toast.POSITION.TOP_RIGHT})
-                await props.getPosts()
+                window.location.reload()
             }
-        } catch (error) {
-            
+        } catch (e) {
+            console.log(e);
         }
     }
 

@@ -59,19 +59,24 @@ const CreatePostModal = (props) => {
 
         const user_meta_data = await getUserMetaData(user.id)
 
-        console.log(user_meta_data);
-
-        const { error } = await supabase.from('posts').insert({
+        const { data:postData, error } = await supabase.from('posts').insert({
             author: user_meta_data.username,
             content: postText,
             user_id: user_id
-        })
+        }).select()
 
         if(error){
             console.log(error);
         }
 
-        if(!error){
+        if(postData){
+            const {data, e} = await supabase.storage.from('post_photos').upload(String(user_id+'/'+postData[0].id+'/0'), images)
+            if(e){
+                console.log(e);
+            }
+            if(data){
+                console.log(data);
+            }
             toast.success("Post created!", {
                 position: toast.POSITION.TOP_RIGHT
             });
