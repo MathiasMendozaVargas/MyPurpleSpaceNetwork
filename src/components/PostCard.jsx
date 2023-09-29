@@ -23,6 +23,8 @@ const PostCard = (props) => {
     const [btnCommentText, setBtnCommentText] = useState('Write Comment')
     const [commentText, setCommentText] = useState('')
     const [nComments, setnComments] = useState(null)
+    // Media States
+    const [images, setImages] = useState(null)
     // likes states
     const [likes, setLikes] = useState(null)
     const [nLikes, setnLikes] = useState(null)
@@ -47,6 +49,7 @@ const PostCard = (props) => {
     const postContent = post.content;
     const author_id = post.user_id;
     const post_id = post.id
+    
 
     const addEmoji = (e) => {
         const sym = e.unified.split("_")
@@ -212,6 +215,20 @@ const PostCard = (props) => {
         }
     }
 
+    const getPostMedia = async(postMedia)=>{
+        if(postMedia){
+            let media = postMedia
+            let new_images = []
+            for(let i=0;i<media.length; i++){
+                const {data:mediaUrl} = supabase.storage.from('post_photos').getPublicUrl(media[i])
+                if(mediaUrl){
+                    new_images.push(mediaUrl)
+                }
+            }
+            setImages(new_images)
+        }
+    }
+
     const calculateTimeDifference = (timePost) => {
         const startDate = new Date(timePost);
         const currentTime = new Date();
@@ -252,6 +269,9 @@ const PostCard = (props) => {
         getVotes(post_id)
         checkIfLikedAndDisliked(post_id)
         getProfilePhoto(author_id)
+        if(post.media){
+            getPostMedia(post.media)
+        };
     }, [])
 
     return (
@@ -274,43 +294,51 @@ const PostCard = (props) => {
                         <p>{postContent}</p>
                     </div>
                 </Link>
-                <div className="reactions">
-                    <div className="likes">
-                        <a onClick={(e) => {
-                            setWasLiked(!wasLiked)
-                            {wasLiked ? (undoVote(post_id, 1)) : (votePost(post_id, 1))}
-                        }}>{wasLiked ? <i class="fa-solid fa-thumbs-up"></i>:<i class="fa-regular fa-thumbs-up"></i>}<p className="nLikes">{nLikes}</p></a>
-                        <a onClick={(e) => {
-                            setWasDisliked(!wasDisliked)
-                            {wasDisliked ? (undoVote(post_id, -1)) : (votePost(post_id, -1))}
-                        }}>{wasDisliked ? <i class="fa-solid fa-thumbs-down"></i>:<i class="fa-regular fa-thumbs-down"></i>}<p className="nLikes">{nDislikes}</p></a>
-                    </div>
-                    <div className="comments">
-                        <a onClick={(e) => {
-                            e.preventDefault()
-                            if(!showCommentForm){
-                                setBtnCommentText('Hide Form')
-                            }else{
-                                setBtnCommentText('Write Comment')
-                            }
-                            setShowCommentForm(!showCommentForm)
-                        }}><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
-                    </div>
-                </div>
-                {showCommentForm && <div className="comment-field">
-                    <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
-                    <div className="btn-comment">
-                        <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
-                        <button onClick={(e) => {
-                            e.preventDefault()
-                            insertNewParentComment(user.id, post_id, commentText)
-                        }} className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
-                    </div>
-                    {showEmojis && <div className="emojiPicker">
-                        <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
-                    </div>}
-                </div>}
             </div>
+            {images && (
+                    <div className="media">
+                        {images.map((src) => {
+                            console.log(src);
+                            return <img className="img-post" src={src.publicUrl}></img>
+                        })}
+                    </div>
+                )}
+            <div className="reactions">
+                <div className="likes">
+                    <a onClick={(e) => {
+                        setWasLiked(!wasLiked)
+                        {wasLiked ? (undoVote(post_id, 1)) : (votePost(post_id, 1))}
+                    }}>{wasLiked ? <i class="fa-solid fa-thumbs-up"></i>:<i class="fa-regular fa-thumbs-up"></i>}<p className="nLikes">{nLikes}</p></a>
+                    <a onClick={(e) => {
+                        setWasDisliked(!wasDisliked)
+                        {wasDisliked ? (undoVote(post_id, -1)) : (votePost(post_id, -1))}
+                    }}>{wasDisliked ? <i class="fa-solid fa-thumbs-down"></i>:<i class="fa-regular fa-thumbs-down"></i>}<p className="nLikes">{nDislikes}</p></a>
+                </div>
+                <div className="comments">
+                    <a onClick={(e) => {
+                        e.preventDefault()
+                        if(!showCommentForm){
+                            setBtnCommentText('Hide Form')
+                        }else{
+                            setBtnCommentText('Write Comment')
+                        }
+                        setShowCommentForm(!showCommentForm)
+                    }}><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
+                </div>
+            </div>
+            {showCommentForm && <div className="comment-field">
+                <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
+                <div className="btn-comment">
+                    <button onClick={() => {setShowEmojis(!showEmojis)}} className="extra-content-btn"><i class="fa-solid fa-face-smile"></i></button>
+                    <button onClick={(e) => {
+                        e.preventDefault()
+                        insertNewParentComment(user.id, post_id, commentText)
+                    }} className="postCommentBtn"><i class="fa-solid fa-paper-plane"></i>Post</button>
+                </div>
+                {showEmojis && <div className="emojiPicker">
+                    <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
+                </div>}
+            </div>}
         </div>
     )
 }
