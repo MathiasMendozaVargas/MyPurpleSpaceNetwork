@@ -70,26 +70,29 @@ const CreatePostModal = (props) => {
         }
 
         if(postData){
-            const {data:mediaPath, e} = await supabase.storage.from('post_photos').upload(String(user_id+'/'+postData[0].id+'/0'), images)
-            if(e){
-                console.log(e);
-            }
-            if(mediaPath){
-                let new_media = []
-                new_media.push(mediaPath.path)
-                const {e} = await supabase.from('posts').update({
-                    media: new_media
-                }).eq('id', postData[0].id)
+            if(images){
+                const {data:mediaPath, e} = await supabase.storage.from('post_photos').upload(String(user_id+'/'+postData[0].id+'/0'), images)
                 if(e){
                     console.log(e);
                 }
-                else{
-                    console.log("Updated!");
+                if(mediaPath){
+                    let new_media = []
+                    new_media.push(mediaPath.path)
+                    const {e} = await supabase.from('posts').update({
+                        media: new_media
+                    }).eq('id', postData[0].id)
+                    if(e){
+                        console.log(e);
+                    }
+                    else{
+                        console.log("Updated!");
+                    }
                 }
             }
             toast.success("Post created!", {
                 position: toast.POSITION.TOP_RIGHT
             });
+            window.location.reload()
         }
 
         return () => {}
