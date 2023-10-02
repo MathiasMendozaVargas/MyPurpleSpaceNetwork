@@ -59,6 +59,8 @@ const PostCard = (props) => {
         setCommentText(commentText + emoji)
     }
 
+    console.log(props);
+
 
     const insertNewParentComment = async (user_id, post_id, comment) => {
         const { error } = await supabase.from('comments').insert({
@@ -207,7 +209,6 @@ const PostCard = (props) => {
             let filepath = String(profile_id + '/profile')
             const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
             if(data){
-                console.log(data);
                 setProfilePhoto(data.publicUrl)
             }
         } catch (error) {

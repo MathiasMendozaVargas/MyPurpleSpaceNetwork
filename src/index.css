@@ -21,6 +21,7 @@ code {
 .navbar{
   position: fixed;
   top: 0%;
+  z-index: 1;
   width: 100%;
   color: rgb(224, 224, 224);
   background-color: purple;
@@ -679,6 +680,7 @@ code {
 
 .media-selected{
   height: 70vh !important;
+  padding: 0px 12px 15px 13px !important;
 }
 
 /* custom scrollbar */
@@ -693,7 +695,7 @@ code {
 ::-webkit-scrollbar-thumb {
   background-color: #d6dee1;
   border-radius: 20px;
-  border: 6px solid transparent;
+  border: 5px solid transparent;
   background-clip: content-box;
 }
 
@@ -880,6 +882,7 @@ code {
 .profile-content-posts{
   width: 70%;
 }
+
 
 .head-container{
   width: 100%;

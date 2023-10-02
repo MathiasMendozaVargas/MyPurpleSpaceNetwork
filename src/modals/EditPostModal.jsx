@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
@@ -15,12 +15,12 @@ const EditPostModal = (props) => {
 
     console.log(props);
 
-    const navigate = useNavigate()
-
+    const hiddenFileInput = useRef()
     const user = useSelector(state => state.user.user)
 
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState(props.postData.content)
+    const [images, setImages] = useState(null)
     
 
     // Post References
@@ -32,6 +32,22 @@ const EditPostModal = (props) => {
         sym.forEach((el) => codeArray.push("0x" + el))
         let emoji = String.fromCodePoint(...codeArray)
         setPostText(postText + emoji)
+    }
+    console.log(props.postData.media[0]);
+
+    const getPostMedia = async (media) => {
+        // work on multi media later
+        try {
+            const {data, e} = supabase.storage.from('post_photos').getPublicUrl(String(media))
+            if(e){
+                console.log(e);
+            }
+            if(data){
+                setImages(data.publicUrl)
+            }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const getUserMetaData = async (current_user_id) => {
@@ -78,25 +94,80 @@ const EditPostModal = (props) => {
             });
             props.closeModal()
             props.closeOptions()
-        }
-        
+        }   
     }
+
+    const handleImageChange = async (event) => {
+        const file = event.target.files[0];
+        const imgname = file.name;
+        
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        
+        reader.onloadend = async () => {
+            const img = new Image();
+            img.src = reader.result;
+        
+            img.onload = async () => {
+            const maxSize = Math.max(img.width, img.height);
+            const canvas = document.createElement("canvas");
+            canvas.width = canvas.height = maxSize;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, (maxSize - img.width) / 2, (maxSize - img.height) / 2);
+        
+            const blob = await new Promise((resolve) => {
+                canvas.toBlob(resolve, "image/jpeg", 0.8);
+            });
+        
+            const newFile = new File([blob], imgname, {
+                type: "image/png",
+                lastModified: Date.now(),
+            });
+        
+            setImages(newFile);
+            };
+        };
+    };
+
+    const handleClick = (event) => {
+        hiddenFileInput.current.click();
+    };
+
+    useEffect(()=>{
+        if(props.postData.media[0]){
+            getPostMedia(props.postData.media[0])
+        }
+    }, [])
 
     if(!user){
         return null
     }
 
     return (
-        <div className='newPostPage-body'>
+        <div className={images ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
             <div className="header-card">
                 <a onClick={props.closeModal}><i class="fa-solid fa-circle-xmark"></i></a>
-                <h2><i class="fa-solid fa-feather"></i> Edit your Purple</h2>
+                <h2><i class="fa-solid fa-feather"></i> Edit your purple </h2>
             </div>
             <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
+            {images ? (
+                <div className='media'>
+                    <a onClick={(e)=>{e.preventDefault(); setImages(null)}}><i class="fa-solid fa-circle-xmark"></i></a>
+                    <img src={images} className='post-image'></img>
+                </div>
+            ):(null)}
             <div className="extra-btns">
                 <button onClick={() => {setShowEmojis(!showEmojis)}} className="emojis"><i class="fa-solid fa-face-smile"></i></button>
-                <button className='emojis'><i class="fa-solid fa-images"></i></button>
+                <button onClick={handleClick} className='emojis'><i class="fa-solid fa-images"></i></button>
                 <button className='emojis'><i class="fa-solid fa-video"></i></button>
+                <input
+                    id="image-upload-input"
+                    type="file"
+                    onChange={handleImageChange}
+                    ref={hiddenFileInput}
+                    accept="image/*"
+                    style={{ display: "none" }}
+                />
             </div>
             {showEmojis && <div className="emojiPicker">
                 <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
@@ -104,7 +175,7 @@ const EditPostModal = (props) => {
             <button className='postBtn' style={{fontStyle: 'italic'}} onClick={(e) => {
                 e.preventDefault();
                 editPost()
-            } }><i class="fa-solid fa-paper-plane"></i> Edit Purple</button>
+            } }><i class="fa-solid fa-paper-plane"></i> Post Purple</button>
         </div>
     )
 }

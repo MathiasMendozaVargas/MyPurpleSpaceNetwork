@@ -9,10 +9,8 @@ import EditPostModal from '../modals/EditPostModal';
 
 function PostOptions(props) {
     let post_data = props.data
-    console.log(props);
 
     const logged_user = useSelector(state => state.user.user)
-    console.log(logged_user);
     const user_id = logged_user.id
     const [isFriend, setIsFriend] = useState(false)
     const [showEditPost, setShowEditPost] = useState(false)
