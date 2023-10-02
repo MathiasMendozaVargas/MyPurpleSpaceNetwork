@@ -663,13 +663,39 @@ code {
   position: fixed;
   top: 50%;
   left: 50%;
+  width: 100%;
+  z-index: 1;
+  overflow-y: auto;
   transform: translate(-50%, -50%);
   margin: auto auto;
   padding: 0px 22px 15px 13px;
   border-radius: 10px;
   background-color: rgb(139, 5, 139);
   box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.857);
-  width: 60%;
+}
+
+.media-selected{
+  height: 70vh !important;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: purple;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }
 
 .newPostPage-body{
