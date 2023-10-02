@@ -14,12 +14,13 @@ import Picker from '@emoji-mart/react'
 const EditPostModal = (props) => {
 
     console.log(props);
+    let postData = props.postData.postData
 
     const hiddenFileInput = useRef()
     const user = useSelector(state => state.user.user)
 
     const [showEmojis, setShowEmojis] = useState(false)
-    const [postText, setPostText] = useState(props.postData.content)
+    const [postText, setPostText] = useState(postData.content)
     const [images, setImages] = useState(null)
     
 
@@ -33,7 +34,7 @@ const EditPostModal = (props) => {
         let emoji = String.fromCodePoint(...codeArray)
         setPostText(postText + emoji)
     }
-    console.log(props.postData.media[0]);
+    console.log(postData.media[0]);
 
     const getPostMedia = async (media) => {
         // work on multi media later
@@ -76,25 +77,43 @@ const EditPostModal = (props) => {
 
         const user_meta_data = await getUserMetaData(user.id)
 
-        console.log(user_meta_data);
-
-        const { error } = await supabase.from('posts').update({
+        const { data:postData, error } = await supabase.from('posts').insert({
             author: user_meta_data.username,
             content: postText,
             user_id: user_id
-        }).eq('id', props.postData.id)
+        }).select()
 
         if(error){
             console.log(error);
-            
         }
-        if(!error){
+
+        if(postData){
+            if(images){
+                const {data:mediaPath, e} = await supabase.storage.from('post_photos').update(String(user_id+'/'+postData[0].id+'/0'), images)
+                if(e){
+                    console.log(e);
+                }
+                if(mediaPath){
+                    let new_media = []
+                    new_media.push(mediaPath.path)
+                    const {e} = await supabase.from('posts').update({
+                        media: new_media
+                    }).eq('id', postData[0].id)
+                    if(e){
+                        console.log(e);
+                    }
+                    else{
+                        console.log("Updated!");
+                    }
+                }
+            }
             toast.success("Post updated!", {
                 position: toast.POSITION.TOP_RIGHT
             });
-            props.closeModal()
-            props.closeOptions()
-        }   
+            window.location.reload()
+        }
+
+        return () => {}
     }
 
     const handleImageChange = async (event) => {
@@ -134,8 +153,8 @@ const EditPostModal = (props) => {
     };
 
     useEffect(()=>{
-        if(props.postData.media[0]){
-            getPostMedia(props.postData.media[0])
+        if(postData.media[0]){
+            getPostMedia(postData.media[0])
         }
     }, [])
 
@@ -146,7 +165,7 @@ const EditPostModal = (props) => {
     return (
         <div className={images ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
             <div className="header-card">
-                <a onClick={props.closeModal}><i class="fa-solid fa-circle-xmark"></i></a>
+                <a onClick={props.closeEditPostModal}><i class="fa-solid fa-circle-xmark"></i></a>
                 <h2><i class="fa-solid fa-feather"></i> Edit your purple </h2>
             </div>
             <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>

@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 // Components
 import PostOptions from "./PostOptions";
 
+// modals
+import EditPostModal from '../modals/EditPostModal';
+
 
 // Emoji Picker
 import data from '@emoji-mart/data'
@@ -33,6 +36,8 @@ const PostCard = (props) => {
     const [dislikes, setDislikes] = useState(null)
     const [nDislikes, setnDislikes] = useState(null)
     const [wasDisliked, setWasDisliked] = useState(false)
+
+    const [showEditPost, setShowEditPost] = useState(false)
 
     // Options Box
     const [showOptions, setShowOptions] = useState(false)
@@ -264,6 +269,14 @@ const PostCard = (props) => {
     const current_time = post.created_at
     const timeDiff = calculateTimeDifference(current_time);
 
+    function closeEditPostModal(){
+        setShowEditPost(false)
+    }
+
+    function openEditPostModal(){
+        setShowEditPost(true)
+    }
+
 
     useEffect(() => {
         getAmountComments(post_id)
@@ -285,7 +298,8 @@ const PostCard = (props) => {
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + author_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
-                    {showOptions && <PostOptions data={post} closeOptions={closeOptions}></PostOptions>}
+                    {showEditPost && <EditPostModal postData={props} closeEditPostModal={closeEditPostModal}></EditPostModal>}
+                    {showOptions && <PostOptions data={post} openEditPostModal={openEditPostModal} closeEditPostModal={closeEditPostModal} closeOptions={closeOptions}></PostOptions>}
                 </div>
                 <ToastContainer></ToastContainer>
             </div>

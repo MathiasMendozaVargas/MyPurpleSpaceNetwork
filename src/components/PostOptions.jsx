@@ -13,7 +13,6 @@ function PostOptions(props) {
     const logged_user = useSelector(state => state.user.user)
     const user_id = logged_user.id
     const [isFriend, setIsFriend] = useState(false)
-    const [showEditPost, setShowEditPost] = useState(false)
     // isSaved state
     const [isSaved, setIsSaved] = useState(false)
 
@@ -227,10 +226,6 @@ function PostOptions(props) {
         }
     };
 
-    function closeModal(){
-        setShowEditPost(false)
-    }
-
     useEffect(() => {
         verifyIsFriend(post_data.user_id)
         checkIfSaved(post_data.id, user_id)
@@ -240,12 +235,12 @@ function PostOptions(props) {
     if(isAuthor){
         return (
             <>
-                {showEditPost && <EditPostModal postData={post_data} getPosts={props.getPosts} closeModal={closeModal} closeOptions={props.closeOptions}></EditPostModal>}
                 <div className="box-connector"></div>
                 <div className="options-post">
                     <button onClick={(e) => {
                         e.preventDefault()
-                        setShowEditPost(true)
+                        props.openEditPostModal()
+                        props.closeOptions()
                     }}><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
                     <button onClick={(e)=>{
                         e.preventDefault()
