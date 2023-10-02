@@ -147,6 +147,7 @@ const CreatePostModal = (props) => {
             <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
             {images ? (
                 <div className='media'>
+                    <a onClick={(e)=>{e.preventDefault(); setImages(null)}}><i class="fa-solid fa-circle-xmark"></i></a>
                     <img src={URL.createObjectURL(images)} className='post-image'></img>
                 </div>
             ):(null)}

@@ -488,6 +488,13 @@ code {
   width: 100%;
 }
 
+.media a{
+  position: fixed;
+  color: rgba(255, 255, 255, 0.224);
+  margin: 3px 0px 0px 5px;
+  cursor: pointer;
+}
+
 .post-card .media img{
   width: 100%;
 }
@@ -630,10 +637,6 @@ code {
   cursor: pointer;
 }
 
-.emojiPicker{
-  position: absolute;
-
-}
 
 .btn-comment .postCommentBtn{
   height: 22px;
