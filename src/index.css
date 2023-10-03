@@ -1,13 +1,10 @@
-
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Saira+Condensed&display=swap');
-
 
 body {
   margin: 0;
   background-color: black;
   font-family: 'Poppins', sans-serif;
-font-family: 'Saira Condensed', sans-serif;
+  font-family: 'Saira Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -18,57 +15,59 @@ code {
 }
 
 /* Navbar */
-.navbar{
+.navbar {
   position: fixed;
   top: 0%;
   z-index: 1;
   width: 100%;
   color: rgb(224, 224, 224);
   background-color: purple;
-  display: inline-flex;
+  display: flex;
   align-items: center;
 }
 
-
-.navbar-brand{
+.navbar-brand {
   width: 30%;
   padding-left: 17px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
 }
-.navbar-brand .logo{
+
+.navbar-brand .logo {
   width: 42px;
   margin-right: 7px;
 }
-.navbar-brand span{
+
+.navbar-brand span {
   font-weight: 600;
   font-size: 20px;
   font-style: italic;
 }
 
-.navbar-nav{
+.navbar-nav {
   width: 70%;
-  justify-content: right;
+  justify-content: flex-end;
   text-align: right;
-  display: inline-flex;
+  display: flex;
   margin-right: 15px;
 }
 
-.navbar-nav li{
+.navbar-nav li {
   margin-right: 20px;
   list-style: none;
   font-weight: 600;
   font-style: italic;
   font-size: 16px;
 }
-.navbar-nav li a{  
+
+.navbar-nav li a {
   color: rgb(224, 224, 224);
   text-decoration: none;
   position: relative;
   padding-bottom: 2px;
 }
 
-.navbar-nav li a:after {    
+.navbar-nav li a:after {
   background: none repeat scroll 0 0 transparent;
   bottom: 0;
   content: "";
@@ -80,14 +79,57 @@ code {
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
-.navbar-nav li a:hover:after { 
-  width: 100%; 
-  left: 0; 
+
+.navbar-nav li a:hover:after {
+  width: 100%;
+  left: 0;
 }
 
-.navbar-nav i{
+.navbar-nav i {
   margin-right: 2px;
   color: black;
+}
+
+/* Media queries for responsive design */
+
+/* Tablets and larger mobile devices */
+@media (max-width: 768px) {
+  .navbar-brand {
+    width: 50%;
+  }
+
+  .navbar-brand span {
+    font-size: 18px;
+  }
+
+  .navbar-nav {
+    width: 50%;
+  }
+
+  .navbar-nav li {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 576px) {
+  .navbar-brand {
+    width: 70%;
+  }
+
+  .navbar-brand span {
+    font-size: 16px;
+  }
+
+  .navbar-nav {
+    width: 70%;
+  }
+
+  .navbar-nav li {
+    font-size: 12px;
+    margin-right: 5px;
+  }
 }
 
 
@@ -166,7 +208,7 @@ code {
 
 
 /* Login Page */
-.loginPage{
+.loginPage {
   width: 100%;
   height: 90vh;
   margin-top: 57px;
@@ -176,21 +218,22 @@ code {
   color: whitesmoke;
 }
 
-.loginPage-header{
+.loginPage-header {
   text-align: center;
   padding-top: 50px;
 }
 
-.loginPage-header h1{
+.loginPage-header h1 {
   font-size: 40px;
   font-style: italic;
   margin-bottom: 0px;
 }
-.loginPage-header h3{
-  margin-top: 5px;  
+
+.loginPage-header h3 {
+  margin-top: 5px;
 }
 
-.loginPage-login{
+.loginPage-login {
   margin: auto auto;
   padding: 16px 22px 10px 12px;
   border-radius: 10px;
@@ -199,12 +242,12 @@ code {
   width: 300px;
 }
 
-.loginPage-login form{
+.loginPage-login form {
   width: 100%;
   display: block;
 }
 
-.loginPage-login form input{
+.loginPage-login form input {
   width: 100%;
   height: 28px;
   padding-left: 10px;
@@ -216,12 +259,12 @@ code {
   margin-bottom: 10px;
 }
 
-.loginPage-login form input:focus{
+.loginPage-login form input:focus {
   border: none;
   outline: none;
 }
 
-.loginPage-login form textarea{
+.loginPage-login form textarea {
   width: 96%;
   height: 100px;
   background-color: rgba(0, 0, 0, 0.842);
@@ -231,13 +274,12 @@ code {
   padding: 10px;
 }
 
-.loginPage-login form textarea:focus{
+.loginPage-login form textarea:focus {
   border: none;
   outline: none;
 }
 
-
-.forgotLink{
+.forgotLink {
   text-align: right;
   margin-bottom: 5px;
   width: 100%;
@@ -246,31 +288,31 @@ code {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.showPasswordDiv{
+.showPasswordDiv {
   width: 100%;
   display: inline-flex;
   align-items: center;
 }
 
-.showPasswordBox{
+.showPasswordBox {
   width: 100%;
   display: inline-flex;
   align-items: center;
 }
 
-.loginPage-login .showPasswordDiv input{
+.loginPage-login .showPasswordDiv input {
   width: 16px;
   height: 16px;
   margin-left: 5px;
 }
 
-.loginPage-login .showPasswordDiv p{
+.loginPage-login .showPasswordDiv p {
   text-align: left;
   margin-top: 6px;
   font-size: 13px;
 }
 
-.loginPage-login form button{
+.loginPage-login form button {
   margin-left: 5px;
   width: 100%;
   padding: 7px 0px;
@@ -283,57 +325,84 @@ code {
   margin-top: 7px;
 }
 
-.loginPage-login form button:hover{
+.loginPage-login form button:hover {
   cursor: pointer;
   background-color: rgb(19, 19, 19);
 }
 
-.dontAccount{
+.dontAccount {
   width: 100%;
   text-align: center;
   margin-top: 8px;
   font-size: 13px;
 }
-.dontAccountLink{
+
+.dontAccountLink {
   margin-left: 5px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11.5px;
 }
 
-.age-and-age-div{
+.age-and-age-div {
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
   padding-left: 5px;
   margin: 4px 0px 5px 0px;
 }
-.age-and-age-div select{
+
+.age-and-age-div select {
   background-color: black;
   color: gray;
   border: none;
   border-radius: 5px;
   padding: 6px 6px 6px 6px;
 }
-.age-and-age-div select:focus{
+
+.age-and-age-div select:focus {
   outline: none;
   border: none;
 }
 
+/* Media Queries for Responsive Design */
+
+/* For tablets and smaller screens */
+@media screen and (max-width: 768px) {
+  .loginPage {
+    margin-top: 0;
+    height: 100vh;
+  }
+
+  .loginPage-login {
+    width: 90%;
+  }
+}
+
+/* For mobile devices */
+@media screen and (max-width: 576px) {
+  .loginPage-header h1 {
+    font-size: 30px;
+  }
+
+  .loginPage-login {
+    width: 90%;
+  }
+}
 
 /* Home Section */
-.home{
+.home {
   margin-top: 57px;
   padding: 35px 0px;
   background-color: rgb(15, 15, 15);
 }
 
-.floatingBtn{
+.floatingBtn {
   position: fixed;
   top: 86vh;
   left: 92vw;
 }
 
-.floatingBtn button{
+.floatingBtn button {
   width: 100%;
   height: 100%;
   width: 50px;
@@ -345,16 +414,43 @@ code {
   font-size: 20px;
   transition: all 0.6s;
 }
-.floatingBtn button:hover{
+
+.floatingBtn button:hover {
   cursor: pointer;
   background-color: rgb(160, 0, 160);
   transform: scale(1.09);
 }
 
+/* Media Queries for Responsive Design */
+
+/* For tablets and smaller screens */
+@media screen and (max-width: 768px) {
+  .home {
+    padding: 20px 0px;
+  }
+  .floatingBtn {
+    left: 85vw;
+  }
+}
+
+/* For mobile devices */
+@media screen and (max-width: 576px) {
+  .home {
+    padding: 15px 0px;
+  }
+  .floatingBtn {
+    left: 80vw;
+  }
+  .floatingBtn button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
 
 /* Post Card Styles */
-
-.post-card{
+.post-card {
   color: whitesmoke;
   background-color: purple;
   box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.375);
@@ -363,7 +459,8 @@ code {
   margin: auto auto;
   margin-bottom: 20px;
 }
-.post-card-header{
+
+.post-card-header {
   width: 100%;
   padding-top: 5px;
   display: inline-flex;
@@ -371,22 +468,22 @@ code {
   padding: 0px 5px;
 }
 
-.post-card-header .avatar{
+.post-card-header .avatar {
   width: 50px;
   border-radius: 50px;
   margin-right: 10px;
 }
 
-.spanAuthor{
+.spanAuthor {
   display: inline;
   padding-top: 5px;
 }
 
-.spanAuthor .userLink{
+.spanAuthor .userLink {
   text-decoration: none;
 }
 
-.post-author{
+.post-author {
   width: fit-content;
   color: whitesmoke;
   font-style: italic;
@@ -396,8 +493,7 @@ code {
   text-decoration: none;
 }
 
-
-.post-card-header p{
+.post-card-header p {
   margin-top: 0px;
   margin-right: 5px;
   font-size: 12px;
@@ -405,35 +501,34 @@ code {
   font-style: italic;
 }
 
-.right-postCard{
+.right-postCard {
   margin-left: auto;
   margin-top: -30px;
 }
 
-.optionsBtn{
+.optionsBtn {
   color: white;
   margin-bottom: 45px;
   margin-right: 15px;
   padding: 0px 5px 0px 5px;
 }
 
-.optionsBtn:hover{
+.optionsBtn:hover {
   background-color: rgba(255, 255, 255, 0.26);
   border-radius: 50%;
   cursor: pointer;
-  
 }
 
-.box-connector{
+.box-connector {
   width: 0px;
   height: 0px;
   margin-left: 12px;
-  border-bottom: 10px solid rgb(158, 17, 158); 
+  border-bottom: 10px solid rgb(158, 17, 158);
   border-left: 0px solid transparent;
   border-right: 15px solid transparent;
 }
 
-.options-post{
+.options-post {
   position: absolute;
   display: inline-block;
   background-color: rgb(158, 17, 158);
@@ -444,7 +539,7 @@ code {
   border-radius: 0px 15px 15px 15px !important;
 }
 
-.options-post button{
+.options-post button {
   width: 100%;
   background-color: transparent;
   border: none;
@@ -452,41 +547,68 @@ code {
   padding: 10px;
 }
 
-.options-post button:hover{
+.options-post button:hover {
   cursor: pointer;
   background-color: rgb(177, 20, 177);
 }
 
-.options-post button:first-child{
+.options-post button:first-child {
   border-radius: 0px 15px 0px 0px;
 }
 
-.options-post button:last-child{
+.options-post button:last-child {
   border-radius: 0px 0px 15px 15px;
 }
 
-
-.options-post p{
+.options-post p {
   margin: 0 !important;
   width: 100%;
   color: white;
 }
 
-.options-post i{
+.options-post i {
   margin-right: 5px;
 }
 
-.post-card-body{
+.post-card-body {
   padding: 0px 8px;
 }
 
-.post-card-body p{
+.post-card-body p {
   margin-top: 0px;
   margin-bottom: 10px;
 }
 
-.post-card .media{
+.post-card .media {
   width: 100%;
+}
+
+/* Media Queries for Responsive Design */
+
+/* For tablets and smaller screens */
+@media screen and (max-width: 768px) {
+  .post-card {
+    width: 70%;
+  }
+  .post-card-header .avatar {
+    width: 40px;
+  }
+  .post-card-header p {
+    font-size: 10px;
+  }
+}
+
+/* For mobile devices */
+@media screen and (max-width: 576px) {
+  .post-card {
+    width: 90%;
+  }
+  .post-card-header .avatar {
+    width: 30px;
+  }
+  .post-card-header p {
+    font-size: 8px;
+  }
 }
 
 .media a{
@@ -1140,18 +1262,18 @@ code {
 }
 
 /* Friends Page */
-.friends{
+.friends {
   width: 100%;
   text-align: center;
   background-color: black;
 }
 
-.container{
+.container {
   padding: 50px;
 }
 
-.header{
-  height: auto !important ;
+.header {
+  height: auto !important;
   width: 100%;
   text-align: left;
   color: white;
@@ -1159,19 +1281,20 @@ code {
   align-items: center;
   margin-top: 10px;
 }
-.header i{
+
+.header i {
   font-size: 28px;
   color: white !important;
   margin-right: 10px;
 }
 
-.body{
+.body {
   width: 100%;
   margin: auto auto;
   display: inline;
 }
 
-.friend-card{
+.friend-card {
   width: 80%;
   height: 100px;
   box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.514);
@@ -1182,38 +1305,38 @@ code {
   border-radius: 5px;
 }
 
-.friend-card img{
+.friend-card img {
   width: 15%;
   height: 99%;
   border-radius: 5px 0px 0px 5px;
 }
 
-.friend-info{
+.friend-info {
   width: 35%;
   text-align: left;
   margin-left: 20px;
   display: inline;
 }
 
-.friend-info .fullName{
+.friend-info .fullName {
   color: white;
   font-size: 20px;
   margin-bottom: -17px !important;
 }
 
-.friend-info .username{
+.friend-info .username {
   font-size: 14px;
   color: rgb(237, 237, 237);
 }
 
-.friends-btns{
+.friends-btns {
   width: 50%;
   text-align: right;
   padding-top: 14px;
   padding-right: 15px;
 }
 
-.friends-btns .deleteBtn{
+.friends-btns .deleteBtn {
   height: 28px;
   font-size: 60%;
   text-align: center;
@@ -1223,14 +1346,56 @@ code {
   border: 1.6px solid rgba(80, 80, 80, 0.697);
 }
 
-.friends-btns .deleteBtn:hover{
+.friends-btns .deleteBtn:hover {
   background-color: rgb(211, 0, 0);
   cursor: pointer;
-  transition: all ease-in-out 0.2s;   /*ease in out*/
+  transition: all ease-in-out 0.2s;
 }
 
-.friends-btns .deleteBtn i{
+.friends-btns .deleteBtn i {
   margin-right: 5px;
+}
+
+/* Media Queries for Responsive Design */
+
+/* For tablets and smaller screens */
+@media screen and (max-width: 768px) {
+  .friend-card {
+    width: 90%;
+  }
+}
+
+/* For mobile devices */
+@media screen and (max-width: 576px) {
+  .friend-card {
+    width: 95%;
+    flex-direction: column;
+  }
+
+  .friend-card img {
+    width: 30%;
+    height: 100%;
+    border-radius: 5px 5px 0px 0px;
+  }
+
+  .friend-info {
+    width: 50%;
+    text-align: center;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .friends-btns {
+    width: 20%;
+    text-align: center;
+    padding-top: 14px;
+    padding-right: 0;
+  }
+
+  .friends-btns .deleteBtn {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
 
 /* Post View Page */
