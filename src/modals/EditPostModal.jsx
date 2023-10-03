@@ -21,7 +21,8 @@ const EditPostModal = (props) => {
 
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState(postData.content)
-    const [images, setImages] = useState(null)
+    const [oldImages, setOldImages] = useState(null)
+    const [newImages, setNewImages] = useState(null)
     
 
     // Post References
@@ -44,52 +45,28 @@ const EditPostModal = (props) => {
                 console.log(e);
             }
             if(data){
-                setImages(data.publicUrl)
+                setOldImages(data.publicUrl)
             }
         } catch (e) {
             console.log(e);
         }
     }
 
-    const getUserMetaData = async (current_user_id) => {
-        const { data, error } = await supabase.from('users_data').select()
-
-        if(error){
-            console.log(error);
-        }
-
-        if(data){
-            for(var i=0; i<data.length; i++){
-                if(data[i].user_id === current_user_id){
-                    return data[i]
-                }
-                else{
-                    console.log('Nothing found...');
-                }
-            }
-        }
-
-        return () => {}
-    }
-
 
     const editPost = async () => {
-
-        const user_meta_data = await getUserMetaData(user.id)
-
-        const { data:postData, error } = await supabase.from('posts').insert({
-            author: user_meta_data.username,
+        console.log("Hiii");
+        const { data:postData, error } = await supabase.from('posts').update({
             content: postText,
-            user_id: user_id
-        }).select()
+        }).eq('user_id', user_id)
 
         if(error){
             console.log(error);
         }
 
         if(postData){
-            if(images){
-                const {data:mediaPath, e} = await supabase.storage.from('post_photos').update(String(user_id+'/'+postData[0].id+'/0'), images)
+            if(newImages){
+                console.log("hiiiiiii");
+                const {data:mediaPath, e} = await supabase.storage.from('post_photos').update(String(user_id+'/'+postData[0].id+'/0'), newImages)
                 if(e){
                     console.log(e);
                 }
@@ -143,7 +120,8 @@ const EditPostModal = (props) => {
                 lastModified: Date.now(),
             });
         
-            setImages(newFile);
+            setNewImages(newFile);
+            setOldImages(null)
             };
         };
     };
@@ -163,16 +141,18 @@ const EditPostModal = (props) => {
     }
 
     return (
-        <div className={images ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
+        <div className={oldImages ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
             <div className="header-card">
                 <a onClick={props.closeEditPostModal}><i class="fa-solid fa-circle-xmark"></i></a>
                 <h2><i class="fa-solid fa-feather"></i> Edit your purple </h2>
             </div>
             <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
-            {images ? (
+            {oldImages || newImages ? (
                 <div className='media'>
-                    <a onClick={(e)=>{e.preventDefault(); setImages(null)}}><i class="fa-solid fa-circle-xmark"></i></a>
-                    <img src={images} className='post-image'></img>
+                    <a onClick={(e)=>{e.preventDefault(); setOldImages(null); setNewImages(null)}}><i class="fa-solid fa-circle-xmark"></i></a>
+                    {oldImages ? (
+                        <img src={oldImages} className='post-image'></img>
+                    ): (<img src={URL.createObjectURL(newImages)} className='post-image'></img>)}
                 </div>
             ):(null)}
             <div className="extra-btns">
@@ -194,7 +174,7 @@ const EditPostModal = (props) => {
             <button className='postBtn' style={{fontStyle: 'italic'}} onClick={(e) => {
                 e.preventDefault();
                 editPost()
-            } }><i class="fa-solid fa-paper-plane"></i> Post Purple</button>
+            } }><i class="fa-solid fa-paper-plane"></i> Update Purple</button>
         </div>
     )
 }
