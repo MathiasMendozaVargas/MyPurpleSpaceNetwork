@@ -13,7 +13,7 @@ import Picker from '@emoji-mart/react'
 // Login Page Template
 const EditPostModal = (props) => {
 
-    console.log(props);
+    const logged_user = useSelector(state => state.user.user)
     let postData = props.postData.postData
 
     const hiddenFileInput = useRef()
@@ -56,60 +56,43 @@ const EditPostModal = (props) => {
     }
 
 
-    const editPost = async (post_id) => {
-        // console.log("Hiii");
-        // const { data:postData, error } = await supabase.from('posts').update({
-        //     content: postText,
-        // }).eq('user_id', user_id)
-
-        // if(error){
-        //     console.log(error);
-        // }
-
-        // if(postData){
-        //     if(newImages){
-        //         console.log("hiiiiiii");
-        //         const {data:mediaPath, e} = await supabase.storage.from('post_photos').update(String(user_id+'/'+postData[0].id+'/0'), newImages)
-        //         if(e){
-        //             console.log(e);
-        //         }
-        //         if(mediaPath){
-        //             let new_media = []
-        //             new_media.push(mediaPath.path)
-        //             const {e} = await supabase.from('posts').update({
-        //                 media: new_media
-        //             }).eq('id', postData[0].id)
-        //             if(e){
-        //                 console.log(e);
-        //             }
-        //             else{
-        //                 console.log("Updated!");
-        //             }
-        //         }
-        //     }
-        //     toast.success("Post updated!", {
-        //         position: toast.POSITION.TOP_RIGHT
-        //     });
-        //     window.location.reload()
-        // }
-
-        if(newImages){
-            console.log("Hiiiii");
-            let filePath = String(user_id+'/'+post_id+'/0')
-            const {e} = await supabase.storage.from('posts_photos').update(filePath, newImages, {
-                cacheControl: '3600',
-                upsert: true
-            })
-            if(e){
-                console.log(e);
+    const editPost = async (user_id, post_id) => {
+        if(user_id == logged_user.id){
+            if(newImages){
+                console.log("Hiiiii");
+                let filePath = String(user_id+'/'+post_id+'/0')
+                console.log(newImages);
+                const {data, e} = await supabase.storage.from('posts_photos').update(filePath, newImages, {
+                    cacheControl: '3600',
+                    upsert: true
+                })
+                if(e){
+                    console.log(e);
+                }
+                else{
+                    let new_media = []
+                    new_media.push(filePath)
+    
+                    const {e} = await supabase.from('posts').update({
+                        content: postText,
+                        media: new_media
+                    }).eq('id', post_id)
+                    if(e){
+                        console.log(e);
+                    }
+                    else{
+                        toast.success('Post Updated Successfully! 🎊', {
+                            position:"top-right"
+                        })
+                        setTimeout(()=>{
+                            window.location.reload()
+                        }, 2000)
+                    }
+                }
             }
-            else{
-                let new_media = []
-                new_media.push(filePath)
-
+            if(!newImages){
                 const {e} = await supabase.from('posts').update({
-                    content: postText,
-                    media: new_media
+                    content: postText
                 }).eq('id', post_id)
                 if(e){
                     console.log(e);
@@ -123,25 +106,9 @@ const EditPostModal = (props) => {
                     }, 2000)
                 }
             }
+    
+            return () => {}
         }
-        if(!newImages){
-            const {e} = await supabase.from('posts').update({
-                content: postText
-            }).eq('id', post_id)
-            if(e){
-                console.log(e);
-            }
-            else{
-                toast.success('Post Updated Successfully! 🎊', {
-                    position:"top-right"
-                })
-                setTimeout(()=>{
-                    window.location.reload()
-                }, 2000)
-            }
-        }
-
-        return () => {}
     }
 
     const handleImageChange = async (event) => {
@@ -192,7 +159,7 @@ const EditPostModal = (props) => {
     }
 
     return (
-        <div className={oldImages ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
+        <div className={oldImages || newImages ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
             <div className="header-card">
                 <a onClick={props.closeEditPostModal}><i class="fa-solid fa-circle-xmark"></i></a>
                 <h2><i class="fa-solid fa-feather"></i> Edit your purple </h2>
@@ -224,7 +191,7 @@ const EditPostModal = (props) => {
             </div>}
             <button className='postBtn' style={{fontStyle: 'italic'}} onClick={(e) => {
                 e.preventDefault();
-                editPost(post_id)
+                editPost(logged_user.id, post_id)
             } }><i class="fa-solid fa-paper-plane"></i> Update Purple</button>
         </div>
     )

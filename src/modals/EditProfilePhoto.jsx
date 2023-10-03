@@ -16,7 +16,6 @@ import { toast } from "react-toastify";
 const EditProfilePhoto = (props) => {
 
     const logged_user = useSelector(state => state.user.user)
-    console.log(props);
 
     const [newImage, setNewImage] = useState(null)
     const [oldImage, setOldImage] = useState(props.profile_photo ? props.profile_photo : null)
