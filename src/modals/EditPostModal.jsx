@@ -19,6 +19,8 @@ const EditPostModal = (props) => {
     const hiddenFileInput = useRef()
     const user = useSelector(state => state.user.user)
 
+    console.log(postData);
+
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState(postData.content)
     const [oldImages, setOldImages] = useState(null)
@@ -26,6 +28,7 @@ const EditPostModal = (props) => {
     
 
     // Post References
+    const post_id = postData.id
     const user_id = user.id
 
     const addEmoji = (e) => {
@@ -53,41 +56,87 @@ const EditPostModal = (props) => {
     }
 
 
-    const editPost = async () => {
-        console.log("Hiii");
-        const { data:postData, error } = await supabase.from('posts').update({
-            content: postText,
-        }).eq('user_id', user_id)
+    const editPost = async (post_id) => {
+        // console.log("Hiii");
+        // const { data:postData, error } = await supabase.from('posts').update({
+        //     content: postText,
+        // }).eq('user_id', user_id)
 
-        if(error){
-            console.log(error);
-        }
+        // if(error){
+        //     console.log(error);
+        // }
 
-        if(postData){
-            if(newImages){
-                console.log("hiiiiiii");
-                const {data:mediaPath, e} = await supabase.storage.from('post_photos').update(String(user_id+'/'+postData[0].id+'/0'), newImages)
+        // if(postData){
+        //     if(newImages){
+        //         console.log("hiiiiiii");
+        //         const {data:mediaPath, e} = await supabase.storage.from('post_photos').update(String(user_id+'/'+postData[0].id+'/0'), newImages)
+        //         if(e){
+        //             console.log(e);
+        //         }
+        //         if(mediaPath){
+        //             let new_media = []
+        //             new_media.push(mediaPath.path)
+        //             const {e} = await supabase.from('posts').update({
+        //                 media: new_media
+        //             }).eq('id', postData[0].id)
+        //             if(e){
+        //                 console.log(e);
+        //             }
+        //             else{
+        //                 console.log("Updated!");
+        //             }
+        //         }
+        //     }
+        //     toast.success("Post updated!", {
+        //         position: toast.POSITION.TOP_RIGHT
+        //     });
+        //     window.location.reload()
+        // }
+
+        if(newImages){
+            console.log("Hiiiii");
+            const {data:mediaPath, e} = await supabase.storage.from('posts_photos').update(String(user_id+'/'+post_id+'/0'), newImages)
+            if(mediaPath){
+                console.log(mediaPath);
+                let new_media = []
+                new_media.push(mediaPath.path)
+
+
+                const {e} = await supabase.from('posts').update({
+                    content: postText,
+                    media: new_media
+                }).eq('id', post_id)
                 if(e){
                     console.log(e);
                 }
-                if(mediaPath){
-                    let new_media = []
-                    new_media.push(mediaPath.path)
-                    const {e} = await supabase.from('posts').update({
-                        media: new_media
-                    }).eq('id', postData[0].id)
-                    if(e){
-                        console.log(e);
-                    }
-                    else{
-                        console.log("Updated!");
-                    }
+                else{
+                    toast.success('Post Updated Successfully! 🎊', {
+                        position:"top-right"
+                    })
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 2000)
                 }
             }
-            toast.success("Post updated!", {
-                position: toast.POSITION.TOP_RIGHT
-            });
-            window.location.reload()
+            if(e){
+                console.log(e);
+            }
+        }
+        if(!newImages){
+            const {e} = await supabase.from('posts').update({
+                content: postText
+            }).eq('id', post_id)
+            if(e){
+                console.log(e);
+            }
+            else{
+                toast.success('Post Updated Successfully! 🎊', {
+                    position:"top-right"
+                })
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 2000)
+            }
         }
 
         return () => {}
@@ -173,7 +222,7 @@ const EditPostModal = (props) => {
             </div>}
             <button className='postBtn' style={{fontStyle: 'italic'}} onClick={(e) => {
                 e.preventDefault();
-                editPost()
+                editPost(post_id)
             } }><i class="fa-solid fa-paper-plane"></i> Update Purple</button>
         </div>
     )
