@@ -79,13 +79,21 @@ const EditProfilePhoto = (props) => {
     const updateProfilePhoto = async (user_id, new_photo) => {
         if(user_id === logged_user.id){
             try {
-                const {e} = await supabase.storage.from('profile_photos').remove(String(user_id + '/profile'))
+                const {e} = await supabase.storage.from('profile_photos').update(String(user_id + '/profile'), new_photo, {
+                    cacheControl: 3600,
+                    upsert: true
+                })
                 if(e){
                     toast.warning(e, {
                         position: toast.POSITION.TOP_RIGHT
                     })
                 }else{
-                    await uploadNewProfilePhoto(user_id, new_photo)
+                    toast.success('Profile updated Successfully! 🎊', {
+                        position:"top-right"
+                    })
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 2000)
                 }
             } catch (error) {
                 console.log(error);   

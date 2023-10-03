@@ -95,12 +95,17 @@ const EditPostModal = (props) => {
 
         if(newImages){
             console.log("Hiiiii");
-            const {data:mediaPath, e} = await supabase.storage.from('posts_photos').update(String(user_id+'/'+post_id+'/0'), newImages)
-            if(mediaPath){
-                console.log(mediaPath);
+            let filePath = String(user_id+'/'+post_id+'/0')
+            const {e} = await supabase.storage.from('posts_photos').update(filePath, newImages, {
+                cacheControl: '3600',
+                upsert: true
+            })
+            if(e){
+                console.log(e);
+            }
+            else{
                 let new_media = []
-                new_media.push(mediaPath.path)
-
+                new_media.push(filePath)
 
                 const {e} = await supabase.from('posts').update({
                     content: postText,
@@ -117,9 +122,6 @@ const EditPostModal = (props) => {
                         window.location.reload()
                     }, 2000)
                 }
-            }
-            if(e){
-                console.log(e);
             }
         }
         if(!newImages){
