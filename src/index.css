@@ -534,10 +534,45 @@ code {
   background-color: rgb(158, 17, 158);
   box-shadow: 3px 3px 3px rgba(59, 59, 59, 0.375);
   width: 15%;
-  margin-left: 12px;
+  margin-left: 15%;
   height: fit-content;
   border-radius: 0px 15px 15px 15px !important;
 }
+
+/* For tablets and smaller screens */
+@media screen and (max-width: 768px) {
+  .options-post{
+    width: 32%;
+    margin-left: -32% !important;
+    border-radius: 15px 0px 15px 15px !important;
+  }
+  .options-post button p{
+    font-size: smaller;
+  }
+  .box-connector {
+    width: 0px;
+    height: 0px;
+    margin-left: -39.5%;
+    border-bottom: 10px solid rgb(158, 17, 158);
+    border-left: 15px solid transparent;
+    border-right: 0px solid transparent;
+  }
+}
+
+/* For mobile devices */
+/* @media screen and (max-width: 576px) {
+  .home {
+    padding: 40px 10px;
+  }
+  .floatingBtn {
+    left: 80vw;
+  }
+  .floatingBtn button {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+} */
 
 .options-post button {
   width: 100%;
@@ -1089,13 +1124,24 @@ code {
 }
 
 @media screen and (max-width: 768px) {
-  .profile-content-info {
+  .profile-header{
+    height: 15vh !important;
+  }
+
+  .profile-content{
     width: 100%;
-    padding: 10px;
+    display: inline-block !important;
+  }
+
+  .profile-content-info {
+    height: fit-content !important;
+    padding: 15px;
+    border-radius: 0px;
   }
   .profileInfoSpan h1 {
     font-size: 1.5rem;
   }
+  
   .profile-header img {
     width: 100px;
     left: 35%;
