@@ -163,8 +163,6 @@ const Profile = () => {
                     postsOfUser.push(data[i])
                 }
             }
-
-
     
             if(postsOfUser.length <= 0){
                 set_user_posts(null)

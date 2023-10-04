@@ -436,7 +436,7 @@ code {
 /* For mobile devices */
 @media screen and (max-width: 576px) {
   .home {
-    padding: 15px 0px;
+    padding: 40px 10px;
   }
   .floatingBtn {
     left: 80vw;
@@ -589,6 +589,7 @@ code {
 @media screen and (max-width: 768px) {
   .post-card {
     width: 70%;
+    margin-bottom: 25px;
   }
   .post-card-header .avatar {
     width: 40px;
@@ -602,6 +603,7 @@ code {
 @media screen and (max-width: 576px) {
   .post-card {
     width: 90%;
+    margin-bottom: 25px;
   }
   .post-card-header .avatar {
     width: 30px;
@@ -1086,7 +1088,75 @@ code {
   margin-right: 5px;
 }
 
+@media screen and (max-width: 768px) {
+  .profile-content-info {
+    width: 100%;
+    padding: 10px;
+  }
+  .profileInfoSpan h1 {
+    font-size: 1.5rem;
+  }
+  .profile-header img {
+    width: 100px;
+    left: 35%;
+  }
+}
 
+/* For mobile devices */
+@media screen and (max-width: 576px) {
+  .profile-content-info {
+    width: 100%;
+    padding: 5px;
+  }
+  .profileInfoSpan h1 {
+    font-size: 1rem;
+  }
+  .profileInfoSpan a {
+    padding: 2px 3px;
+  }
+  .profile-header img {
+    width: 80px;
+    left: 30%;
+  }
+}
+
+/* For smaller mobile devices */
+@media screen and (max-width: 414px) {
+  .profile-content-info {
+    width: 100%;
+    padding: 5px;
+  }
+  .profileInfoSpan h1 {
+    font-size: 0.8rem;
+  }
+  .profileInfoSpan a {
+    padding: 1px 2px;
+    font-size: 10px;
+  }
+  .profile-header img {
+    width: 70px;
+    left: 27%;
+  }
+}
+
+/* For even smaller screens */
+@media screen and (max-width: 320px) {
+  .profile-content-info {
+    width: 20%;
+    padding: 3px;
+  }
+  .profileInfoSpan h1 {
+    font-size: 0.7rem;
+  }
+  .profileInfoSpan a {
+    padding: 1px 2px;
+    font-size: 8px;
+  }
+  .profile-header img {
+    width: 60px;
+    left: 25%;
+  }
+}
 
 /* Edit Profile Page */
 .editProfile{
