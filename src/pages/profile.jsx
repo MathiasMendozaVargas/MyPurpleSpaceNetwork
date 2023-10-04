@@ -252,17 +252,19 @@ const Profile = () => {
         <Navbar />
         <div className="profile">
             <div className="profile-header">
-                <img src={profile_photo} onError={()=>{
-                    setProfilePhoto(null)
-                    return based_profileImg
-                }}/>
-                {isLoggedUser && <a onClick={(e)=>{
-                    e.preventDefault()
-                    setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>}
-                {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} getProfilePhoto={getProfilePhoto} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
+                <div className="header-container">
+                    <img src={profile_photo} onError={()=>{
+                        setProfilePhoto(null)
+                        return based_profileImg
+                    }}/>
+                    {isLoggedUser && <a onClick={(e)=>{
+                        e.preventDefault()
+                        setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>}
+                    {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} getProfilePhoto={getProfilePhoto} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
+                </div>
             </div>
             <div className="profile-content">
-                <div className="profile-content-info">
+                {/* <div className="profile-content-info">
                     <span className="profileInfoSpan">
                         <h1>{user_data.first_name + ' ' + user_data.last_name}</h1>
                         { isLoggedUser ? (
@@ -283,7 +285,7 @@ const Profile = () => {
                     <h2>Contact Info</h2>
                     <h4>Email: exampleemail14@gmail.com</h4>
                     
-                </div>
+                </div> */}
                 <div className="profile-content-posts">
                     <div className="head-container">
                         <div className="switcher-menu">

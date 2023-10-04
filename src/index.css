@@ -957,17 +957,24 @@ code {
 .profile{
   margin-top: 57px;
   width: 100%;
+  background-color: white;
 }
 
 .profile-header{
-  width: 100%;
-  height: 33vh;
+  width: 70%;
+  height: 45vh;
+  margin: auto auto;
   background-image: url('./assets/aboutBg.webp');
   background-size: cover;
   background-repeat: no-repeat;
+  
 }
 
-.profile-header a{
+.header-container{
+  padding-top: 100px;
+}
+
+.header-container a{
   color: white;
   background-color: purple;
   padding: 3.5px 7px;
@@ -975,12 +982,9 @@ code {
   font-size: 13px;
 }
 
-.profile-header img{
+.header-container img{
   width: 150px;
   border-radius: 50%;
-  position: relative;
-  top: 15%;
-  left: 42%;
   border: 2.5px solid rgb(17, 17, 17);
 }
 
@@ -1129,11 +1133,11 @@ code {
   }
 
   .profile-content{
-    width: 100%;
     display: inline-block !important;
   }
 
   .profile-content-info {
+    width: 90% !important;
     height: fit-content !important;
     padding: 15px;
     border-radius: 0px;
