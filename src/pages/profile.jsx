@@ -44,6 +44,7 @@ const Profile = () => {
     const [profile_photo, setProfilePhoto] = useState(null)
     const [ user_posts, set_user_posts ] = useState(null)
     const [saved_posts, setSavedPosts] = useState(null)
+    const [numberFriends, setNumberFriends] = useState(null)
     const [ isFriend, set_isFriend ] = useState(false)
     const [showCreatePostModal, setShowCreatePostModal] = useState(false)
     const [showPosts, setShowPosts] = useState(true)
@@ -99,53 +100,22 @@ const Profile = () => {
         }
     }
 
-    ////// Add Friend //////
-    const addFriend = async (loggedUserId, current_user_id) => {
+    // Get Number of Friends of the Current User
+    const getNumberFriends = async (current_user_id) => {
         try {
-            // Get the logged-in user's data
-            const { data: usersData, error } = await supabase
-                .from('users_data')
-                .select()
-                .eq('user_id', loggedUserId);
-    
-            if (error) {
-                console.error(error);
-                return;
+            let n_friends = 0
+            const {data, e} = await supabase.from('users_data').select('friends').eq('user_id', current_user_id)
+            if(data){
+                n_friends = data[0].friends.length
+                setNumberFriends(n_friends)
             }
-    
-            if (usersData.length === 0) {
-                console.log('Logged-in user not found.');
-                return;
+            if(e){
+                console.log(e);
             }
-    
-            const loggedUser = usersData[0];
-            const currentFriends = loggedUser.friends || [];
-    
-            if (currentFriends.includes(current_user_id)) {
-                console.log('User is already a friend!');
-                return;
-            }
-    
-            const updatedFriends = [...currentFriends, current_user_id];
-    
-            // Update the friend list in the database
-            const { error: updateError } = await supabase
-                .from('users_data')
-                .update({ friends: updatedFriends })
-                .eq('user_id', loggedUserId);
-    
-            if (updateError) {
-                console.error(updateError);
-                return;
-            }
-    
-            // Reload the page to reflect the changes
-            window.location.reload();
-            console.log('Friend added successfully.');
         } catch (e) {
-            console.error(e);
+            console.log(e);
         }
-    };
+    }
     
     ////// Get all User's Posts //////
     const getAllPostofUser = async (current_user_id) => {
@@ -235,6 +205,9 @@ const Profile = () => {
         getUserMetaData(profile_id);
         getProfilePhoto(profile_id)
 
+        // Get Number of Friends
+        getNumberFriends(profile_id)
+
         // Check relation between current profile with authenticated User
         checkRelation(logged_user.id, profile_id)
 
@@ -261,6 +234,10 @@ const Profile = () => {
                         e.preventDefault()
                         setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>}
                     {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} getProfilePhoto={getProfilePhoto} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
+                    <div className="profile-info">
+                        <h1>{user_data.first_name + ' ' + user_data.last_name}</h1>
+                        <h4>Has {numberFriends} friends!</h4>
+                    </div>
                 </div>
             </div>
             <div className="profile-content">

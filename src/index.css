@@ -961,25 +961,20 @@ code {
 }
 
 .profile-header{
-  width: 70%;
-  height: 45vh;
+  width: 80%;
+  height: 40vh;
   margin: auto auto;
   background-image: url('./assets/aboutBg.webp');
   background-size: cover;
   background-repeat: no-repeat;
-  
+  border-radius: 0px 0px 20px 20px;
 }
 
 .header-container{
-  padding-top: 100px;
-}
-
-.header-container a{
-  color: white;
-  background-color: purple;
-  padding: 3.5px 7px;
-  border-radius: 50%;
-  font-size: 13px;
+  padding-top: 30vh;
+  padding-left: 50px;
+  display: flex;
+  align-items: baseline;
 }
 
 .header-container img{
@@ -988,7 +983,30 @@ code {
   border: 2.5px solid rgb(17, 17, 17);
 }
 
+.header-container a{
+  color: white;
+  background-color: purple;
+  padding: 5px 8px 4.5px 8px;
+  border-radius: 50%;
+  font-size: 15px;
+  height: 20px;
+  margin-left: -35px;
+}
+
+.profile-info{
+  display: inline;
+  margin-left: 25px;
+  margin-bottom: 20px;
+}
+.profile-info h1{
+  margin: 0px;
+}
+.profile-info h4{
+  margin: 0px;
+}
+
 .profile-content{
+  margin-top: 200px;
   width: 100%;
   display: inline-flex;
   background-color: white;
