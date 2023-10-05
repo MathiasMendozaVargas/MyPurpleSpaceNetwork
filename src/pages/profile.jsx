@@ -213,7 +213,7 @@ const Profile = () => {
 
         // Get Saved Posts
         getAllSavedPosts(logged_user.id)
-    })
+    }, [])
 
 
     if(!user_data) {
@@ -243,7 +243,7 @@ const Profile = () => {
                     </div>
                     <div className="profile-btns">
                         <button><i class="fa-solid fa-people-group"></i> All Friends</button>
-                        <Link to={'/editProfile/'+profile_id}><button><i class="fa-solid fa-pen"></i> Edit Profile</button></Link>
+                        {isLoggedUser && <Link to={'/editProfile/'+profile_id}><button><i class="fa-solid fa-pen"></i> Edit Profile</button></Link>}
                     </div>
                 </div>
             </div>
@@ -266,9 +266,11 @@ const Profile = () => {
                 </div>
                 {showPosts && (
                     user_posts ? (
-                        user_posts.map((post) => {
-                        return <PostCard key={post.id} postData={post} />;
-                        })
+                        <div className="display-posts">
+                            {user_posts.map((post) => {
+                                return <PostCard key={post.id} postData={post} />;
+                            })}
+                        </div>
                     ) : (
                         <h2 style={{ textAlign: 'center', marginTop: '50px' }}>
                         {user_data.first_name + ' ' + user_data.last_name + " hasn't posted anything!"}
@@ -277,9 +279,11 @@ const Profile = () => {
                 )}
                 {showSaved && (
                     saved_posts ? (
-                        saved_posts.map((post) => {
-                        return <PostCard key={post.id} postData={post} />;
-                        })
+                        <div className="display-posts">
+                            {saved_posts.map((post) => {
+                                return <PostCard key={post.id} postData={post} />;
+                            })}
+                        </div>
                     ) : (
                         <h2 style={{ textAlign: 'center', marginTop: '50px' }}>No Saved Posts Yet!</h2>
                     )

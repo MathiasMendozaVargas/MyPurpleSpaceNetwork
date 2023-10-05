@@ -534,7 +534,7 @@ code {
   background-color: rgb(158, 17, 158);
   box-shadow: 3px 3px 3px rgba(59, 59, 59, 0.375);
   width: 15%;
-  margin-left: 15%;
+  margin-left: 12px;
   height: fit-content;
   border-radius: 0px 15px 15px 15px !important;
 }
@@ -961,11 +961,13 @@ code {
   background-color: white;
 }
 
-.profile .container{
+.profile .container {
   height: 56vh;
   width: 100%;
   padding: 0 !important;
   background-color: rgb(20, 3, 20) !important;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.291); /* Add a top shadow effect */
+  
 }
 
 .profile-header{
@@ -1054,9 +1056,13 @@ code {
   width: 100%;
   display: inline;
   margin: auto auto;
+  padding-bottom: 60px;
   background-color: white;
 }
 
+.display-posts{
+  padding-bottom: 30px;
+}
 
 .profile-content-posts .head-container{
   width: 100%;
