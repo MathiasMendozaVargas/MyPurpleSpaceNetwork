@@ -957,12 +957,20 @@ code {
 .profile{
   margin-top: 57px;
   width: 100%;
+  min-height: 100vh;
   background-color: white;
+}
+
+.profile .container{
+  height: 56vh;
+  width: 100%;
+  padding: 0 !important;
+  background-color: rgb(20, 3, 20) !important;
 }
 
 .profile-header{
   width: 80%;
-  height: 40vh;
+  height: 35vh;
   margin: auto auto;
   background-image: url('./assets/aboutBg.webp');
   background-size: cover;
@@ -971,112 +979,96 @@ code {
 }
 
 .header-container{
-  padding-top: 30vh;
-  padding-left: 50px;
+  margin: auto auto;
+  padding: 0px 150px;
+  margin-top: -65px;
   display: flex;
-  align-items: baseline;
+  align-items: center !important;
 }
 
-.header-container img{
+.profile-pic{
+  display: flex;
+  align-items: end;
+}
+.profile-pic img{
   width: 150px;
   border-radius: 50%;
-  border: 2.5px solid rgb(17, 17, 17);
+  border: 2px solid whitesmoke;
 }
 
-.header-container a{
+.profile-pic a{
   color: white;
   background-color: purple;
-  padding: 5px 8px 4.5px 8px;
+  padding: 4px 8px 8.5px 8px;
   border-radius: 50%;
   font-size: 15px;
   height: 20px;
   margin-left: -35px;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
 }
 
-.profile-info{
-  display: inline;
-  margin-left: 25px;
-  margin-bottom: 20px;
-}
-.profile-info h1{
-  margin: 0px;
-}
-.profile-info h4{
-  margin: 0px;
-}
-
-.profile-content{
-  margin-top: 200px;
-  width: 100%;
-  display: inline-flex;
-  background-color: white;
-}
-
-.profile-content-info{
-  width: 30%;
-  height: 100vh;
-  padding: 20px;
-  background-color: purple;
-  color: whitesmoke;
-  border-radius: 0px 0px 40px 0px;
-}
-
-.profileInfoSpan{
-  width: 100%;
-  margin-bottom: -10px;
-  font-weight: 500 !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.profileInfoSpan h1{
-  font-size: 2rem;
-}
-
-.profileInfoSpan a{
-  color: whitesmoke;
-  margin-left: auto;
-  height: fit-content;
-  padding: 3px 4px 3px 4px;
-  border-radius: 50%;
-  transition: all 0.4s;
-}
-
-.profileInfoSpan a:hover{
+.profile-pic a:hover{
+  color: white;
+  background-color: rgb(142, 0, 142);
   transform: scale(1.05);
 }
 
-.profile-content-info h1{
-  margin-top: 0px;
+
+.profile-info{
+  display: inline;
+  padding-top: 80px;
+  margin-left: 25px;
+}
+.profile-info h1{
+  margin: 0px;
+  color: white;
+  margin-bottom: -5px;
+}
+.profile-info h4{
+  margin: 0px;
+  color: white;
 }
 
-.profile-content-info h2{
-  margin-bottom: 10px;
+.profile-btns{
+  display: flex;
+  margin-left: auto;
+  margin-top: 85px;
 }
-
-.profile-content-info h4{
-  margin-top: 0px;
-  margin-bottom: 5px;
-  margin-left: 1px;
+.profile-btns button{
+  padding: 9px 18px;
+  background-color: purple;
+  color: white;
+  border-radius: 7px;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer !important;
+}
+.profile-btns button:hover{
+  background-color: rgb(162, 2, 162);
+  color: white;
+  cursor: pointer;
 }
 
 .profile-content-posts{
-  width: 70%;
+  width: 100%;
+  display: inline;
+  margin: auto auto;
+  background-color: white;
 }
 
 
-.head-container{
+.profile-content-posts .head-container{
   width: 100%;
-  text-align: center;
+  margin: auto auto;
 }
 
 .switcher-menu{
-  width: 80%;
+  width: 700px;
   align-items: center;
-  display: inline-flex;
+  margin: auto auto;
+  display: flex;
   margin-bottom: 30px;
-  align-items: center;
   border-radius: 0px 0px 10px 10px;
   background-color: rgb(108, 7, 108);
 }
@@ -1145,84 +1137,33 @@ code {
   margin-right: 5px;
 }
 
-@media screen and (max-width: 768px) {
-  .profile-header{
-    height: 15vh !important;
+/* Tablet Styles */
+@media (max-width: 768px) {
+  .profile-header {
+    height: 25vh;
   }
 
-  .profile-content{
-    display: inline-block !important;
+  .header-container {
+    padding: 0px 50px;
   }
 
-  .profile-content-info {
-    width: 90% !important;
-    height: fit-content !important;
-    padding: 15px;
-    border-radius: 0px;
-  }
-  .profileInfoSpan h1 {
-    font-size: 1.5rem;
-  }
-  
-  .profile-header img {
-    width: 100px;
-    left: 35%;
+  .profile-info {
+    padding-top: 40px;
   }
 }
 
-/* For mobile devices */
-@media screen and (max-width: 576px) {
-  .profile-content-info {
-    width: 100%;
-    padding: 5px;
+/* Mobile Styles */
+@media (max-width: 576px) {
+  .profile-header {
+    height: 20vh;
   }
-  .profileInfoSpan h1 {
-    font-size: 1rem;
-  }
-  .profileInfoSpan a {
-    padding: 2px 3px;
-  }
-  .profile-header img {
-    width: 80px;
-    left: 30%;
-  }
-}
 
-/* For smaller mobile devices */
-@media screen and (max-width: 414px) {
-  .profile-content-info {
-    width: 100%;
-    padding: 5px;
+  .header-container {
+    padding: 0px 30px;
   }
-  .profileInfoSpan h1 {
-    font-size: 0.8rem;
-  }
-  .profileInfoSpan a {
-    padding: 1px 2px;
-    font-size: 10px;
-  }
-  .profile-header img {
-    width: 70px;
-    left: 27%;
-  }
-}
 
-/* For even smaller screens */
-@media screen and (max-width: 320px) {
-  .profile-content-info {
-    width: 20%;
-    padding: 3px;
-  }
-  .profileInfoSpan h1 {
-    font-size: 0.7rem;
-  }
-  .profileInfoSpan a {
-    padding: 1px 2px;
-    font-size: 8px;
-  }
-  .profile-header img {
-    width: 60px;
-    left: 25%;
+  .profile-info {
+    padding-top: 20px;
   }
 }
 

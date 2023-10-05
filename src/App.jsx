@@ -14,7 +14,6 @@ import EditProfile from './pages/editProfile';
 import PostView from './pages/postView';
 
 
-
 // Private Routing
 const PrivateRoute = ({ user }) => {
   if (!user) {

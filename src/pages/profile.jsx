@@ -224,84 +224,67 @@ const Profile = () => {
         <>
         <Navbar />
         <div className="profile">
-            <div className="profile-header">
+            <div className="container">
+                <div className="profile-header"></div>
                 <div className="header-container">
-                    <img src={profile_photo} onError={()=>{
-                        setProfilePhoto(null)
-                        return based_profileImg
-                    }}/>
-                    {isLoggedUser && <a onClick={(e)=>{
-                        e.preventDefault()
-                        setShowEditProfilePhoto(true)}}><i class="fa-solid fa-pen"></i></a>}
+                    <div className="profile-pic">
+                        <img src={profile_photo} onError={()=>{
+                            setProfilePhoto(null)
+                            return based_profileImg
+                        }}/>
+                        {isLoggedUser && <a onClick={(e)=>{
+                            e.preventDefault()
+                            setShowEditProfilePhoto(true)}}><i class="fa-solid fa-camera"></i></a>}
+                    </div>
                     {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} getProfilePhoto={getProfilePhoto} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
                     <div className="profile-info">
                         <h1>{user_data.first_name + ' ' + user_data.last_name}</h1>
                         <h4>Has {numberFriends} friends!</h4>
                     </div>
+                    <div className="profile-btns">
+                        <button><i class="fa-solid fa-people-group"></i> All Friends</button>
+                        <Link to={'/editProfile/'+profile_id}><button><i class="fa-solid fa-pen"></i> Edit Profile</button></Link>
+                    </div>
                 </div>
             </div>
-            <div className="profile-content">
-                {/* <div className="profile-content-info">
-                    <span className="profileInfoSpan">
-                        <h1>{user_data.first_name + ' ' + user_data.last_name}</h1>
-                        { isLoggedUser ? (
-                            <Link to={'/editProfile/' + profile_id}><a><i className="fa-solid fa-pen"></i></a></Link>   
-                        ) : isFriend ? (
-                            <span className="isFriend"><img className="actionIsFriendIcon" src={friendsIcon}></img> Friends</span>
-                        ): (
-                            <button className="actionFriendIcon" onClick={(e) => {
-                                e.preventDefault();
-                                addFriend(logged_user.id, profile_id);
-                            }}><img src={addFriendIcon}></img></button>
-                        )}
-                    </span>
-                    
-                    <h4>Username: {user_data.username}</h4>
-                    <h4>Age: {user_data.age}</h4>
-                    <h4>Gender: {(user_data.gender).toUpperCase()}</h4>
-                    <h2>Contact Info</h2>
-                    <h4>Email: exampleemail14@gmail.com</h4>
-                    
-                </div> */}
-                <div className="profile-content-posts">
-                    <div className="head-container">
-                        <div className="switcher-menu">
-                            <a className={activeLeft ? ('active-left') : ('')} onClick={(e) => {
-                                e.preventDefault();
-                                setActiveLeft(true)
-                                setShowPosts(true);
-                                setShowSaved(false)
-                            }}>My Posts</a>
-                            <a className={activeLeft ? ('') : ('active-right')} onClick={(e) => {
-                                e.preventDefault();
-                                setActiveLeft(false)
-                                setShowPosts(false);
-                                setShowSaved(true);
-                            }}>Saved Posts</a>
-                        </div>
+            <div className="profile-content-posts">
+                <div className="head-container">
+                    <div className="switcher-menu">
+                        <a className={activeLeft ? ('active-left') : ('')} onClick={(e) => {
+                            e.preventDefault();
+                            setActiveLeft(true)
+                            setShowPosts(true);
+                            setShowSaved(false)
+                        }}>My Posts</a>
+                        <a className={activeLeft ? ('') : ('active-right')} onClick={(e) => {
+                            e.preventDefault();
+                            setActiveLeft(false)
+                            setShowPosts(false);
+                            setShowSaved(true);
+                        }}>Saved Posts</a>
                     </div>
-                    {showPosts && (
-                        user_posts ? (
-                            user_posts.map((post) => {
-                            return <PostCard key={post.id} postData={post} />;
-                            })
-                        ) : (
-                            <h2 style={{ textAlign: 'center', marginTop: '50px' }}>
-                            {user_data.first_name + ' ' + user_data.last_name + " hasn't posted anything!"}
-                            </h2>
-                        )
-                    )}
-                    {showSaved && (
-                        saved_posts ? (
-                            saved_posts.map((post) => {
-                            return <PostCard key={post.id} postData={post} />;
-                            })
-                        ) : (
-                            <h2 style={{ textAlign: 'center', marginTop: '50px' }}>No Saved Posts Yet!</h2>
-                        )
-                    )}
-                    
                 </div>
+                {showPosts && (
+                    user_posts ? (
+                        user_posts.map((post) => {
+                        return <PostCard key={post.id} postData={post} />;
+                        })
+                    ) : (
+                        <h2 style={{ textAlign: 'center', marginTop: '50px' }}>
+                        {user_data.first_name + ' ' + user_data.last_name + " hasn't posted anything!"}
+                        </h2>
+                    )
+                )}
+                {showSaved && (
+                    saved_posts ? (
+                        saved_posts.map((post) => {
+                        return <PostCard key={post.id} postData={post} />;
+                        })
+                    ) : (
+                        <h2 style={{ textAlign: 'center', marginTop: '50px' }}>No Saved Posts Yet!</h2>
+                    )
+                )}
+                
             </div>
         </div>
         {showCreatePostModal && <CreatePostModal closeModal={closeCreatePostModal}></CreatePostModal>}
