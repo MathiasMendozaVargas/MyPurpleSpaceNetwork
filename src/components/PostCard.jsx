@@ -305,6 +305,7 @@ const PostCard = (props) => {
             </div>
             <div className="post-card-body">
                 <Link style={{textDecoration: 'none', color: 'whitesmoke'}} to={'/posts/' + post_id}>
+                    
                     <div className="post-card-body-inner">
                         <p>{postContent}</p>
                     </div>
