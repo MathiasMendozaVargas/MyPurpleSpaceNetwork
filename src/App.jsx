@@ -31,7 +31,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<PrivateRoute user={user} />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path='/configNewUser' element={<ConfigNewUser/>} />
           <Route path='/createNewPost' element={<CreatePost/>} />
           <Route path='/friends/:profile_id' element={<Friends/>} />
@@ -42,7 +42,6 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<About />} />
       </Routes>
     </BrowserRouter>
   );
