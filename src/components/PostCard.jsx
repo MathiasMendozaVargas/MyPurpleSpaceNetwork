@@ -5,7 +5,8 @@ import { supabase } from "../lib/supabaseClient";
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 // Components
 import PostOptions from "./PostOptions";
@@ -273,8 +274,8 @@ const PostCard = (props) => {
     };
 
     const motionVariant = {
-        visible: {opacity: 1, scale: 1},
-        hidden: {opacity: 0, scale: 0}
+        visible: {opacity: 1, scale: 1, transition: {duration: 0.3}, delay: {duration: 0}},
+        hidden: {opacity: 0, scale: 0, transition: {duration: 0}}
     }
 
     const current_time = post.created_at
@@ -300,6 +301,9 @@ const PostCard = (props) => {
         if(inView){
             control.start('visible')
         }
+        else{
+            control.start('hidden')
+        }
     }, [control, inView])
 
     return (
@@ -308,6 +312,7 @@ const PostCard = (props) => {
         animate={control}
         variants={motionVariant}
         initial='hidden'
+        exit='visible'
         className="post-card">
             <div className="post-card-header">
                 <img className="avatar" src={profile_photo} onError={(e)=>{
