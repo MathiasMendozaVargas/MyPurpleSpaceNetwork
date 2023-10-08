@@ -10,6 +10,8 @@ import PostCard from "../components/PostCard";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 // Modals
 import CreatePostModal from "../modals/CreatePostModal";
@@ -51,6 +53,12 @@ const Profile = () => {
     const [showSaved, setShowSaved] = useState(false)
     const [activeLeft, setActiveLeft] = useState(true)
     const [showEditProfilePhoto, setShowEditProfilePhoto] = useState(false)
+
+    // Frame Motion
+    const control = useAnimation()
+    const [profilePicRef, inView] = useInView({
+        threshold: 0
+    })
 
     ////// Get User Metadata //////
     const getUserMetaData = async (current_user_id) => {
@@ -195,6 +203,11 @@ const Profile = () => {
         setShowEditProfilePhoto(false)
     }
 
+    const zoomInVariant = {
+        visible: {opacity: 1, scale: 1, transition: {duration: 0.3}, delay: {duration: 0}},
+        hidden: {opacity: 0, scale: 0, transition: {duration: 0}}
+    }
+
 
     useEffect(() => {
 
@@ -213,7 +226,13 @@ const Profile = () => {
 
         // Get Saved Posts
         getAllSavedPosts(logged_user.id)
-    }, [])
+
+        if(inView){
+            control.start('visible')
+        }else{
+            control.start('hidden')
+        }
+    }, [control, inView])
 
 
     if(!user_data) {
@@ -228,7 +247,13 @@ const Profile = () => {
                 <div className="profile-header"></div>
                 <div className="header-container">
                     <div className="profile-pic">
-                        <img src={profile_photo} onError={()=>{
+                        <motion.img
+                            ref={profilePicRef}
+                            animate={control}
+                            variants={zoomInVariant}
+                            initial='hidden'
+                            exit='visible' 
+                            src={profile_photo} onError={()=>{
                             setProfilePhoto(null)
                             return based_profileImg
                         }}/>

@@ -44,7 +44,9 @@ const PostCard = (props) => {
 
     // Framer Motion
     const control = useAnimation()
-    const [motionRef, inView] = useInView()
+    const [motionRef, inView] = useInView({
+        threshold: 0
+    })
 
     // Options Box
     const [showOptions, setShowOptions] = useState(false)
