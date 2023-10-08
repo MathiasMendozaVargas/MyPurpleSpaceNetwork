@@ -5,6 +5,7 @@ import { supabase } from "../lib/supabaseClient";
 import { Link } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion, useInView, useAnimation } from "framer-motion";
 
 // Components
 import PostOptions from "./PostOptions";
@@ -16,6 +17,7 @@ import EditPostModal from '../modals/EditPostModal';
 // Emoji Picker
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
+import { duration } from "moment/moment";
 
 const PostCard = (props) => {
     const [post, setPost] = useState(props.postData);
@@ -38,6 +40,10 @@ const PostCard = (props) => {
     const [wasDisliked, setWasDisliked] = useState(false)
 
     const [showEditPost, setShowEditPost] = useState(false)
+
+    // Framer Motion
+    const control = useAnimation()
+    const [motionRef, inView] = useInView()
 
     // Options Box
     const [showOptions, setShowOptions] = useState(false)
@@ -266,6 +272,11 @@ const PostCard = (props) => {
         }
     };
 
+    const motionVariant = {
+        visible: {opacity: 1, scale: 1},
+        hidden: {opacity: 0, scale: 0}
+    }
+
     const current_time = post.created_at
     const timeDiff = calculateTimeDifference(current_time);
 
@@ -286,10 +297,18 @@ const PostCard = (props) => {
         if(post.media){
             getPostMedia(post.media)
         };
-    }, [])
+        if(inView){
+            control.start('visible')
+        }
+    }, [control, inView])
 
     return (
-        <div className="post-card">
+        <motion.div
+        ref={motionRef}
+        animate={control}
+        variants={motionVariant}
+        initial='hidden'
+        className="post-card">
             <div className="post-card-header">
                 <img className="avatar" src={profile_photo} onError={(e)=>{
                     e.target.src = based_profileImg
@@ -355,7 +374,7 @@ const PostCard = (props) => {
                     <Picker data={data} emojiSize={18} emojiButtonSize={28} onEmojiSelect={addEmoji} />
                 </div>}
             </div>}
-        </div>
+        </motion.div>
     )
 }
 
