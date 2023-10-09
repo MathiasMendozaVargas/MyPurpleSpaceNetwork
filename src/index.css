@@ -36,7 +36,6 @@ code {
 
 
 .navbar-brand {
-  width: 30%;
   padding-left: 17px;
   display: flex;
   align-items: center;
@@ -54,11 +53,10 @@ code {
 }
 
 .navbar-nav {
-  width: 70%;
+  margin-left: auto;
   justify-content: flex-end;
   text-align: right;
   display: flex;
-  margin-right: 15px;
 }
 
 .navbar-nav li {
@@ -120,7 +118,7 @@ code {
   left: 0;
   background-color: purple;
   width: 100%;
-  padding: 0px !important;
+  padding: 0 !important;
   border-radius: 0px 0px 8px 8px;
 }
 
@@ -149,8 +147,8 @@ code {
     padding: 10px 0px; /* Add padding to the Navbar */
   }
 
-  .navbar-brand {
-    width: auto;
+  .navbar .homelink {
+    width: none;
   }
 
   .navbar-nav {
