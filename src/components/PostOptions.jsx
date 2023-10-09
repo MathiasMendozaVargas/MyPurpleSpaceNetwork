@@ -232,50 +232,50 @@ function PostOptions(props) {
     }, [])
 
 
-    if(isAuthor){
-        return (
-            <>
-                <div className="box-connector"></div>
-                <div className="options-post">
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        props.openEditPostModal()
-                        props.closeOptions()
-                    }}><p><i class="fa-solid fa-pen"></i> Edit Post</p></button>
-                    <button onClick={(e)=>{
-                        e.preventDefault()
-                        deletePost(post_data.id, user_id)
-                    }}><p><i class="fa-solid fa-trash-can"></i> Delete Post</p></button>
-                    {isSaved ? (<button onClick={(e) => {
-                        e.preventDefault()
-                        unSavePost(post_data.id, user_id)
-                    }}><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button onClick={(e) => {
-                        e.preventDefault()
-                        savePost(post_data.id, user_id)
-                    }}><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
-                </div>
-            </>
-        )
-    }
-    if(!isAuthor){
-        return(
-            <>
-                <div className="box-connector"></div>
-                <div className="options-post">
-                {isSaved ? (<button onClick={(e) => {
+    return(
+        <>
+            <div className="box-connector"></div>
+            <div className="options-post">
+            {isAuthor ? (
+                <>
+                <button onClick={(e) => {
                     e.preventDefault()
-                    unSavePost(post_data.id, user_id)
-                }}><p><i class="fa-solid fa-bookmark"></i> Saved Post</p></button>) : (<button onClick={(e) => {
+                    props.openEditPostModal()
+                    props.closeOptions()
+                }}><p><i className="fa-solid fa-pen"></i> Edit Post</p></button>
+                <button onClick={(e) => {
                     e.preventDefault()
-                    savePost(post_data.id, user_id)
-                }}><p><i class="fa-regular fa-bookmark"></i> Save Post</p></button>)}
-                {isFriend ? (<button onClick={() => {deleteFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-xmark"></i> Delete {post_data.author} from Friends!</p></button>) : (
-                    <button onClick={() => {addFriend(logged_user.id, post_data.user_id)}}><p><i class="fa-solid fa-user-plus"></i> Add {post_data.author} as Friend!</p></button>
-                )}
-                </div>
-            </>
-        )
-    }
+                    deletePost(post_data.id, user_id)
+                }}><p><i className="fa-solid fa-trash-can"></i> Delete Post</p></button>
+                </>
+            ) : (
+                <>
+                    {isFriend ? (
+                        <button onClick={() => { deleteFriend(logged_user.id, post_data.user_id) }}>
+                        <p><i className="fa-solid fa-user-xmark"></i> Delete {post_data.author} from Friends!</p>
+                        </button>
+                    ) : (
+                        <button onClick={() => { addFriend(logged_user.id, post_data.user_id) }}>
+                        <p><i className="fa-solid fa-user-plus"></i> Add {post_data.author} as Friend!</p>
+                        </button>
+                    )}
+                </>
+            )}
+
+            {isSaved ? (
+                <button onClick={(e) => {
+                e.preventDefault()
+                unSavePost(post_data.id, user_id)
+                }}><p><i className="fa-solid fa-bookmark"></i> Saved Post</p></button>
+            ) : (
+                <button onClick={(e) => {
+                e.preventDefault()
+                savePost(post_data.id, user_id)
+                }}><p><i className="fa-regular fa-bookmark"></i> Save Post</p></button>
+            )}
+            </div>
+        </>
+    )
 }
 
 export default PostOptions
