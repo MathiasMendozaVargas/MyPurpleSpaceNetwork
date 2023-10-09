@@ -663,10 +663,10 @@ code {
     margin-bottom: 25px;
   }
   .post-card-header .avatar {
-    width: 40px;
+    width: 50px;
   }
   .post-card-header p {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
@@ -677,10 +677,10 @@ code {
     margin-bottom: 25px;
   }
   .post-card-header .avatar {
-    width: 30px;
+    width: 50px;
   }
   .post-card-header p {
-    font-size: 8px;
+    font-size: 11px;
   }
 }
 
