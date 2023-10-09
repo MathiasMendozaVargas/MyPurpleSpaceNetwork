@@ -21,10 +21,12 @@ function Navbar() {
 
     return (
         <nav className={`navbar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-        <div className="navbar-brand">
-            <img src={logo} className="logo" alt="" />
-            <span>My Purple Space</span>
-        </div>
+        <Link to='/' className='homeLink'>
+            <div className="navbar-brand">
+                <img src={logo} className="logo" alt="" />
+                <span>My Purple Space</span>
+            </div>
+        </Link>
 
         <div className={`mobile-menu-icon ${mobileMenuOpen ? 'open' : ''}`} onClick={toggleMobileMenu}>
             <i className="fas fa-bars"></i>

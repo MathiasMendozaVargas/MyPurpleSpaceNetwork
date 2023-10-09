@@ -26,6 +26,15 @@ code {
   align-items: center;
 }
 
+.navbar .homeLink{
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 20px;
+  font-style: italic;
+  color: rgb(224, 224, 224);
+}
+
+
 .navbar-brand {
   width: 30%;
   padding-left: 17px;
@@ -94,7 +103,7 @@ code {
 .mobile-menu-icon {
   display: none;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 26px;
   color: white;
 }
 
@@ -107,10 +116,12 @@ code {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 60px;
+  top: 45px;
   left: 0;
   background-color: purple;
   width: 100%;
+  padding: 0px !important;
+  border-radius: 0px 0px 8px 8px;
 }
 
 .navbar.mobile-open .navbar-nav li {
@@ -122,6 +133,10 @@ code {
   border-bottom: 1px solid rgba(224, 224, 224, 0.5);
 }
 
+.navbar.mobile-open .navbar-nav li:first-child {
+  border-top: 1px solid rgba(224, 224, 224, 0.5);
+}
+
 .navbar.mobile-open .navbar-nav li:last-child {
   border-bottom: none;
 }
@@ -129,7 +144,7 @@ code {
 /* Media Queries */
 @media (max-width: 768px) {
   .navbar {
-    width: 100%;
+    width: 100vw;
     justify-content: space-between;
     padding: 10px 0px; /* Add padding to the Navbar */
   }
@@ -155,6 +170,7 @@ code {
 
   .mobile-menu-icon {
     display: block;
+    margin-right: 12px;
   }
 }
 
