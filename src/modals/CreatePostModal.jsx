@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 // Emoji Picker
 import data from '@emoji-mart/data'
@@ -20,7 +22,12 @@ const CreatePostModal = (props) => {
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState('')
     const [images, setImages] = useState(null)
-    
+
+    // Framer Motion
+    const control = useAnimation()
+    const [modalRef, inView] = useInView({
+        threshold: 0
+    })
 
     // Post References
     const user_id = user.id
@@ -130,16 +137,35 @@ const CreatePostModal = (props) => {
         };
     };
 
+    const variants = {
+        visible: {opacity: 1, scale: 1, transition: {duration: 0.3}, delay: 0},
+        hidden: {opacity: 0, scale: 0.5, transition: {duration: 0}}
+    }
+
     const handleClick = (event) => {
         hiddenFileInput.current.click();
     };
+
+    useEffect(()=>{
+        if(inView){
+            control.start('visible')
+        }else{
+            control.start('hidden')
+        }
+    }, [control, inView])
 
     if(!user){
         return null
     }
 
     return (
-        <div className={images ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
+        <motion.div
+            ref={modalRef}
+            animate={control}
+            variants={variants}
+            initial='hidden'
+            exit='visible' 
+            className={images ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
             <div className="header-card">
                 <a onClick={props.closeModal}><i class="fa-solid fa-circle-xmark"></i></a>
                 <h2><i class="fa-solid fa-feather"></i> Create your new Purple </h2>
@@ -171,7 +197,7 @@ const CreatePostModal = (props) => {
                 e.preventDefault();
                 insertNewPost()
             } }><i class="fa-solid fa-paper-plane"></i> Post Purple</button>
-        </div>
+        </motion.div>
     )
 }
 

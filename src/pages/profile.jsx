@@ -57,7 +57,8 @@ const Profile = () => {
     // Frame Motion
     const control = useAnimation()
     const [profilePicRef, inView] = useInView({
-        threshold: 0
+        threshold: 0,
+        triggerOnce: true
     })
 
     ////// Get User Metadata //////

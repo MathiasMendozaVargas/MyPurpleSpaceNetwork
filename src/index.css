@@ -14,10 +14,10 @@ code {
     monospace;
 }
 
-/* Navbar */
+/* Navbar styling */
 .navbar {
   position: fixed;
-  top: 0%;
+  top: 0;
   z-index: 1;
   width: 100%;
   color: rgb(224, 224, 224);
@@ -90,48 +90,73 @@ code {
   color: black;
 }
 
-/* Media queries for responsive design */
+/* Mobile menu icon */
+.mobile-menu-icon {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+}
 
-/* Tablets and larger mobile devices */
+.mobile-menu-icon.open {
+  display: block;
+}
+
+/* Mobile menu styling */
+.navbar.mobile-open .navbar-nav {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background-color: purple;
+  width: 100%;
+}
+
+.navbar.mobile-open .navbar-nav li {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(224, 224, 224, 0.5);
+}
+
+.navbar.mobile-open .navbar-nav li:last-child {
+  border-bottom: none;
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
-  .navbar-brand {
-    width: 50%;
+  .navbar {
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 0px; /* Add padding to the Navbar */
   }
 
-  .navbar-brand span {
-    font-size: 18px;
+  .navbar-brand {
+    width: auto;
   }
 
   .navbar-nav {
-    width: 50%;
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: purple;
+    flex-direction: column;
+    text-align: center;
   }
 
-  .navbar-nav li {
-    font-size: 14px;
-    margin-right: 10px;
-  }
-}
-
-/* Mobile phones */
-@media (max-width: 576px) {
-  .navbar-brand {
-    width: 70%;
+  .navbar.mobile-open .navbar-nav {
+    display: flex;
   }
 
-  .navbar-brand span {
-    font-size: 16px;
-  }
-
-  .navbar-nav {
-    width: 70%;
-  }
-
-  .navbar-nav li {
-    font-size: 12px;
-    margin-right: 5px;
+  .mobile-menu-icon {
+    display: block;
   }
 }
-
 
 
 /* About Section */
