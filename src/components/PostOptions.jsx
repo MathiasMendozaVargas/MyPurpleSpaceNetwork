@@ -231,7 +231,6 @@ function PostOptions(props) {
         checkIfSaved(post_data.id, user_id)
     }, [])
 
-
     return(
         <>
             <div className="box-connector"></div>
