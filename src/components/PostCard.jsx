@@ -116,7 +116,6 @@ const PostCard = (props) => {
         }
     }
 
-
     const getVotes = async (post_id) => {
         try {
             const {data, e} = await supabase.from('post_votes').select().eq('post_id', post_id)
