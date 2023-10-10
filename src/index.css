@@ -1416,49 +1416,46 @@ code {
   width: 100%;
   text-align: center;
   background-color: black;
+  overflow: hidden;
 }
 
 .container {
   padding: 50px;
 }
 
-.header {
+.friends .header {
   height: auto !important;
-  width: 100%;
-  text-align: left;
+  text-align: center;
   color: white;
   display: inline-flex;
   align-items: center;
   margin-top: 10px;
+  padding: 0px 40px;
 }
 
-.header i {
-  font-size: 28px;
-  color: white !important;
-  margin-right: 10px;
-}
-
-.body {
+.friends .container .body {
   width: 100%;
   margin: auto auto;
-  display: inline;
+  display: inline-block;
+  margin-top: 30px;
 }
 
 .friend-card {
-  width: 80%;
+  width: 60%;
   height: 100px;
   box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.514);
   display: inline-flex;
   margin: auto auto;
   background-color: purple;
   margin-bottom: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .friend-card img {
   width: 15%;
+  height: 100% !important;
   height: 99%;
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 15px 0px 0px 15px;
 }
 
 .friend-info {

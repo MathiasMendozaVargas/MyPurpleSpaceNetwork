@@ -88,12 +88,9 @@ function Friends() {
             <Navbar />
             <div className="friends">
                 <div className="container">
-                    {/* header */}
                     <div className="header">
-                        <i className="fa-solid fa-user-group"></i>
-                        <h1>Friends</h1>
+                        <h1><i className="fa-solid fa-user-group"></i> My Friends</h1>
                     </div>
-                    {/* body */}
                     <div className="body">
                         {friends.map((friend) => {
                             return <FriendCard key={friend.id} data={friend}></FriendCard>
