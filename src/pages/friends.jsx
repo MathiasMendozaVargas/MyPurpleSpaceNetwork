@@ -11,13 +11,13 @@ import based_profileImg from '../assets/basedProfile.png'
 // import FriendCard component
 import FriendCard from "../components/FriendCard"
 
-
 // import all libraries
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { supabase } from '../lib/supabaseClient'
-
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 // About Page Template
 function Friends() {
@@ -31,6 +31,7 @@ function Friends() {
 
     // UseStates
     const [ friends, setFriends ] = useState(null)
+    const [motionRef, inView] = useInView()
 
 
     // Get All Friends of the Current User
@@ -69,8 +70,6 @@ function Friends() {
             console.log(error);
         }
     }
-
-    
 
     useEffect(() => {
 
