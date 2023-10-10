@@ -6,6 +6,9 @@ import { supabase } from '../lib/supabaseClient'
 import { useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+
 
 const FriendCard = (data) => {
 
@@ -19,6 +22,10 @@ const FriendCard = (data) => {
 
     let logged_user = useSelector(state => state.user.user)
     let loggedUserId = logged_user.id
+
+    // Framer Motion
+    const [motionRef, inView] = useInView()
+    const control = useAnimation()
 
     const deleteFriend = async (loggedUserId, current_user_id) => {
         try {
@@ -67,51 +74,70 @@ const FriendCard = (data) => {
         }
     }
 
+    const varianst = {
+        visible: {opacity: 1, scale: 1, transition: {duration: 0.3}, delay: {duration: 0}},
+        hidden: {opacity: 0, scale: 0, transition: {duration: 0.3}, delay: {duration: 0}}
+    }
+
     useEffect(()=>{
         getProfilePhoto(friend_id)
-    }, [])
+
+        if(inView){
+            control.start('visible')
+        }else{
+            control.start('hidden')
+        }
+    }, [control, inView])
 
     return (
-        <Link to={'/profile/' + friend_id}>
-            <div className="friend-card">
-                {profilePhoto ? (
-                    <img src={profilePhoto} onError={()=>{
-                        setProfilePhoto(null)
-                        return avatar
-                    }}/>
-                ): (
-                    <img src={avatar} />
-                )}
-                <div className="friend-info">
-                    <p className='fullName'>{fullName}</p>
-                    <p className='username'>@{username}</p>
-                </div>
-                <div className="friends-btns">
-                    <button onClick={(e) => {
-                        e.preventDefault()
-                        setShowModal(true)
-                    }} className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
-                    { showModal && (
-                        <div className="deleteModal">
-                            <i class="fa-solid fa-face-sad-tear"></i>
-                            <h4>Are you sure you want to delete your friend?</h4>
-                            <div className="btn-container">
-                                <button onClick={(e) => {
-                                    e.preventDefault()
-                                    setShowModal(false)
-                                }} className='no'>No</button>
-                                <button onClick={(e) => {
-                                    e.preventDefault()
-                                    // call the function that deletes a post and refresh page
-                                    deleteFriend(loggedUserId, friend_id)
-                                }} className='yes'>Yes</button>
-                            </div>
-                        </div>
+        <motion.div
+            ref={motionRef}
+            initial='hidden'
+            exit='visible'
+            animate={control}
+            variants={varianst}
+        >
+            <Link to={'/profile/' + friend_id}>
+                <div className="friend-card">
+                    {profilePhoto ? (
+                        <img src={profilePhoto} onError={()=>{
+                            setProfilePhoto(null)
+                            return avatar
+                        }}/>
+                    ): (
+                        <img src={avatar} />
                     )}
+                    <div className="friend-info">
+                        <p className='fullName'>{fullName}</p>
+                        <p className='username'>@{username}</p>
+                    </div>
+                    <div className="friends-btns">
+                        <button onClick={(e) => {
+                            e.preventDefault()
+                            setShowModal(true)
+                        }} className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
+                        { showModal && (
+                            <div className="deleteModal">
+                                <i class="fa-solid fa-face-sad-tear"></i>
+                                <h4>Are you sure you want to delete your friend?</h4>
+                                <div className="btn-container">
+                                    <button onClick={(e) => {
+                                        e.preventDefault()
+                                        setShowModal(false)
+                                    }} className='no'>No</button>
+                                    <button onClick={(e) => {
+                                        e.preventDefault()
+                                        // call the function that deletes a post and refresh page
+                                        deleteFriend(loggedUserId, friend_id)
+                                    }} className='yes'>Yes</button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    <ToastContainer></ToastContainer>
                 </div>
-                <ToastContainer></ToastContainer>
-            </div>
-        </Link>
+            </Link>
+        </motion.div>
     )
 }
 
