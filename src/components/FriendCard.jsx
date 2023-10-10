@@ -1,5 +1,5 @@
 // importing libraries
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import avatar from '../assets/basedProfile.png'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
@@ -11,6 +11,7 @@ const FriendCard = (data) => {
 
     const [ friend, setFriend ] = useState(data)
     const [ showModal, setShowModal ] = useState(false)
+    const [ profilePhoto, setProfilePhoto] = useState(null)
 
     const fullName = friend.data.first_name + ' ' + friend.data.last_name
     const username = friend.data.username
@@ -53,10 +54,34 @@ const FriendCard = (data) => {
         }
     };
 
+    const getProfilePhoto = async (profile_id) => {
+        try {
+            let filepath = String(profile_id + '/profile')
+            const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
+            if(data){
+                console.log(data);
+                setProfilePhoto(data.publicUrl)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(()=>{
+        getProfilePhoto(friend_id)
+    }, [])
+
     return (
         <Link to={'/profile/' + friend_id}>
             <div className="friend-card">
-                <img src={avatar} alt="" />
+                {profilePhoto ? (
+                    <img src={profilePhoto} onError={()=>{
+                        setProfilePhoto(null)
+                        return avatar
+                    }}/>
+                ): (
+                    <img src={avatar} />
+                )}
                 <div className="friend-info">
                     <p className='fullName'>{fullName}</p>
                     <p className='username'>@{username}</p>

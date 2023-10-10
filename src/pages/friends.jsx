@@ -70,6 +70,8 @@ function Friends() {
         }
     }
 
+    
+
     useEffect(() => {
 
         // get all friends of a user
