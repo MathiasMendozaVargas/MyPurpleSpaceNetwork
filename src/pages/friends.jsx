@@ -86,15 +86,13 @@ function Friends() {
         <>
             <Navbar />
             <div className="friends">
-                <div className="container">
-                    <div className="header">
-                        <h1><i className="fa-solid fa-user-group"></i> My Friends</h1>
-                    </div>
-                    <div className="body">
-                        {friends.map((friend) => {
-                            return <FriendCard key={friend.id} data={friend}></FriendCard>
-                        })}
-                    </div>
+                <div className="header">
+                    <h1><i className="fa-solid fa-user-group"></i> My Friends</h1>
+                </div>
+                <div className="body">
+                    {friends.map((friend) => {
+                        return <FriendCard key={friend.id} data={friend}></FriendCard>
+                    })}
                 </div>
             </div>
         </>

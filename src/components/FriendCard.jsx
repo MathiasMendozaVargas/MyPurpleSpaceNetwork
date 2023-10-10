@@ -108,31 +108,34 @@ const FriendCard = (data) => {
                         <img src={avatar} />
                     )}
                     <div className="friend-info">
-                        <p className='fullName'>{fullName}</p>
-                        <p className='username'>@{username}</p>
-                    </div>
-                    <div className="friends-btns">
-                        <button onClick={(e) => {
-                            e.preventDefault()
-                            setShowModal(true)
-                        }} className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
-                        { showModal && (
-                            <div className="deleteModal">
-                                <i class="fa-solid fa-face-sad-tear"></i>
-                                <h4>Are you sure you want to delete your friend?</h4>
-                                <div className="btn-container">
-                                    <button onClick={(e) => {
-                                        e.preventDefault()
-                                        setShowModal(false)
-                                    }} className='no'>No</button>
-                                    <button onClick={(e) => {
-                                        e.preventDefault()
-                                        // call the function that deletes a post and refresh page
-                                        deleteFriend(loggedUserId, friend_id)
-                                    }} className='yes'>Yes</button>
+                        <div className="info">
+                            <p className='fullName'>{fullName}</p>
+                            <p className='username'>@{username}</p>
+                        </div>
+                        <div className="friends-btns">
+                            
+                            <button onClick={(e) => {
+                                e.preventDefault()
+                                setShowModal(true)
+                            }} className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
+                            { showModal && (
+                                <div className="deleteModal">
+                                    <i class="fa-solid fa-face-sad-tear"></i>
+                                    <h4>Are you sure you want to delete your friend?</h4>
+                                    <div className="btn-container">
+                                        <button onClick={(e) => {
+                                            e.preventDefault()
+                                            setShowModal(false)
+                                        }} className='no'>No</button>
+                                        <button onClick={(e) => {
+                                            e.preventDefault()
+                                            // call the function that deletes a post and refresh page
+                                            deleteFriend(loggedUserId, friend_id)
+                                        }} className='yes'>Yes</button>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                     <ToastContainer></ToastContainer>
                 </div>

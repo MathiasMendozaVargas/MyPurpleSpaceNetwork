@@ -19,7 +19,7 @@ code {
   position: fixed;
   top: 0;
   z-index: 1;
-  width: 100%;
+  width: 100vw;
   color: rgb(224, 224, 224);
   background-color: purple;
   display: flex;
@@ -1416,12 +1416,10 @@ code {
   width: 100%;
   text-align: center;
   background-color: black;
-  overflow: hidden;
+  overflow-x: hidden;
+  padding-top: 75px;
 }
 
-.container {
-  padding: 50px;
-}
 
 .friends .header {
   height: auto !important;
@@ -1430,7 +1428,7 @@ code {
   display: inline-flex;
   align-items: center;
   margin-top: 10px;
-  padding: 0px 40px;
+  padding: 0px 40px 20px 40px;
 }
 
 .friends .container .body {
@@ -1442,7 +1440,7 @@ code {
 
 .friend-card {
   width: 60%;
-  height: 100px;
+  height: fit-content;
   box-shadow: 3px 3px 3px 3px rgba(59, 59, 59, 0.514);
   display: inline-flex;
   margin: auto auto;
@@ -1453,22 +1451,27 @@ code {
 
 .friend-card img {
   width: 15%;
-  height: 100% !important;
-  height: 99%;
+  max-height: 100%;
   border-radius: 15px 0px 0px 15px;
 }
 
 .friend-info {
-  width: 35%;
+  width: 85%;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  padding: 0px 15px;
+}
+
+.friend-info .info{
+  width: 60%;
   text-align: left;
-  margin-left: 20px;
-  display: inline;
 }
 
 .friend-info .fullName {
   color: white;
-  font-size: 20px;
-  margin-bottom: -17px !important;
+  font-size: 22px;
+  margin-bottom: -17px;
 }
 
 .friend-info .username {
@@ -1477,15 +1480,15 @@ code {
 }
 
 .friends-btns {
-  width: 50%;
+  width: 100%;
+  display: inline-block;
   text-align: right;
-  padding-top: 14px;
-  padding-right: 15px;
+  align-items: center;
 }
 
 .friends-btns .deleteBtn {
-  height: 28px;
-  font-size: 60%;
+  padding: 10px 9px;
+  font-size: 12px;
   text-align: center;
   background-color: rgb(194, 0, 0);
   color: white;
@@ -1503,45 +1506,42 @@ code {
   margin-right: 5px;
 }
 
-/* Media Queries for Responsive Design */
-
-/* For tablets and smaller screens */
-@media screen and (max-width: 768px) {
-  .friend-card {
-    width: 90%;
-  }
-}
-
 /* For mobile devices */
 @media screen and (max-width: 576px) {
   .friend-card {
-    width: 95%;
-    flex-direction: column;
+    width: 80%;
+    height: fit-content !important;
   }
 
   .friend-card img {
     width: 30%;
-    height: 100%;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 15px 0px 0px 15px;
   }
-
+  
   .friend-info {
-    width: 50%;
-    text-align: center;
-    margin-left: 0;
-    margin-top: 10px;
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
   }
 
-  .friends-btns {
-    width: 20%;
-    text-align: center;
-    padding-top: 14px;
-    padding-right: 0;
-  }
-
-  .friends-btns .deleteBtn {
+  .friend-info .info{
     width: 100%;
-    margin-top: 10px;
+  }
+
+  p.fullName{
+    margin-top: 12px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .friend-info .username{
+    display: none;
+  }
+
+  .friend-info .friends-btns{
+    width: 100%;
+    text-align: center;
+    padding: 10px 0px 20px 0px;
   }
 }
 
