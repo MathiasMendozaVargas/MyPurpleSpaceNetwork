@@ -37,6 +37,7 @@ function Navbar() {
     useEffect(()=>{
         getProfilePhoto(user.id)
     })
+    
 
     return (
         <nav className={`navbar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
