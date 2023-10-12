@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo2.png'
+import avatar from '../assets/basedProfile.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { unSetUser } from '../redux/slice/userSlice'
 import { supabase } from '../lib/supabaseClient'
 
@@ -9,6 +10,7 @@ function Navbar() {
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [profilePhoto, setProfilePhoto] = useState(null)
 
     const handleLogout = async () => {
         dispatch(unSetUser());
@@ -18,6 +20,23 @@ function Navbar() {
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     };
+
+    const getProfilePhoto = async (profile_id) => {
+        try {
+            let filepath = String(profile_id + '/profile')
+            const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
+            if(data){
+                console.log(data);
+                setProfilePhoto(data.publicUrl)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(()=>{
+        getProfilePhoto(user.id)
+    })
 
     return (
         <nav className={`navbar ${mobileMenuOpen ? 'mobile-open' : ''}`}>
@@ -47,7 +66,10 @@ function Navbar() {
                     </li>
                     <li>
                         <Link to={'/profile/' + user.id}>
-                            <i className="fas fa-user"></i> Profile
+                            <img className='profileLinkImg'  src={profilePhoto ? (profilePhoto) : (avatar)} onError={()=>{
+                                setProfilePhoto(null)
+                                return avatar
+                            }}/>
                         </Link>
                     </li>
                     <li>

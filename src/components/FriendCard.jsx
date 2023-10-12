@@ -24,8 +24,10 @@ const FriendCard = (data) => {
     let loggedUserId = logged_user.id
 
     // Framer Motion
-    const [motionRef, inView] = useInView()
-    const control = useAnimation()
+    const [motionRef, inViewCard] = useInView()
+    const [modalRef, inViewModal] = useInView()
+    const controlCard = useAnimation()
+    const controlModal = useAnimation()
 
     const deleteFriend = async (loggedUserId, current_user_id) => {
         try {
@@ -74,7 +76,7 @@ const FriendCard = (data) => {
         }
     }
 
-    const varianst = {
+    const variants = {
         visible: {opacity: 1, scale: 1, transition: {duration: 0.3}, delay: {duration: 0}},
         hidden: {opacity: 0, scale: 0, transition: {duration: 0.3}, delay: {duration: 0}}
     }
@@ -82,20 +84,27 @@ const FriendCard = (data) => {
     useEffect(()=>{
         getProfilePhoto(friend_id)
 
-        if(inView){
-            control.start('visible')
+        if(inViewCard){
+            controlCard.start('visible')
         }else{
-            control.start('hidden')
+            controlCard.start('hidden')
         }
-    }, [control, inView])
+
+        if(inViewModal){
+            controlModal.start('visible')
+        }else{
+            controlModal.start('hidden')
+        }
+
+    }, [controlCard, controlModal, inViewCard, inViewModal])
 
     return (
         <motion.div
             ref={motionRef}
             initial='hidden'
             exit='visible'
-            animate={control}
-            variants={varianst}
+            animate={controlCard}
+            variants={variants}
         >
             <Link to={'/profile/' + friend_id}>
                 <div className="friend-card">
@@ -119,7 +128,14 @@ const FriendCard = (data) => {
                                 setShowModal(true)
                             }} className='deleteBtn'><i className="fa-solid fa-user-xmark"></i>Delete Friend</button>
                             { showModal && (
-                                <div className="deleteModal">
+                                <motion.div
+                                className="deleteModal"
+                                ref={modalRef}
+                                initial='hidden'
+                                exit='visible'
+                                animate={controlModal}
+                                variants={variants}
+                                >
                                     <i class="fa-solid fa-face-sad-tear"></i>
                                     <h4>Are you sure you want to delete your friend?</h4>
                                     <div className="btn-container">
@@ -133,7 +149,7 @@ const FriendCard = (data) => {
                                             deleteFriend(loggedUserId, friend_id)
                                         }} className='yes'>Yes</button>
                                     </div>
-                                </div>
+                                </motion.div>
                             )}
                         </div>
                     </div>
