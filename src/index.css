@@ -58,13 +58,13 @@ code {
   justify-content: flex-end;
   text-align: right;
   display: flex;
+  align-items: center;
   padding-right: 15px;
 }
 .navbar-nav .profileLinkImg{
-  width: 25px;
+  width: 30px;
   border-radius: 100%;
   justify-content: center;
-  border: 1.6px solid black;
   margin-right: 3px;
 }
 
@@ -83,18 +83,6 @@ code {
   padding-bottom: 2px;
 }
 
-.navbar-nav li a:after {
-  background: none repeat scroll 0 0 transparent;
-  bottom: 0;
-  content: "";
-  display: block;
-  height: 1.7px;
-  left: 50%;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.548);
-  transition: width 0.3s ease 0s, left 0.3s ease 0s;
-  width: 0;
-}
 
 .navbar-nav li a:hover:after {
   width: 100%;
@@ -423,8 +411,12 @@ code {
     height: 100vh;
   }
 
+  .loginPage-header{
+    padding-top: 120px;
+  }
+
   .loginPage-login {
-    width: 90%;
+    width: 60%;
   }
 }
 
@@ -434,8 +426,12 @@ code {
     font-size: 30px;
   }
 
+  .loginPage-header{
+    padding-top: 120px;
+  }
+
   .loginPage-login {
-    width: 90%;
+    width: 80%;
   }
 }
 

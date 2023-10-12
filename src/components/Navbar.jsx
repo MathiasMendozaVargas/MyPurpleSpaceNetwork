@@ -35,7 +35,9 @@ function Navbar() {
     }
 
     useEffect(()=>{
-        getProfilePhoto(user.id)
+        if(user){
+            getProfilePhoto(user.id)
+        }
     })
     
 
@@ -81,11 +83,6 @@ function Navbar() {
                 </>
                 ) : (
                 <>
-                    <li>
-                        <Link to="/">
-                            <i className="fas fa-info-circle"></i> About
-                        </Link>
-                    </li>
                     <li>
                         <Link to="/login">
                             <i className="fas fa-sign-in-alt"></i> Login
