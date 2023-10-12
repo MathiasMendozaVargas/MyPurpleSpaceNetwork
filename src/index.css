@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  background-color: black;
+  background-color: rgb(15, 15, 15);
   font-family: 'Poppins', sans-serif;
   font-family: 'Saira Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -16,11 +16,11 @@ code {
 
 /* Navbar styling */
 .navbar {
-  height: 55px;
+  width: 100vw;
+  height: 65px;
   position: fixed;
   top: 0;
   z-index: 1;
-  width: 100vw;
   color: rgb(224, 224, 224);
   background-color: purple;
   display: flex;
@@ -58,11 +58,14 @@ code {
   justify-content: flex-end;
   text-align: right;
   display: flex;
+  padding-right: 15px;
 }
 .navbar-nav .profileLinkImg{
   width: 25px;
   border-radius: 100%;
   justify-content: center;
+  border: 1.6px solid black;
+  margin-right: 3px;
 }
 
 .navbar-nav li {
@@ -129,7 +132,8 @@ code {
 }
 
 .navbar.mobile-open .navbar-nav li {
-  margin: 0;
+  width: 100%;
+  margin: auto;
   padding: 10px;
   text-align: center;
   font-size: 18px;
@@ -149,6 +153,7 @@ code {
 @media (max-width: 768px) {
   .navbar {
     width: 100vw;
+    height: 50px;
     justify-content: space-between;
     padding: 10px 0px; /* Add padding to the Navbar */
   }

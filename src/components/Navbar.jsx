@@ -65,11 +65,11 @@ function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={'/profile/' + user.id}>
+                        <Link to={'/profile/' + user.id} style={{alignItems: 'center', display: 'inline-flex'}}>
                             <img className='profileLinkImg'  src={profilePhoto ? (profilePhoto) : (avatar)} onError={()=>{
                                 setProfilePhoto(null)
                                 return avatar
-                            }}/>
+                            }}/>Profile
                         </Link>
                     </li>
                     <li>
