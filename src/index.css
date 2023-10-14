@@ -1014,7 +1014,7 @@ code {
   height: 56vh;
   width: 100%;
   padding: 0 !important;
-  background-color: rgb(20, 3, 20) !important;
+  background-color: rgb(15, 15, 15) !important;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.291); /* Add a top shadow effect */
   
 }
@@ -1428,7 +1428,7 @@ code {
 .friends {
   width: 100%;
   text-align: center;
-  background-color: black;
+  background-color: rgb(15, 15, 15);
   overflow-x: hidden;
   padding-top: 80px;
 }
