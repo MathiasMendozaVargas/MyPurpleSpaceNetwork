@@ -248,17 +248,19 @@ code {
 /* Login Page */
 .loginPage {
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   margin-top: 57px;
-  background-image: url('./assets/aboutBg.webp');
   background-size: cover;
   background-repeat: no-repeat;
   color: whitesmoke;
 }
 
 .loginPage-header {
+  width: 60%;
+  margin: auto auto;
   text-align: center;
   padding-top: 50px;
+  z-index: 1;
 }
 
 .loginPage-header h1 {
@@ -269,6 +271,11 @@ code {
 
 .loginPage-header h3 {
   margin-top: 5px;
+}
+
+.earth-animation{
+  width: fit-content;
+  margin-top: -100px;
 }
 
 .loginPage-login {
@@ -405,6 +412,7 @@ code {
 /* Media Queries for Responsive Design */
 
 /* For tablets and smaller screens */
+
 @media screen and (max-width: 768px) {
   .loginPage {
     margin-top: 0;
