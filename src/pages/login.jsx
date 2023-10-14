@@ -122,9 +122,9 @@ const Login = () => {
                         </form>
                     </div>
                 </div>
-                <motion.div className='earth-animation'>
+                <div className='earth-animation'>
                     <EarthCanvas />
-                </motion.div>
+                </div>
                 
             </div>
         </>

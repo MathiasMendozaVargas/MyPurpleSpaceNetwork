@@ -2,10 +2,15 @@ import { useState, useEffect } from 'react';
 import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import { supabase } from '../lib/supabaseClient';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 // importing Navbar
 import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom';
+
+// 3D Earth Model
+import { EarthCanvas } from '../components/Canvas/Earth'
 
 
 // SignUp Page Template
@@ -19,23 +24,10 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-            const getUsers = async () => {
-                const { data, error } = await supabase
-                .from('users')
-                .select()
+    // Framer Motion
+    const control = useAnimation()
+    const [formRef, inView] = useInView()
 
-                if(error){
-                    console.log(error);
-                }
-                
-                console.log(data);
-            }
-            
-            getUsers();
-            
-        }, []
-    )
 
     const createNewUser = async () => {
         if(passwordRef.current.value !== passwordConfirmRef.current.value){
@@ -59,6 +51,24 @@ const SignUp = () => {
             navigate('/login')
         }
     }
+
+    useEffect(() => {
+        const getUsers = async () => {
+            const { data, error } = await supabase
+            .from('users')
+            .select()
+
+            if(error){
+                console.log(error);
+            }
+            
+            console.log(data);
+        }
+        
+        getUsers();
+        
+    }, []
+)
 
     return (
         <>
@@ -94,6 +104,9 @@ const SignUp = () => {
                                 }}>Sign Up</button>
                         </form>
                     </div>
+                </div>
+                <div className='earth-animation'>
+                    <EarthCanvas />
                 </div>
             </div>
         </>
