@@ -85,46 +85,48 @@ const Login = () => {
         <>
             <ToastContainer></ToastContainer>
             <Navbar />
-            <EarthCanvas>
-                <div className='loginPage'>
-                    <div className='loginPage-header'>
-                        <h1>Login to your Account</h1>
-                        <h3>Please login with your credentials</h3>
-                        <div className='loginPage-login'>
-                            <form>
-                                <input ref={emailRef} type='text' placeholder='Username' />
-                                <input ref={passwordRef} type={(
-                                    showPassword ? 'text' : 'password')} placeholder='Password'
-                                    style={{ marginBottom: '3px' }} />
-                                <div className="showPasswordDiv">
-                                    <div className="showPasswordBox">
-                                        <input type='checkbox' onClick={() => {
-                                            if (showPassword) {
-                                                setShowPassword(false);
-                                                console.log(showPassword);
-                                            }
-                                            else {
-                                                setShowPassword(true);
-                                                console.log(showPassword);
-                                            }
-                                        } } />
-                                        <p>Show Password</p>
-                                    </div>
-                                    <Link className='forgotLink' to='/signUp'>Forgot Password?</Link>
+            <div className='loginPage'>
+                <div className='loginPage-header'>
+                    <h1>Login to your Account</h1>
+                    <h3>Please login with your credentials</h3>
+                    <div className='loginPage-login'>
+                        <form>
+                            <input ref={emailRef} type='text' placeholder='Username' />
+                            <input ref={passwordRef} type={(
+                                showPassword ? 'text' : 'password')} placeholder='Password'
+                                style={{ marginBottom: '3px' }} />
+                            <div className="showPasswordDiv">
+                                <div className="showPasswordBox">
+                                    <input type='checkbox' onClick={() => {
+                                        if (showPassword) {
+                                            setShowPassword(false);
+                                            console.log(showPassword);
+                                        }
+                                        else {
+                                            setShowPassword(true);
+                                            console.log(showPassword);
+                                        }
+                                    } } />
+                                    <p>Show Password</p>
                                 </div>
-                                <button onClick={(e) => {
-                                    e.preventDefault();
-                                    loginWithPassword();
-                                } }>Log In</button>
-                                <div className="dontAccount">
-                                    Don't have an account?
-                                    <Link className='dontAccountLink' to='/signUp'>Sign Up</Link>
-                                </div>
-                            </form>
-                        </div>
+                                <Link className='forgotLink' to='/signUp'>Forgot Password?</Link>
+                            </div>
+                            <button onClick={(e) => {
+                                e.preventDefault();
+                                loginWithPassword();
+                            } }>Log In</button>
+                            <div className="dontAccount">
+                                Don't have an account?
+                                <Link className='dontAccountLink' to='/signUp'>Sign Up</Link>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </EarthCanvas>
+                <motion.div className='earth-animation'>
+                    <EarthCanvas />
+                </motion.div>
+                
+            </div>
         </>
     )
 }

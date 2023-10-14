@@ -246,21 +246,28 @@ code {
 
 
 /* Login Page */
-.loginPage {
+.earth-animation{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100vh;
-  margin-top: 57px;
-  background-size: cover;
-  background-repeat: no-repeat;
+  height: 100%;
+}
+.loginPage {
   color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
 }
 
 .loginPage-header {
-  width: 60%;
+  width: 80%;
   margin: auto auto;
   text-align: center;
-  padding-top: 50px;
   z-index: 1;
+  padding-bottom: 80px;
 }
 
 .loginPage-header h1 {
@@ -271,11 +278,6 @@ code {
 
 .loginPage-header h3 {
   margin-top: 5px;
-}
-
-.earth-animation{
-  width: fit-content;
-  margin-top: -100px;
 }
 
 .loginPage-login {
@@ -419,8 +421,8 @@ code {
     height: 100vh;
   }
 
-  .loginPage-header{
-    padding-top: 120px;
+  .loginPage-header{ 
+    width: 92%;
   }
 
   .loginPage-login {
@@ -432,10 +434,6 @@ code {
 @media screen and (max-width: 576px) {
   .loginPage-header h1 {
     font-size: 30px;
-  }
-
-  .loginPage-header{
-    padding-top: 120px;
   }
 
   .loginPage-login {
