@@ -1262,23 +1262,18 @@ code {
   height: 30vh;
   background-image: url('./assets/aboutBg.webp');
   background-size: cover;
+  text-align: center;
   background-repeat: no-repeat;
 }
 
-.editProfile img{
+.editProfile-header img{
   width: 150px;
   border-radius: 50%;
-  position: relative;
-  top: 32%;
-  left: 42%;
   border: 2.5px solid rgb(17, 17, 17);
 }
 
 .chooseNewPic{
   width: 100%;
-  position: relative;
-  top: 13%;
-  left: 38.5%;
 }
 
 .chooseNewPic i{
@@ -1300,7 +1295,7 @@ code {
   border-radius: 0px 0px 10px 10px;
   background-color: purple;
   box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.507);
-  width: 400px;
+  width: 30%;
 }
 
 
@@ -1424,6 +1419,25 @@ code {
   border: none;
 }
 
+/* Media Queries */
+@media (max-width: 968px) {
+  .editProfile-content{
+    width: 50%;
+  } 
+}
+
+@media (max-width: 650px) {
+  .editProfile-content{
+    width: 70%;
+  } 
+}
+
+@media (max-width: 450px) {
+  .editProfile-content{
+    width: 80%;
+  } 
+}
+
 /* Friends Page */
 .friends {
   width: 100%;
@@ -1444,11 +1458,12 @@ code {
   padding: 0px 40px 20px 40px;
 }
 
-.friends .container .body {
+.friends .body {
   width: 100%;
   margin: auto auto;
   display: inline-block;
-  margin-top: 30px;
+  margin-bottom: 30px;
+
 }
 
 .friend-card {
@@ -1458,7 +1473,7 @@ code {
   display: inline-flex;
   margin: auto auto;
   background-color: purple;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   border-radius: 15px;
 }
 

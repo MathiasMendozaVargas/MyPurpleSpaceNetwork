@@ -67,7 +67,7 @@ const Login = () => {
             const user_meta_data = await getUserMetaData(user.id)
 
             if(user_meta_data){
-                navigate('/home')
+                navigate('/')
             }
             else{
                 navigate('/configNewUser')
