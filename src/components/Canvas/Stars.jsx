@@ -1,76 +1,42 @@
-import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
-import { useState, useEffect } from "react";
+import { useState, useRef, Suspense } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Points, PointMaterial, Preload } from "@react-three/drei";
+import * as random from "maath/random/dist/maath-random.esm";
 
-import CanvasLoader from '../Loader'
+const Stars = (props) => {
+  const ref = useRef();
+  const [sphere] = useState(() => random.inSphere(new Float32Array(5000), { radius: 1.2 }));
 
-const Stars = ({ isMobile }) => {
-    const stars = useGLTF("./stars/scene.gltf");
-  
-    return (
-      <mesh>
-        <hemisphereLight intensity={0.7} groundColor='black' />
-        <spotLight
-          position={[-20, 10, 10]}
-          angle={0.12}
-          intensity={1}
+  useFrame((state, delta) => {
+    ref.current.rotation.x -= delta / 10;
+    ref.current.rotation.y -= delta / 15;
+  });
+
+  return (
+    <group rotation={[0, 0, Math.PI / 4]}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
+        <PointMaterial
+          transparent
+          color='#f272c8'
+          size={0.002}
+          sizeAttenuation={true}
+          depthWrite={false}
         />
-        <pointLight intensity={5} />
-        <primitive
-          object={stars.scene}
-          scale={isMobile ? 0.7 : 0.75}
-          position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
-          rotation={[-0.01, -0.2, -0.1]}
-        />
-      </mesh>
-    );
-  };
-  
+      </Points>
+    </group>
+  );
+};
+
 export const StarsCanvas = () => {
-    const [isMobile, setIsMobile] = useState(false);
+  return (
+    <div className='stars-canvas'>
+      <Canvas camera={{ position: [0, 0, 1] }}>
+        <Suspense fallback={null}>
+          <Stars />
+        </Suspense>
 
-    useEffect(() => {
-        // Add a listener for changes to the screen size
-        const mediaQuery = window.matchMedia("(max-width: 500px)");
-
-        // Set the initial value of the `isMobile` state variable
-        setIsMobile(mediaQuery.matches);
-
-        // Define a callback function to handle changes to the media query
-        const handleMediaQueryChange = (event) => {
-        setIsMobile(event.matches);
-        };
-
-        // Add the callback function as a listener for changes to the media query
-        mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-        // Remove the listener when the component is unmounted
-        return () => {
-        mediaQuery.removeEventListener("change", handleMediaQueryChange);
-        };
-    }, []);
-
-    return (
-        <Canvas
-        frameloop='demand'
-        shadows
-        dpr={[1, 2]}
-        camera={{ position: [20, 3, 5], fov: 25 }}
-        gl={{ preserveDrawingBuffer: true }}
-        >
-            <Suspense fallback={<CanvasLoader />}>
-                <OrbitControls
-                autoRotate
-                autoRotateSpeed={4}
-                enableZoom={false}
-                maxPolarAngle={Math.PI / 2}
-                minPolarAngle={Math.PI / 2}
-                />
-                <Stars isMobile={isMobile} />
-            </Suspense>
-
-            <Preload all />
-        </Canvas>
-    );
+        <Preload all />
+      </Canvas>
+    </div>
+  );
 };

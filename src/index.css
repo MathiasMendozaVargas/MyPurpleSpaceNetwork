@@ -1255,12 +1255,12 @@ code {
 .editProfile{
   margin-top: 57px;
   width: 100%;
-  min-height: 100vh;
 }
 
 .editProfile-header{
-  width: 100%;
+  width: 85%;
   height: 20vh;
+  margin: auto auto;
   padding-top: 10vh;
   background-image: url('./assets/aboutBg.webp');
   border-radius: 0px 0px 45px 45px;
@@ -1297,10 +1297,27 @@ code {
   height: 0 !important;
 }
 
+.stars-animation{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.stars-canvas{
+  width: 100%;
+  height: auto;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
 .editProfile-content{
   margin: auto;
   margin-top: 0px;
-  padding: 50px 22px 10px 12px;
+  padding: 40px 22px 10px 12px;
   border-radius: 0px 0px 10px 10px;
   background-color: purple;
   box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.507);
@@ -1430,8 +1447,12 @@ code {
 
 /* Media Queries */
 @media (max-width: 968px) {
+  .editProfile-header{
+    width: 100%;
+  }
   .editProfile-content{
     width: 50%;
+    padding-top: 20px;
   } 
 }
 
