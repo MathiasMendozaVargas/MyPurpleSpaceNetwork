@@ -7,7 +7,8 @@ import { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { supabase } from '../lib/supabaseClient';
-
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const EditProfile = () => {
 
@@ -19,6 +20,14 @@ const EditProfile = () => {
 
     const user = useSelector(state => state.user.user)
     const [userData, setUserData] = useState(null)
+    const [profilePhoto, setProfilePhoto] = useState(null)
+
+    // framer motion
+    const [picMotionRef, picInView] = useInView({
+        threshold: 0,
+        triggerOnce: true
+    })
+    const control = useAnimation()
 
     const updateProfilePicture = async (e) => {
         const newPic = e.target.files[0]
@@ -51,12 +60,24 @@ const EditProfile = () => {
                 }
             }
 
-
             usernameRef.current.value = userData['username']
             firstNameRef.current.value = userData['first_name']
             lastNameRef.current.value = userData['last_name']
             genderRef.current.value = userData['gender']
             ageRef.current.value = userData['age']
+        }
+    }
+
+    const getProfilePhoto = async (profile_id) => {
+        try {
+            let filepath = String(profile_id + '/profile')
+            const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
+            if(data){
+                console.log(data);
+                setProfilePhoto(data.publicUrl)
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -82,10 +103,22 @@ const EditProfile = () => {
             console.log('Success');
         }        
     }
+    
+    const zoomInVariant = {
+        visible: {opacity: 1, scale: 1, transition: {duration: 0.3}, delay: {duration: 0}},
+        hidden: {opacity: 0, scale: 0, transition: {duration: 0}}
+    }
 
     useEffect(() => {
         getUserMetaData(user.id)
-    }, [])
+        getProfilePhoto(user.id)
+        
+        if(picInView){
+            control.start('visible')
+        }else if(!picInView){
+            control.start('hidden')
+        }
+    }, [control, picInView])
 
     const profilePicRef = useRef()
     const usernameRef = useRef()
@@ -101,7 +134,16 @@ const EditProfile = () => {
                 <Navbar />
                 <div className="editProfile">
                     <div className="editProfile-header">
-                        <img src={based_profileImg} alt="" />
+                        <motion.img
+                                ref={profilePicRef}
+                                animate={control}
+                                variants={zoomInVariant}
+                                initial='hidden'
+                                exit='visible' 
+                                src={profilePhoto} onError={()=>{
+                                setProfilePhoto(null)
+                                return based_profileImg
+                            }}/>
                         <label className='chooseNewPic'>
                             <i class="fa-solid fa-pen"></i>
                             <input style={{opacity: '0'}} type="file" accept='image/*' ref={profilePicRef} onChange={async (e) => {
