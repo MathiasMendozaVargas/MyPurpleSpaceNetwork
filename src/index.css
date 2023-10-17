@@ -1259,8 +1259,10 @@ code {
 
 .editProfile-header{
   width: 100%;
-  height: 30vh;
+  height: 20vh;
+  padding-top: 10vh;
   background-image: url('./assets/aboutBg.webp');
+  border-radius: 0px 0px 45px 45px;
   background-size: cover;
   text-align: center;
   background-repeat: no-repeat;
@@ -1269,11 +1271,12 @@ code {
 .editProfile-header img{
   width: 150px;
   border-radius: 50%;
-  border: 2.5px solid rgb(17, 17, 17);
+  border: 3px solid rgb(17, 17, 17);
+  margin-bottom: -10px;
 }
 
 .chooseNewPic{
-  width: 100%;
+  margin-left: -40px;
 }
 
 .chooseNewPic i{
@@ -1281,11 +1284,16 @@ code {
   background-color: rgb(140, 43, 129);
   padding: 9px;
   border-radius: 50%;
-  border: 2px solid rgb(17, 17, 17);
+  border: 2.3px solid rgb(17, 17, 17);
 }
 
 .chooseNewPic i:hover{
   cursor: pointer;
+}
+
+.chooseNewPic input{
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .editProfile-content{
@@ -1432,9 +1440,9 @@ code {
   } 
 }
 
-@media (max-width: 450px) {
+@media (max-width: 650px) {
   .editProfile-content{
-    width: 80%;
+    width: 70%;
   } 
 }
 
