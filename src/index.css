@@ -1255,6 +1255,7 @@ code {
 .editProfile{
   margin-top: 57px;
   width: 100%;
+  min-height: 100vh;
 }
 
 .editProfile-header{

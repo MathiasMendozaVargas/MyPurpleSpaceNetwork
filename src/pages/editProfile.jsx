@@ -10,6 +10,9 @@ import { supabase } from '../lib/supabaseClient';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
+// 3d Model
+import { StarsCanvas } from '../components/Canvas/Stars'
+
 const EditProfile = () => {
 
     const navigate = useNavigate()
@@ -135,7 +138,7 @@ const EditProfile = () => {
                 <div className="editProfile">
                     <div className="editProfile-header">
                         <motion.img
-                                ref={profilePicRef}
+                                ref={picMotionRef}
                                 animate={control}
                                 variants={zoomInVariant}
                                 initial='hidden'
@@ -170,6 +173,9 @@ const EditProfile = () => {
                                 await updateProfile()
                                 } }>Update Profile <i class="fa-solid fa-address-card"></i></button>
                         </form>
+                    </div>
+                    <div className="stars-animation">
+                        <StarsCanvas />
                     </div>
                 </div>
             </>
