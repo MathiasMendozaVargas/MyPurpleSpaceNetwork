@@ -10,10 +10,10 @@ import PostCard from '../components/PostCard';
 import CreatePostModal from '../modals/CreatePostModal';
 
 // dummy data
-
 import { supabase } from '../lib/supabaseClient';
 
-
+// 3d Model
+import { StarsCanvas } from '../components/Canvas/Stars'
 
 
 // Home Page Template
@@ -48,6 +48,7 @@ function Home() {
     if(!posts){
         return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
     }
+    
 
     return (
         <>
@@ -64,6 +65,8 @@ function Home() {
                     }}><i class="fa-solid fa-pen-to-square"></i></button>
                 </div>
                 {showCreatePostModal && <CreatePostModal closeModal={closeModal}></CreatePostModal>}
+
+                
             </div>
         </>
     )
