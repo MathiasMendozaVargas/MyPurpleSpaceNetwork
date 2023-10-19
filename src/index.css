@@ -797,18 +797,18 @@ code {
 }
 
 .comment-field{
-  width: 95%;
-  margin-bottom: 15px;
+  width: 100%;
   display: inline-block;
+  margin: auto auto;
 }
 
 .comment-field textarea{
   width: 98% !important;
-  height: 17px;
+  min-height: 17px;
   padding: 6px;
   background-color: whitesmoke;
   border: none;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 0px 0px 0px 0px;
   margin-bottom: -9px;
   font-size: small;
   overflow: hidden;
@@ -869,6 +869,18 @@ code {
 
 .postCommentBtn i{
   margin-right: 4px;
+}
+
+/* Media Queries */
+@media (max-width: 968px) { 
+  .comment-field{
+    width: 99%;
+  }
+}
+@media (max-width: 568px) { 
+  .comment-field{
+    width: 98%;
+  }
 }
 
 /* Create Post Modal */
