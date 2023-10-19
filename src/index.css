@@ -508,6 +508,7 @@ code {
   margin: auto auto;
   margin-bottom: 20px;
   z-index: 1;
+  text-align: left;
 }
 
 .post-card-header {
@@ -592,12 +593,9 @@ code {
 /* For tablets and smaller screens */
 @media screen and (max-width: 768px) {
   .options-post{
-    width: 32%;
-    margin-left: -32% !important;
+    width: 42%;
+    margin-left: -42% !important;
     border-radius: 15px 0px 15px 15px !important;
-  }
-  .options-post button p{
-    font-size: smaller;
   }
   .box-connector {
     width: 0px;
@@ -660,8 +658,10 @@ code {
 }
 
 .post-card-body p {
+  font-size: 14px;
   margin-top: 0px;
   margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .post-card .media {
@@ -671,10 +671,11 @@ code {
 /* Media Queries for Responsive Design */
 
 /* For tablets and smaller screens */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 868px) {
   .post-card {
-    width: 70%;
-    margin-bottom: 25px;
+    width: 90%;
+    margin-bottom: 25px !important;
+    margin: auto auto;
   }
   .post-card-header .avatar {
     width: 50px;
@@ -688,7 +689,6 @@ code {
 @media screen and (max-width: 576px) {
   .post-card {
     width: 90%;
-    margin-bottom: 25px;
   }
   .post-card-header .avatar {
     width: 50px;
@@ -1012,7 +1012,7 @@ code {
 }
 
 .profile .container {
-  height: 56vh;
+  height: 53vh;
   width: 100%;
   padding: 0 !important;
   background-color: rgb(15, 15, 15) !important;
@@ -1036,6 +1036,7 @@ code {
   margin-top: -65px;
   display: flex;
   align-items: center !important;
+  text-align: center;
 }
 
 .profile-pic{
@@ -1083,6 +1084,7 @@ code {
 
 .profile-btns{
   display: flex;
+  justify-content: space-around;
   margin-left: auto;
   margin-top: 85px;
 }
@@ -1194,7 +1196,7 @@ code {
 
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .profile-header {
     height: 15vh;
   }
@@ -1208,7 +1210,7 @@ code {
   }
   .header-container {
     display: inline-block;
-    padding: 0px 10px 40px 10px;
+    padding: 0px 10px 25px 10px;
   }
 
   .profile-info {
@@ -1219,6 +1221,7 @@ code {
   /* Adjust profile buttons margin for smaller screens */
   .profile-btns {
     margin-top: 10px;
+    margin-left: 9px !important;
   }
 
   .profile-pic{
@@ -1610,12 +1613,13 @@ code {
   width: 100%; 
   overflow: hidden;
 }
-.container{
+.postView .container{
   width: 100%;
-  padding: 80px 10px;
+  padding: 100px 0px 35px 0px;
+  text-align: center;
 }
 .comments{
-  width: 100%;
+  width: 80%;
 }
 
 .comments .container{
@@ -1645,7 +1649,7 @@ code {
 .comments .body{
   width: 100%;
   display: inline-block;
-  padding: 0px 8px !important;
+  padding: 0px !important;
 }
 
 /* Comment */
@@ -1663,6 +1667,11 @@ code {
   margin-bottom: -5px;
 }
 
+.comment .info-comment{
+  display: inline-block;
+  text-align: left;
+}
+
 .comment .top .avatar{
   width: 40px;
   height: 40px;
@@ -1675,12 +1684,14 @@ code {
   color: white;
   padding: 0px 5px;
   font-style: italic;
+  margin: 10px 0px 0px 0px !important;
 }
 .comment .top .time{
   font-size: 10px;
   color: whitesmoke;
   margin-top: 15px;
   padding-left: 3px;
+  margin: 0px 0px 10px 0px !important;
 }
 
 .comment .top .dltComment{
@@ -1708,6 +1719,7 @@ code {
   color: white;
   margin-top: 0px !important;
   margin-bottom: 5px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .no-comments{
@@ -1715,6 +1727,25 @@ code {
   font-size: medium;
   text-align: center;
   margin-top: 20px;
+}
+
+/* For mobile devices */
+@media screen and (max-width: 876px) {
+  .postView .container{
+    width: 100vw;
+  }
+
+  .comments{
+    width: 90vw !important;
+  }
+
+  .comments .container{
+    margin: auto auto;
+  }
+
+  .comments .body{
+    padding: 0 !important;
+  }
 }
 
 /* Delete Comment Modal */
@@ -1787,6 +1818,7 @@ code {
 
 .close-top{
   width: 100%;
+  position: fixed;
   text-align: left;
   padding-top: 3px;
 }
@@ -1797,11 +1829,14 @@ code {
   cursor: pointer;
 }
 
+.box-decoration{
+  padding-top: 20px;
+}
+
 .image-upload-label {
   font-size: 1.5rem;
   font-weight: bold;
   cursor: pointer;
-  height: 10%;
   color: white;
 }
 
@@ -1812,16 +1847,15 @@ code {
 
 .imageBox{
   margin: 15px 0px 5px 0px;
-  display: flex;
-  justify-content: center;
   cursor: pointer;
+  align-items: center;
+  text-align: center;
   width: 100%;
   height: 75%;
-  transform: translateX(-41.4%);
 }
 
 .img-display {
-  height: 70%;
+  width: 200px;
   max-width: 100%;
   border: 0px !important;
   border-radius: 50% !important;

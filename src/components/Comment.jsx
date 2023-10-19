@@ -115,8 +115,10 @@ function Comment(data) {
                         e.target.src = avatar
                         e.onError = null
                     }}/>
-                    <h4 className='author'>{metadata.username}</h4>
-                    <p className='time'>{time}</p>
+                    <div className='info-comment'>
+                        <h4 className='author'>{metadata.username}</h4>
+                        <p className='time'>{time}</p>
+                    </div>
                     {isAuthor && <a onClick={() => setModalOpen(true)} className='dltComment'><i class="fa-solid fa-trash"></i></a>}
                 </div>
                 <div className="bottom">

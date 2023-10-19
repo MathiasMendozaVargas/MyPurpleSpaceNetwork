@@ -151,6 +151,9 @@ const PostCard = (props) => {
     }
 
     const votePost = async (post_id, voteType) => {
+        if(voteType === 1){
+
+        }
         try {
             const {e} = await supabase.from('post_votes').insert({
                 post_id: post_id,
@@ -315,6 +318,7 @@ const PostCard = (props) => {
         initial='hidden'
         exit='visible'
         className="post-card">
+            {/* Header */}
             <div className="post-card-header">
                 <img className="avatar" src={profile_photo} onError={(e)=>{
                     e.target.src = based_profileImg
@@ -328,22 +332,27 @@ const PostCard = (props) => {
                 </div>
                 <ToastContainer></ToastContainer>
             </div>
+            {/* Body */}
             <div className="post-card-body">
                 <Link style={{textDecoration: 'none', color: 'whitesmoke'}} to={'/posts/' + post_id}>
-                    
+                    {/* Content TEXT */}
                     <div className="post-card-body-inner">
                         <p>{postContent}</p>
                     </div>
                 </Link>
             </div>
+            {/* Media */}
             {images && (
+                <Link style={{textDecoration: 'none', color: 'whitesmoke'}} to={'/posts/' + post_id}>
                     <div className="media">
                         {images.map((src) => {
                             console.log(src);
                             return <img className="img-post" src={src.publicUrl}></img>
                         })}
                     </div>
-                )}
+                </Link> 
+            )}
+            {/* Reactions */}
             <div className="reactions">
                 <div className="likes">
                     <a onClick={(e) => {
@@ -367,6 +376,7 @@ const PostCard = (props) => {
                     }}><i class="fa-regular fa-comment"></i><p className="nComments">{nComments}</p></a>
                 </div>
             </div>
+            {/* Write Comment */}
             {showCommentForm && <div className="comment-field">
                 <textarea value={commentText} onChange={(e) => {setCommentText(e.target.value)}} className="commentsIconPicker" type="text" />
                 <div className="btn-comment">

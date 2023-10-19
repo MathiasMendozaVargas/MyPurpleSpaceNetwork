@@ -167,7 +167,27 @@ const Profile = () => {
                     try {
                         let {data, e} = await supabase.from('posts').select().eq('id', Number(id_list[i]))
                         if(data){
-                            saved_list.push(data[0])
+                            if(data[0] !== undefined){
+                                saved_list.push(data[0])
+                            }else{
+                                // eliminate undefined or erased posts from the network from our saved posts table
+                                let updated_list_to_Db = id_list
+                                let idx = updated_list_to_Db.indexOf(id_list[i])
+                                updated_list_to_Db.splice(idx, 1)
+
+                                // update updated Saved Post list on DB since some of them don't exist anymore
+                                try {
+                                    let {e: updateError} = await supabase.from('users_data').update({
+                                        savedPosts: updated_list_to_Db
+                                    }).eq('user_id', user_id)
+
+                                    if(updateError){
+                                        console.log(updateError);
+                                    }
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            }
                         }
                         if(e){
                             console.log(e);
@@ -176,6 +196,7 @@ const Profile = () => {
                         console.log(error);
                     }
                 }
+                console.log(saved_list);
                 setSavedPosts(saved_list)
             }
         } catch (error) {
@@ -308,6 +329,7 @@ const Profile = () => {
                     saved_posts ? (
                         <div className="display-posts">
                             {saved_posts.map((post) => {
+                                console.log(post);
                                 return <PostCard key={post.id} postData={post} />;
                             })}
                         </div>
