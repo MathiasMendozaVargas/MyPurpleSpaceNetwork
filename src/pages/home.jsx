@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 // importing Navbar and PostCard Components
 import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard';
+import Loading from '../components/Loading';
 
 // Modals
 import CreatePostModal from '../modals/CreatePostModal';
@@ -46,7 +47,7 @@ function Home() {
     }, [])
 
     if(!posts){
-        return <h1 style={{textAlign: 'center', marginTop: '150px'}}>Loading...</h1>
+        return <Loading />
     }
     
 
