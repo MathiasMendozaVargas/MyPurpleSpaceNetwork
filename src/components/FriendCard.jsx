@@ -106,7 +106,7 @@ const FriendCard = (data) => {
             animate={controlCard}
             variants={variants}
         >
-            <Link to={'/profile/' + friend_id}>
+            <Link to={'/profile/' + friend_id} style={{textDecoration:'none'}}>
                 <div className="friend-card">
                     {profilePhoto ? (
                         <img src={profilePhoto} onError={()=>{
