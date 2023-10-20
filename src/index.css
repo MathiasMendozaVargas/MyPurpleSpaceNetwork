@@ -465,6 +465,7 @@ code {
   border: none;
   font-size: 20px;
   transition: all 0.6s;
+  text-align: center;
 }
 
 .floatingBtn button:hover {
@@ -840,7 +841,7 @@ code {
   border-radius: 5px;
   border: none;
   margin-bottom: 3px;
-  transition: all 0.5s;
+  text-align: center;
 }
 
 .btn-comment .extra-content-btn:hover{
@@ -1679,6 +1680,12 @@ code {
   margin-bottom: -5px;
 }
 
+.comment .top .comment-link{
+  display: inline-flex;
+  align-items: center;
+}
+
+
 .comment .info-comment{
   display: inline-block;
   text-align: left;
@@ -1707,7 +1714,7 @@ code {
 }
 
 .comment .top .dltComment{
-  margin-left: auto;
+  margin-left: auto !important;
   color: white;
   margin-top: 25px;
   font-size: 10px;

@@ -6,7 +6,7 @@
 import avatar from '../assets/basedProfile.png'
 
 // import all libraries
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { supabase } from '../lib/supabaseClient'
@@ -111,14 +111,16 @@ function Comment(data) {
         return (
             <div className="comment">
                 <div className="top">
-                    <img className='avatar' src={profile_photo} onError={(e)=>{
-                        e.target.src = avatar
-                        e.onError = null
-                    }}/>
-                    <div className='info-comment'>
-                        <h4 className='author'>{metadata.username}</h4>
-                        <p className='time'>{time}</p>
-                    </div>
+                    <Link className='comment-link' to={'/profile/' + data.data.user_id} style={{textDecoration: 'none'}}>
+                        <img className='avatar' src={profile_photo} onError={(e)=>{
+                            e.target.src = avatar
+                            e.onError = null
+                        }}/>
+                        <div className='info-comment'>
+                            <h4 className='author'>{metadata.username}</h4>
+                            <p className='time'>{time}</p>
+                        </div>
+                    </Link>
                     {isAuthor && <a onClick={() => setModalOpen(true)} className='dltComment'><i class="fa-solid fa-trash"></i></a>}
                 </div>
                 <div className="bottom">
