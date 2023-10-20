@@ -6,6 +6,7 @@
 import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard'
 import Comment from '../components/Comment'
+import Loading from '../components/Loading'
 
 // media
 import avatar from '../assets/basedProfile.png'
@@ -74,11 +75,11 @@ function PostView() {
 
 
     if(!postData){
-        return <div style={{color: 'white'}}>Loading...</div>;
+        return <Loading />
     }
 
     if(!comments){
-        return <div style={{color: 'white'}}>Loading...</div>;   
+        return <Loading />
     }
 
     return (
