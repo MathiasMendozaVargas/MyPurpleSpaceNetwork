@@ -19,6 +19,7 @@ import EditProfilePhoto from "../modals/EditProfilePhoto";
 
 // Components
 import SavedPostsView from "../components/SavedPostsView";
+import Loading from '../components/Loading';
 
 // assets
 import friendsIcon from '../assets/users-alt.svg'
@@ -209,7 +210,6 @@ const Profile = () => {
             let filepath = String(profile_id + '/profile')
             const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
             if(data){
-                console.log(data);
                 setProfilePhoto(data.publicUrl)
             }
         } catch (error) {
@@ -258,7 +258,7 @@ const Profile = () => {
 
 
     if(!user_data) {
-        return <h1>Loading...</h1>
+        return <Loading />
     }
 
     
@@ -277,8 +277,7 @@ const Profile = () => {
                             initial='hidden'
                             exit='visible' 
                             src={profile_photo} onError={()=>{
-                            setProfilePhoto(null)
-                            return based_profileImg
+                                setProfilePhoto(based_profileImg)
                         }}/>
                         {isLoggedUser && <a onClick={(e)=>{
                             e.preventDefault()

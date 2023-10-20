@@ -1903,3 +1903,18 @@ code {
   background-color: #3e8e41;
 }
 
+/* Loading Page */
+.loading-page{ 
+  width: 100%; 
+  min-height: 100vh; 
+  display: inline-block;
+  justify-content: center;
+  text-align: center;
+  margin-top: 450px;
+}
+.loading-page p{
+  color: purple;
+  font-size: 25px;
+  font-weight: 600;
+  font-style: italic;
+}

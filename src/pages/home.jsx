@@ -32,7 +32,6 @@ function Home() {
         }
         
         if(data) {
-            console.log(data);
             setPosts(data)
         }
     }

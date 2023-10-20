@@ -8,8 +8,9 @@ import Navbar from '../components/Navbar'
 // media
 import based_profileImg from '../assets/basedProfile.png'
 
-// import FriendCard component
+// importing components
 import FriendCard from "../components/FriendCard"
+import Loading from '../components/Loading';
 
 // import all libraries
 import { useNavigate, useParams } from 'react-router-dom'
@@ -79,7 +80,7 @@ function Friends() {
     })
 
     if(!friends){
-        return <div style={{color: 'white'}}>Loading...</div>;
+        return <Loading />
     }
 
     return (
