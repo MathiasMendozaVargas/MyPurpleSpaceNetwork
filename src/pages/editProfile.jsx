@@ -21,10 +21,6 @@ const EditProfile = () => {
 
     const navigate = useNavigate()
 
-    const userProfilePic = useState(null)
-
-    const picsBucket = 'https://zcwavzonfrfgvmtbpgig.supabase.co/storage/v1/object/public/userProfilesPics/'
-
     const user = useSelector(state => state.user.user)
     const [userData, setUserData] = useState(null)
     const [profilePhoto, setProfilePhoto] = useState(null)

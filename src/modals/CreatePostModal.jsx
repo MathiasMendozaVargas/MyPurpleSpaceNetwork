@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -14,8 +14,6 @@ import Picker from '@emoji-mart/react'
 
 // Login Page Template
 const CreatePostModal = (props) => {
-
-    const navigate = useNavigate()
     const hiddenFileInput = useRef()
     const user = useSelector(state => state.user.user)
 
