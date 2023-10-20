@@ -7,7 +7,6 @@ import { supabase } from "../lib/supabaseClient";
 import { useSelector } from "react-redux";
 
 import PostCard from "../components/PostCard";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
@@ -18,20 +17,11 @@ import CreatePostModal from "../modals/CreatePostModal";
 import EditProfilePhoto from "../modals/EditProfilePhoto";
 
 // Components
-import SavedPostsView from "../components/SavedPostsView";
 import Loading from '../components/Loading';
-
-// assets
-import friendsIcon from '../assets/users-alt.svg'
-import deleteFriendIcon from '../assets/delete-user.webp'
-import addFriendIcon from '../assets/user-plus.svg'
-import { current } from "@reduxjs/toolkit";
 
 
 // Profile Pages
-
 const Profile = () => {
-
     const { profile_id } = useParams()
     const logged_user = useSelector(state => state.user.user)
 
@@ -40,8 +30,6 @@ const Profile = () => {
     if(profile_id === logged_user.id){
         isLoggedUser = true
     }
-
-    const navigate = useNavigate()
 
     const [ user_data, set_user_data] = useState(null)
     const [profile_photo, setProfilePhoto] = useState(null)
