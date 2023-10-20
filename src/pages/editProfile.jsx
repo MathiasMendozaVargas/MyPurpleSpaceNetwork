@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
-
-// Components
-import Navbar from '../components/Navbar';
-import based_profileImg from '../assets/basedProfile.png'
 import { useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { supabase } from '../lib/supabaseClient';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+
+// Components
+import Navbar from '../components/Navbar';
+import Loading from '../components/Loading';
+
+// assets
+import based_profileImg from '../assets/basedProfile.png'
+
 
 // 3d Model
 import { StarsCanvas } from '../components/Canvas/Stars'
@@ -130,6 +134,9 @@ const EditProfile = () => {
     const genderRef = useRef()
     const ageRef = useRef()
 
+    if(!userData){
+        return <Loading />
+    }
 
     if(userData){
         return(
@@ -181,11 +188,6 @@ const EditProfile = () => {
             </>
         )
     }
-
-    if(userData == null){
-        return <h1>Loading</h1>
-    }
-    
 }
 
 export default EditProfile;

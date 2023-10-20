@@ -809,7 +809,6 @@ code {
   padding: 6px;
   background-color: whitesmoke;
   border: none;
-  border-radius: 0px 0px 0px 0px;
   margin-bottom: -9px;
   font-size: small;
   overflow: hidden;
@@ -1910,7 +1909,7 @@ code {
   display: inline-block;
   justify-content: center;
   text-align: center;
-  margin-top: 450px;
+  margin-top: 350px;
 }
 .loading-page p{
   color: purple;
