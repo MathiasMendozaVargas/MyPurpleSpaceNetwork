@@ -251,7 +251,6 @@ const Profile = () => {
     if(!user_data) {
         return <Loading />
     }
-
     
     return (
         <>
