@@ -19,6 +19,9 @@ import EditProfilePhoto from "../modals/EditProfilePhoto";
 // Components
 import Loading from '../components/Loading';
 
+// 3d Model
+import { StarsCanvas } from '../components/Canvas/Stars'
+
 
 // Profile Pages
 const Profile = () => {
@@ -325,6 +328,9 @@ const Profile = () => {
                     )
                 )}
                 
+            </div>
+            <div className="stars-animation">
+                <StarsCanvas />
             </div>
         </div>
         {showCreatePostModal && <CreatePostModal closeModal={closeCreatePostModal}></CreatePostModal>}
