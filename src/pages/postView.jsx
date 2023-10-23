@@ -2,6 +2,12 @@
 // Post View Page
 /////////////////
 
+// import all libraries
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { supabase } from '../lib/supabaseClient'
+
 // importing Components
 import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard'
@@ -11,13 +17,8 @@ import Loading from '../components/Loading'
 // media
 import avatar from '../assets/basedProfile.png'
 
-
-
-// import all libraries
-import { useNavigate, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { supabase } from '../lib/supabaseClient'
+// 3d Model
+import { StarsCanvas } from '../components/Canvas/Stars'
 
 // About Page Template
 function PostView() {
@@ -104,6 +105,9 @@ function PostView() {
                                 }
                             </div>
                         </div>
+                    </div>
+                    <div className="stars-animation">
+                        <StarsCanvas />
                     </div>
                 </div>
             </div>
