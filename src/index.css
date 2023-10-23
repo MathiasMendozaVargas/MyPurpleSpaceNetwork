@@ -589,10 +589,11 @@ code {
 .box-connector {
   width: 0px;
   height: 0px;
-  margin-left: 12px;
-  border-bottom: 10px solid rgb(158, 17, 158);
+  margin-left: 12.5px;
+  border-bottom: 10px solid rgb(14, 14, 14);
   border-left: 0px solid transparent;
-  border-right: 15px solid transparent
+  border-right: 15px solid transparent;
+  margin-bottom: -2px;
 }
 
 .options-post {
@@ -610,15 +611,14 @@ code {
 /* For tablets and smaller screens */
 @media screen and (max-width: 768px) {
   .options-post{
-    width: 42%;
-    margin-left: -42% !important;
+    width: 52%;
+    margin-left: -52% !important;
     border-radius: 15px 0px 15px 15px !important;
   }
   .box-connector {
     width: 0px;
     height: 0px;
-    margin-left: -39.5%;
-    border-bottom: 10px solid rgb(158, 17, 158);
+    margin-left: -11.5px;
     border-left: 15px solid transparent;
     border-right: 0px solid transparent;
   }
@@ -645,7 +645,7 @@ code {
   border: none;
   text-align: left;
   padding: 10px;
-  border-bottom: 1.5px solid rgb(14, 14, 14);
+  border-bottom: 1.8px solid rgb(14, 14, 14);
 }
 
 .options-post button:last-child{
