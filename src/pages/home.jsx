@@ -54,19 +54,24 @@ function Home() {
         <>
             <Navbar />
             <div className="home">
+                {/* Posts */}
                 {posts.map((post) => {
                     console.log(post);
                     return <PostCard key={post.id} postData={post} getPosts={getAllPost}/>
                 })}
+                {/* Create New Post Btn */}
                 <div className="floatingBtn">
                     <button onClick={(e) => {
                         e.preventDefault()
                         setShowCreatePostModal(!showCreatePostModal)
                     }}><i class="fa-solid fa-pen-to-square"></i></button>
                 </div>
+                {/* Create Post Modal */}
                 {showCreatePostModal && <CreatePostModal closeModal={closeModal}></CreatePostModal>}
-
-                
+                {/* 3d Stars Model */}
+                <div className="stars-animation">
+                    <StarsCanvas />
+                </div>
             </div>
         </>
     )
