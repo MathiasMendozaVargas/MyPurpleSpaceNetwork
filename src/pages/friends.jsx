@@ -20,6 +20,9 @@ import { supabase } from '../lib/supabaseClient'
 import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
+// 3d Stars model
+import { StarsCanvas } from '../components/Canvas/Stars'
+
 // About Page Template
 function Friends() {
     const { profile_id } = useParams()
@@ -94,6 +97,9 @@ function Friends() {
                     {friends.map((friend) => {
                         return <FriendCard key={friend.id} data={friend}></FriendCard>
                     })}
+                </div>
+                <div className="stars-animation">
+                    <StarsCanvas />
                 </div>
             </div>
         </>
