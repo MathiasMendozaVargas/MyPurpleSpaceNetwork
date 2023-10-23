@@ -320,11 +320,13 @@ const PostCard = (props) => {
         className="post-card">
             {/* Header */}
             <div className="post-card-header">
-                <img className="avatar" src={profile_photo} onError={(e)=>{
-                    e.target.src = based_profileImg
-                    e.onError = null
-                }}/>
-                <span className="spanAuthor"><Link className="userLink" to={'/profile/' + author_id} onClick={()=>{setTimeout(()=>{window.location.reload();}, 100)}}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
+                <Link className="userLink" to={'/profile/' + author_id}>
+                    <img className="avatar" src={profile_photo} onError={(e)=>{
+                        e.target.src = based_profileImg
+                        e.onError = null
+                    }}/>
+                </Link>
+                <span className="spanAuthor"><Link className="userLink" to={'/profile/' + author_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
                     {showEditPost && <EditPostModal postData={props} closeEditPostModal={closeEditPostModal}></EditPostModal>}

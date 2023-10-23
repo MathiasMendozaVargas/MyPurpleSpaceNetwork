@@ -68,11 +68,7 @@ function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link to={'/profile/' + user.id} onClick={()=>{
-                            setTimeout(()=>{
-                                window.location.reload()
-                            }, 100)
-                        }} style={{alignItems: 'center', display: 'inline-flex'}}>
+                        <Link to={'/profile/' + user.id} style={{alignItems: 'center', display: 'inline-flex'}}>
                             <img className='profileLinkImg'  src={profilePhoto ? (profilePhoto) : (avatar)} onError={()=>{
                                 setProfilePhoto(null)
                                 return avatar

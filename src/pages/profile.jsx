@@ -221,6 +221,8 @@ const Profile = () => {
         hidden: {opacity: 0, scale: 0, transition: {duration: 0}}
     }
 
+    // listening for profile user's id changes on route
+    let current_id_user = window.location.pathname.split('/profile/').pop()
 
     useEffect(() => {
 
@@ -245,7 +247,7 @@ const Profile = () => {
         }else{
             control.start('hidden')
         }
-    }, [control, inView])
+    }, [control, inView, current_id_user])
 
 
     if(!user_data) {
