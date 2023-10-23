@@ -55,10 +55,12 @@ function Home() {
             <Navbar />
             <div className="home">
                 {/* Posts */}
-                {posts.map((post) => {
-                    console.log(post);
-                    return <PostCard key={post.id} postData={post} getPosts={getAllPost}/>
-                })}
+                <div className="home-posts">
+                    {posts.map((post) => {
+                        console.log(post);
+                        return <PostCard key={post.id} postData={post} getPosts={getAllPost}/>
+                    })}
+                </div>
                 {/* Create New Post Btn */}
                 <div className="floatingBtn">
                     <button onClick={(e) => {

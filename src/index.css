@@ -448,6 +448,11 @@ code {
   background-color: rgb(15, 15, 15);
 }
 
+.home-posts{
+  position: relative;
+  z-index: 1;
+}
+
 .home .stars-animation{
   position: fixed;
   top: 0;
@@ -518,8 +523,6 @@ code {
   width: 40%;
   margin: auto auto;
   margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
   text-align: left;
 }
 
@@ -1032,6 +1035,7 @@ code {
   width: 100%;
   min-height: 100vh;
   background-color: white;
+  position: relative;
 }
 
 .profile .container {
@@ -1047,7 +1051,7 @@ code {
   top: 0;
   left: 0;
   width: 100%;
-  height: 53vh;
+  height: 100%;
   z-index: 0;
 }
 
@@ -1140,10 +1144,13 @@ code {
 
 .profile-content-posts{
   width: 100%;
+  height: fit-content;
   display: inline;
   margin: auto auto;
   padding-bottom: 60px;
   background-color: white;
+  position: relative;
+  z-index: 0;
 }
 
 .display-posts{
@@ -1866,7 +1873,7 @@ code {
   border-radius: 15px;
   width: 350px;
   text-align: center;
-  z-index: 0;
+  z-index: 2;
 }
 
 .close-top{

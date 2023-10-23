@@ -257,6 +257,9 @@ const Profile = () => {
         <Navbar />
         <div className="profile">
             <div className="container">
+                <div className="stars-animation">
+                    <StarsCanvas />
+                </div>
                 <div className="profile-header"></div>
                 <div className="header-container">
                     <div className="profile-pic">
@@ -328,9 +331,7 @@ const Profile = () => {
                 )}
                 
             </div>
-            <div className="stars-animation">
-                <StarsCanvas />
-            </div>
+            
         </div>
         {showCreatePostModal && <CreatePostModal closeModal={closeCreatePostModal}></CreatePostModal>}
         <div className="floatingBtn">
