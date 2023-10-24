@@ -123,6 +123,7 @@ code {
   width: 100%;
   padding: 0 !important;
   border-radius: 0px 0px 8px 8px;
+  border-bottom: 3px solid rgba(24, 24, 24, 0.5);
 }
 
 .navbar.mobile-open .navbar-nav li {
@@ -132,11 +133,11 @@ code {
   text-align: center;
   font-size: 18px;
   font-weight: 600;
-  border-bottom: 1px solid rgba(224, 224, 224, 0.5);
+  border-bottom: 3px solid rgba(24, 24, 24, 0.5);
 }
 
 .navbar.mobile-open .navbar-nav li:first-child {
-  border-top: 1px solid rgba(224, 224, 224, 0.5);
+  border-top: 3px solid rgba(24, 24, 24, 0.5);
 }
 
 .navbar.mobile-open .navbar-nav li:last-child {
@@ -264,8 +265,7 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  position: relative;
+  margin-top: 90.4px;
 }
 
 .loginPage-header {
@@ -291,13 +291,25 @@ code {
   padding: 16px 22px 10px 12px;
   border-radius: 10px;
   background-color: purple;
-  box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.747);
+  box-shadow: 2px 2px 2px 2px rgba(49, 49, 49, 0.494);
+  border: 2px solid black;
   width: 300px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .loginPage-login form {
   width: 100%;
-  display: block;
+}
+
+.loginPage-login form h1 {
+  margin: 0px 0px 5px 0px;
+  font-style: normal;
+  font-size: 30px;
+}
+
+.loginPage-login form p{
+  margin: 0px 0px 15px 0px;
 }
 
 .loginPage-login form input {
@@ -386,7 +398,7 @@ code {
 .dontAccount {
   width: 100%;
   text-align: center;
-  margin-top: 8px;
+  margin-top: 10px !important;
   font-size: 13px;
 }
 
@@ -394,6 +406,7 @@ code {
   margin-left: 5px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11.5px;
+  color: white;
 }
 
 .age-and-age-div {
@@ -415,6 +428,74 @@ code {
 .age-and-age-div select:focus {
   outline: none;
   border: none;
+}
+
+/* Sign up section */
+.signUp-division{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 10px 0px 15px 0px;
+  justify-content: center;
+}
+.signUp-division span{
+  width: 40%;
+  height: 1.3px;
+  background-color: rgb(225, 225, 225);
+}
+
+.signUp-division p{
+  width: 10%;
+  font-size: 16px;
+  margin: 0px 5px;
+}
+
+.signUpProviders{
+  width: 100%;
+  display: inline;
+}
+
+.signUpProviders img{
+  width: 25px;
+  margin-right: 10px;
+}
+
+.signUpProviders button{
+  width: 90%;
+  padding: 4px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: none;
+}
+.signUpProviders button:hover{
+  cursor: pointer;
+}
+.signUpProviders .facebook{
+  background-color: #3b62af;
+  color: white;
+}
+.signUpProviders .facebook:hover{
+  background-color: #3f6bc1;
+}
+
+.signUpProviders .google:hover{
+  background-color: rgb(217, 217, 217);
+}
+
+.signUpProviders .apple{
+  background-color: black;
+  color: white;
+}
+.signUpProviders .apple:hover{
+  background-color: rgb(23, 22, 22);
+}
+.signUpProviders p{
+  font-size: 12px;
+  text-transform: uppercase;
+  padding-top: 1px;
 }
 
 /* Media Queries for Responsive Design */
@@ -1415,7 +1496,7 @@ code {
   margin-bottom: 5px;
   width: 100%;
   font-size: 11px;
-  color: blue;
+  color: rgba(245, 245, 245, 0.953);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -1471,6 +1552,7 @@ code {
   margin-left: 5px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11.5px;
+  color: rgba(245, 245, 245, 0.953);
 }
 
 .age-and-age-div{

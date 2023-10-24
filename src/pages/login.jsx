@@ -9,6 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
+// media
+import GoogleIcon from '../assets/GoogleIconpng.png'
+import FacebookIcon from '../assets/FacebookIcon.png'
+import AppleIcon from '../assets/AppleIcon.png'
+
 // 3D Earth Model
 import { EarthCanvas } from '../components/Canvas/Earth'
 
@@ -87,10 +92,10 @@ const Login = () => {
             <Navbar />
             <div className='loginPage'>
                 <div className='loginPage-header'>
-                    <h1>Login to your Account</h1>
-                    <h3>Please login with your credentials</h3>
                     <div className='loginPage-login'>
                         <form>
+                            <h1>Login to Purple</h1>
+                            <p>Use either email or any of the other providers.</p>
                             <input ref={emailRef} type='text' placeholder='Username' />
                             <input ref={passwordRef} type={(
                                 showPassword ? 'text' : 'password')} placeholder='Password'
@@ -120,6 +125,16 @@ const Login = () => {
                                 <Link className='dontAccountLink' to='/signUp'>Sign Up</Link>
                             </div>
                         </form>
+                        <div className='signUp-division'>
+                            <span></span>
+                            <p>or</p>
+                            <span></span>
+                        </div>
+                        <div className="signUpProviders">
+                            <button className='facebook'><img src={FacebookIcon}/><p>Login with Facebook</p></button>
+                            <button className='google'><img src={GoogleIcon}/><p>Login with Google</p></button>
+                            <button className='apple'><img src={AppleIcon}/><p>Login with Apple</p></button>
+                        </div>
                     </div>
                 </div>
                 <div className='earth-animation'>

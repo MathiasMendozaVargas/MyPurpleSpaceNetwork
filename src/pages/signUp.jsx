@@ -4,6 +4,12 @@ import { toast } from 'react-toastify';
 import { supabase } from '../lib/supabaseClient';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
+
+// media
+import GoogleIcon from '../assets/GoogleIconpng.png'
+import FacebookIcon from '../assets/FacebookIcon.png'
+import AppleIcon from '../assets/AppleIcon.png'
 
 // importing Navbar
 import Navbar from '../components/Navbar'
@@ -75,10 +81,10 @@ const SignUp = () => {
             <Navbar/>
             <div className='loginPage'>
                 <div className='loginPage-header'>
-                    <h1 style={{marginTop:'0px'}}>Create a new Purple Account</h1>
-                    <h3>Please provide your information to create an account</h3>
                     <div className='loginPage-login'>
                         <form>
+                            <h1>Sign Up</h1>
+                            <p>Use either email or any of the other providers.</p>
                             <input ref={emailRef} type='email' placeholder='Email' />
                             <input ref={passwordRef} type={(
                                 showPassword ? 'text' : 'password')} placeholder='Create Password'/>
@@ -101,8 +107,22 @@ const SignUp = () => {
                             <button type='submit' onClick={(e) => {
                                 e.preventDefault()
                                 createNewUser()
-                                }}>Sign Up</button>
+                            }}>Sign Up With Email</button>
+                            <div className="dontAccount">
+                                Already have an account?
+                                <Link className='dontAccountLink' to='/signUp'>Sign Up</Link>
+                            </div>
                         </form>
+                        <div className='signUp-division'>
+                            <span></span>
+                            <p>or</p>
+                            <span></span>
+                        </div>
+                        <div className="signUpProviders">
+                            <button className='facebook'><img src={FacebookIcon}/><p>Sign up with Facebook</p></button>
+                            <button className='google'><img src={GoogleIcon}/><p>Sign up with Google</p></button>
+                            <button className='apple'><img src={AppleIcon}/><p>Sign up with Apple</p></button>
+                        </div>
                     </div>
                 </div>
                 <div className='earth-animation'>
