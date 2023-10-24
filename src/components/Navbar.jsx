@@ -21,7 +21,6 @@ function Navbar() {
     const variants = {
         open: { opacity: 1, y: 0 },
         closed: { opacity: 0, y: "-100%", transition: {duration: 0.5, ease: 'easeInOut'}},
-        exit: {opacity: 1, y: "-100", transition: {duration: 0.5, ease: 'easeInOut'}}
     }
 
     const handleLogout = async () => {

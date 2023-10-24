@@ -291,24 +291,24 @@ const Profile = () => {
                 </div>
             </div>
             <div className="profile-content-posts">
-                {isLoggedUser ? (
-                    <div className="head-container">
-                        <div className="switcher-menu">
-                            <a className={activeLeft ? ('active-left') : ('')} onClick={(e) => {
-                                e.preventDefault();
-                                setActiveLeft(true)
-                                setShowPosts(true);
-                                setShowSaved(false)
-                            }}>My Posts</a>
+                <div className="head-container">
+                    <div className="switcher-menu">
+                        <a className={`${activeLeft ? ('active-left') : ('')} ${isLoggedUser ? ('') : ('justPosts')}`} onClick={(e) => {
+                            e.preventDefault();
+                            setActiveLeft(true)
+                            setShowPosts(true);
+                            setShowSaved(false)
+                        }}>{isLoggedUser ? ('My Posts') : (`${user_data.first_name}'s Posts`)}</a>
+                        {isLoggedUser && (
                             <a className={activeLeft ? ('') : ('active-right')} onClick={(e) => {
                                 e.preventDefault();
                                 setActiveLeft(false)
                                 setShowPosts(false);
                                 setShowSaved(true);
                             }}>Saved Posts</a>
-                        </div>
+                        )}
                     </div>
-                ) : <div style={{padding: '20px 0px'}}></div>}
+                </div>
                 {showPosts && (
                     user_posts ? (
                         <div className="display-posts">

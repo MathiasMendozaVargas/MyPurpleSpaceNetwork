@@ -11,6 +11,9 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { supabase } from '../lib/supabaseClient'
 
+// Delete Modal
+import DeleteModal from '../modals/DeleteModal'
+
 
 // About Page Template
 function Comment(data) {
@@ -101,6 +104,10 @@ function Comment(data) {
 
     let time = calculateTimeDifference(data.data.created_at)
 
+    function closeModal(){
+        setModalOpen(false)
+    }
+
     useEffect(() => {
         getUserMetaData(data.data.user_id)
         checkifIsAuthor()
@@ -127,18 +134,12 @@ function Comment(data) {
                     <p>{data.data.body}</p>
                 </div>
                 { modalOpen && (
-                    <div className="deleteModal">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        <h4>Are you sure you want to delete this comment?</h4>
-                        <div className="btn-container">
-                            <button onClick={() => {setModalOpen(false)}} className='no'>No</button>
-                            <button onClick={(e) => {
-                                e.preventDefault()
-                                // call the function that deletes a post and refresh page
-                                deleteComment()
-                            }} className='yes'>Yes</button>
-                        </div>
-                    </div>
+                    <DeleteModal
+                        context='Are you sure you want to delete this comment?'
+                        icon="fa-solid fa-triangle-exclamation"
+                        closeModal={closeModal}
+                        deleteFunction={deleteComment}
+                    ></DeleteModal>
                 )}
             </div>
         )

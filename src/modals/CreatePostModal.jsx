@@ -20,12 +20,7 @@ const CreatePostModal = (props) => {
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState('')
     const [images, setImages] = useState(null)
-
-    // Framer Motion
-    const control = useAnimation()
-    const [modalRef, inView] = useInView({
-        threshold: 0
-    })
+    
 
     // Post References
     const user_id = user.id
@@ -144,25 +139,13 @@ const CreatePostModal = (props) => {
         hiddenFileInput.current.click();
     };
 
-    useEffect(()=>{
-        if(inView){
-            control.start('visible')
-        }else{
-            control.start('hidden')
-        }
-    }, [control, inView])
-
     if(!user){
         return null
     }
 
     return (
         <motion.div
-            ref={modalRef}
-            animate={control}
             variants={variants}
-            initial='hidden'
-            exit='visible' 
             className={images ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
             <div className="header-card">
                 <a onClick={props.closeModal}><i class="fa-solid fa-circle-xmark"></i></a>

@@ -1178,6 +1178,11 @@ code {
   transition: all 0.3s ease-in-out;
 }
 
+.switcher-menu a.justPosts{
+  width: 100%;
+  border-radius: 0px 0px 10px 10px;
+}
+
 .switcher-menu a:hover{
   color: rgb(228, 228, 228);
   transform: scale(1.01);
@@ -1250,6 +1255,7 @@ code {
   }
 
   .profile-info {
+    text-align: center;
     padding-top: 10px;
     margin-left: 5px;
   }
