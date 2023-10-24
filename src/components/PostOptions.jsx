@@ -125,7 +125,7 @@ function PostOptions(props) {
         }
     };
 
-    const deletePost = async (post_id, user_id) => {
+    const deletePost = async (post_id) => {
         try {
             const {error} = await supabase.from('posts').delete().eq('id', post_id)
             if(error){
@@ -215,10 +215,12 @@ function PostOptions(props) {
                 if (updateError) {
                     console.log(updateError);
                 } else {
-                    await checkIfSaved(post_id, user_id)
                     toast.success('Post Unsaved Successfully 🎉', {
                         position: toast.POSITION.TOP_RIGHT,
                     });
+                    setTimeout(()=>{
+                        window.location.reload();
+                    }, 3000)
                 }
             }
         } catch (e) {

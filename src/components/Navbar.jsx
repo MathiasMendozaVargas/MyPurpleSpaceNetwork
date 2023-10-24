@@ -7,13 +7,16 @@ import { unSetUser } from '../redux/slice/userSlice'
 import { supabase } from '../lib/supabaseClient'
 import BurgerMenu from '../assets/burger-menu.svg'
 import CloseMenu from '../assets/close-menu.svg'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useMediaQuery } from 'react-responsive';
 
 function Navbar() {
     const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [profilePhoto, setProfilePhoto] = useState(null)
+
+    const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
 
     const variants = {
         open: { opacity: 1, y: 0 },
@@ -63,11 +66,13 @@ function Navbar() {
                 <img src={mobileMenuOpen ? CloseMenu : BurgerMenu}/>
             </div>
 
-            <AnimatePresence>
-                <motion.ul
-                animate={mobileMenuOpen ? "open" : "closed"}
+            <motion.ul
+                animate={isMobile ? (
+                    mobileMenuOpen ? "open" : "closed"
+                ) : (
+                    ''
+                )}
                 variants={variants}
-                exit={variants.exit}
                 className={`navbar-nav ${mobileMenuOpen ? 'mobile-open' : ''}`}
             >
                 {user ? (
@@ -111,7 +116,6 @@ function Navbar() {
                     </>
                     )}
             </motion.ul>
-            </AnimatePresence>
         </nav>
     );
 }
