@@ -68,9 +68,8 @@ const Login = () => {
 
         if(user){
             dispatch(setUser(user))
-
             const user_meta_data = await getUserMetaData(user.id)
-
+            // checking if user already setup account
             if(user_meta_data){
                 navigate('/')
             }
@@ -79,10 +78,27 @@ const Login = () => {
             }
             
         }
-        else{
-            toast.error('Something Wrong Happened', {
-                position: "top-right",
-            })
+    }
+
+    const loginWithExternalProvider = async(provider) => {
+        const { data: {user}, error } = await supabase.auth.signInWithOAuth({
+            provider: provider
+        })
+        if(error) {
+            toast.error(error.message)
+            console.log(error);
+            return
+        }
+        if(user){
+            dispatch(setUser(user))
+            const user_meta_data = await getUserMetaData(user.id)
+            // checking if user already setup account
+            if(user_meta_data){
+                navigate('/')
+            }
+            else{
+                navigate('/configNewUser')
+            }
         }
     }
 
@@ -132,7 +148,10 @@ const Login = () => {
                         </div>
                         <div className="signUpProviders">
                             <button className='facebook'><img src={FacebookIcon}/><p>Login with Facebook</p></button>
-                            <button className='google'><img src={GoogleIcon}/><p>Login with Google</p></button>
+                            <button
+                                onClick={()=>loginWithExternalProvider('google')}
+                                className='google'
+                            ><img src={GoogleIcon}/><p>Login with Google</p></button>
                             <button className='apple'><img src={AppleIcon}/><p>Login with Apple</p></button>
                         </div>
                     </div>
