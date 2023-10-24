@@ -1809,17 +1809,17 @@ code {
 
 /* Delete Comment Modal */
 .deleteModal{
-  width: fit-content;
+  width: 250px;
   position: fixed;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) !important;
   margin: auto auto;
   padding: 20px;
   height: fit-content;
-  background-color: white;
+  background-color: rgb(84, 84, 84);
   border-radius: 15px;
-  color: purple;
+  color: rgb(220, 220, 220);
   text-align: center;
   display: inline-block;
 }
@@ -1827,8 +1827,8 @@ code {
 .deleteModal i{
   color: purple;
   font-size: large;
-  padding: 6px 7px;
-  background-color: rgba(126, 113, 126, 0.301);
+  padding: 6px;
+  background-color: rgba(201, 199, 199, 0.702);
   border-radius: 50%;
 }
 
@@ -1838,25 +1838,14 @@ code {
   justify-content: space-evenly;
 }
 
-.deleteModal .btn-container .no{
-  background-color: purple;
+.deleteModal .btn-container button{
+  background-color: rgb(142, 2, 142);
   color: white;
   border: none;
-  padding: 4px 18px;
+  padding: 6px 22px;
   border-radius: 5px;
 }
-.deleteModal .btn-container .no:hover{
-  cursor: pointer;
-  background-color: rgb(154, 0, 154);
-}
-.deleteModal .btn-container .yes{
-  background-color: rgb(191, 0, 166);
-  color: white;
-  border: none;
-  padding: 4px 18px;
-  border-radius: 5px;
-}
-.deleteModal .btn-container .yes:hover{
+.deleteModal .btn-container button:hover{
   cursor: pointer;
   background-color: rgb(167, 0, 145);
 }

@@ -16,13 +16,6 @@ function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [profilePhoto, setProfilePhoto] = useState(null)
 
-    const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
-
-    const variants = {
-        open: { opacity: 1, y: 0 },
-        closed: { opacity: 0, y: "-100%", transition: {duration: 0.5, ease: 'easeInOut'}},
-    }
-
     const handleLogout = async () => {
         dispatch(unSetUser());
         await supabase.auth.signOut();
@@ -43,6 +36,13 @@ function Navbar() {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const isMobile = useMediaQuery({ query: `(max-width: 760px)` });
+
+    const variants = {
+        open: { opacity: 1, y: 0 },
+        closed: { opacity: 0, y: "-100%", transition: {duration: 0.5, ease: 'easeInOut'}},
     }
 
     useEffect(()=>{

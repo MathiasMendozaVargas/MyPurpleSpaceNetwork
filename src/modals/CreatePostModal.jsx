@@ -20,10 +20,15 @@ const CreatePostModal = (props) => {
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState('')
     const [images, setImages] = useState(null)
-    
 
     // Post References
     const user_id = user.id
+
+    // Framer Motion
+    const control = useAnimation()
+    const [motionRef, inView] = useInView({
+        threshold: 0
+    })
 
     const addEmoji = (e) => {
         const sym = e.unified.split("_")
@@ -130,14 +135,23 @@ const CreatePostModal = (props) => {
         };
     };
 
-    const variants = {
-        visible: {opacity: 1, scale: 1, transition: {duration: 0.3}, delay: 0},
-        hidden: {opacity: 0, scale: 0.5, transition: {duration: 0}}
-    }
-
     const handleClick = (event) => {
         hiddenFileInput.current.click();
     };
+
+    const motionVariant = {
+        visible: { opacity: 1, y: 0 },
+        hidden: { opacity: 0, y: "-100%", transition: {duration: 0.5, ease: 'easeInOut'}},
+    }
+
+    useEffect(() => {
+        if(inView){
+            control.start('visible')
+        }
+        else{
+            control.start('hidden')
+        }
+    }, [control, inView])
 
     if(!user){
         return null
@@ -145,7 +159,11 @@ const CreatePostModal = (props) => {
 
     return (
         <motion.div
-            variants={variants}
+            ref={motionRef}
+            animate={control}
+            variants={motionVariant}
+            initial='hidden'
+            exit='visible'
             className={images ? ('newPostPage-body media-selected') : ('newPostPage-body')}>
             <div className="header-card">
                 <a onClick={props.closeModal}><i class="fa-solid fa-circle-xmark"></i></a>
