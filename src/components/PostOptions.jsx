@@ -179,9 +179,12 @@ function PostOptions(props) {
                 }
                 else{
                     await checkIfSaved(post_id, user_id)
-                    toast.success('Post Saved Successfully🎉', {
-                        position: toast.POSITION.TOP_RIGHT
-                    })
+                    toast.success('Post Saved Successfully 🎉', {
+                        position: toast.POSITION.BOTTOM_LEFT,
+                    });
+                    setTimeout(()=>{
+                       window.location.reload() 
+                    }, 3000)
                 }
             }
         } catch (e) {
@@ -215,11 +218,11 @@ function PostOptions(props) {
                 if (updateError) {
                     console.log(updateError);
                 } else {
-                    toast.success('Post Unsaved Successfully 🎉', {
-                        position: toast.POSITION.TOP_RIGHT,
+                    toast.success('Post Unsaved Successfully 🗑️', {
+                        position: toast.POSITION.BOTTOM_LEFT,
                     });
                     setTimeout(()=>{
-                        window.location.reload();
+                       window.location.reload() 
                     }, 3000)
                 }
             }

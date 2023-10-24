@@ -476,7 +476,7 @@ code {
 }
 
 .floatingBtn button {
-  padding: 15px;
+  padding: 12px 15px;
   border-radius: 50px;
   color: whitesmoke;
   background-color: rgb(103, 11, 128);
@@ -590,7 +590,7 @@ code {
   width: 0px;
   height: 0px;
   margin-left: 12.5px;
-  border-bottom: 10px solid rgb(14, 14, 14);
+  border-bottom: 10px solid rgba(14, 14, 14, 0.819);
   border-left: 0px solid transparent;
   border-right: 15px solid transparent;
   margin-bottom: -2px;
@@ -600,7 +600,7 @@ code {
   position: absolute;
   display: inline-block;
   background-color: rgb(158, 17, 158);
-  border: 2px solid rgb(14, 14, 14);
+  border: 1.5px solid rgb(14, 14, 14);
   box-shadow: 3px 3px 3px rgba(59, 59, 59, 0.375);
   width: 15%;
   margin-left: 12px;
@@ -618,26 +618,11 @@ code {
   .box-connector {
     width: 0px;
     height: 0px;
-    margin-left: -11.5px;
+    margin-left: -13px;
     border-left: 15px solid transparent;
     border-right: 0px solid transparent;
   }
 }
-
-/* For mobile devices */
-/* @media screen and (max-width: 576px) {
-  .home {
-    padding: 40px 10px;
-  }
-  .floatingBtn {
-    left: 80vw;
-  }
-  .floatingBtn button {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-  }
-} */
 
 .options-post button {
   width: 100%;
@@ -645,7 +630,7 @@ code {
   border: none;
   text-align: left;
   padding: 10px;
-  border-bottom: 1.8px solid rgb(14, 14, 14);
+  border-bottom: 1.5px solid rgb(14, 14, 14);
 }
 
 .options-post button:last-child{
@@ -1039,7 +1024,7 @@ code {
 
 /* Profile Page */
 .profile{
-  margin-top: 57px;
+  margin-top: 65.4px;
   width: 100%;
   min-height: 100vh;
   background-color: white;
@@ -1118,6 +1103,7 @@ code {
   display: inline;
   padding-top: 80px;
   margin-left: 25px;
+  text-align: left;
 }
 .profile-info h1{
   margin: 0px;
@@ -1125,7 +1111,7 @@ code {
   margin-bottom: -5px;
 }
 .profile-info h4{
-  margin: 0px;
+  margin: 0px 0px 0px 2px;
   color: white;
 }
 

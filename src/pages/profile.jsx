@@ -148,7 +148,7 @@ const Profile = () => {
     // Get all the Saved Posts from the User's metadata and then get the postdata by the post_id
     const getAllSavedPosts = async (user_id) => {
         try {
-            const {data:metadata, error} = await supabase.from('users_data').select().eq("user_id", user_id)
+            const {data:metadata, error} = await supabase.from('users_data').select('savedPosts').eq("user_id", user_id)
             if(error){
                 console.log(error);
             }
@@ -188,8 +188,9 @@ const Profile = () => {
                         console.log(error);
                     }
                 }
-                console.log(saved_list);
-                setSavedPosts(saved_list)
+                if(saved_list.length > 0){
+                    setSavedPosts(saved_list)
+                }
             }
         } catch (error) {
             console.log(error);
@@ -290,22 +291,24 @@ const Profile = () => {
                 </div>
             </div>
             <div className="profile-content-posts">
-                <div className="head-container">
-                    <div className="switcher-menu">
-                        <a className={activeLeft ? ('active-left') : ('')} onClick={(e) => {
-                            e.preventDefault();
-                            setActiveLeft(true)
-                            setShowPosts(true);
-                            setShowSaved(false)
-                        }}>My Posts</a>
-                        <a className={activeLeft ? ('') : ('active-right')} onClick={(e) => {
-                            e.preventDefault();
-                            setActiveLeft(false)
-                            setShowPosts(false);
-                            setShowSaved(true);
-                        }}>Saved Posts</a>
+                {isLoggedUser ? (
+                    <div className="head-container">
+                        <div className="switcher-menu">
+                            <a className={activeLeft ? ('active-left') : ('')} onClick={(e) => {
+                                e.preventDefault();
+                                setActiveLeft(true)
+                                setShowPosts(true);
+                                setShowSaved(false)
+                            }}>My Posts</a>
+                            <a className={activeLeft ? ('') : ('active-right')} onClick={(e) => {
+                                e.preventDefault();
+                                setActiveLeft(false)
+                                setShowPosts(false);
+                                setShowSaved(true);
+                            }}>Saved Posts</a>
+                        </div>
                     </div>
-                </div>
+                ) : <div style={{padding: '20px 0px'}}></div>}
                 {showPosts && (
                     user_posts ? (
                         <div className="display-posts">
