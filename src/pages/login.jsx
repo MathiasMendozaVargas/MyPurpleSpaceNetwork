@@ -8,11 +8,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import logo from '../assets/logo2.png'
 
 // media
-import GoogleIcon from '../assets/GoogleIconpng.png'
-import FacebookIcon from '../assets/FacebookIcon.png'
-import AppleIcon from '../assets/AppleIcon.png'
+// import GoogleIcon from '../assets/GoogleIconpng.png'
+// import FacebookIcon from '../assets/FacebookIcon.png'
+// import AppleIcon from '../assets/AppleIcon.png'
 
 // 3D Earth Model
 import { EarthCanvas } from '../components/Canvas/Earth'
@@ -24,6 +25,7 @@ import Navbar from '../components/Navbar'
 // Login Page Template
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [session, setSession] = useState(null)
     const emailRef = useRef()
     const passwordRef = useRef()
 
@@ -55,45 +57,78 @@ const Login = () => {
     
 
     const loginWithPassword = async() => {
-        const {data: {user}, error } = await supabase.auth.signInWithPassword({
-            email: emailRef.current.value,
-            password: passwordRef.current.value
-        })
+        if(emailRef.current.value != null && passwordRef.current.value){
+            let email = emailRef.current.value
+            // Checking if input is an email
+            let isEmail = false
+            for(let i=0; i<emailRef.current.value.length; i++){
+                if(emailRef.current.value[i] === '@'){
+                    isEmail = true
+                }
+            }
 
-        if(error) {
-            toast.error(error.message)
-            console.log(error);
-            return
+            if(!isEmail){
+                let username = emailRef.current.value
+                // look for user's email on DB using the username provided
+                const { data, error } = await supabase.from('users_data').select('email').eq('username', username)
+                email = data[0].email
+            }
+
+            const {data: {user}, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: passwordRef.current.value
+            })
+    
+            if(error) {
+                toast.error(error.message)
+                console.log(error);
+                return
+            }
+    
+            if(user){
+                dispatch(setUser(user))
+                const user_meta_data = await getUserMetaData(user.id)
+                // checking if user already setup account
+                if(user_meta_data){
+                    console.log(user_meta_data);
+                    toast.success(`Welcome back, ${user_meta_data.first_name}!`,{
+                        position: toast.POSITION.BOTTOM_LEFT
+                    })
+                    setTimeout(()=>{
+                        navigate('/')
+                    }, 2000)
+                }
+                else{
+                    navigate('/configNewUser')
+                }
+                
+            }
+        }else{
+            toast.warning('Please fill all the fields!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            })
         }
+    }
 
-        if(user){
-            dispatch(setUser(user))
-            const user_meta_data = await getUserMetaData(user.id)
-            // checking if user already setup account
-            if(user_meta_data){
-                navigate('/')
-            }
-            else{
-                navigate('/configNewUser')
-            }
+    // const loginOauth = async (provider) => {
+    //     try {
+    //         const { data, error } = await supabase.auth.signInWithOAuth({
+    //             provider: provider,
+    //             options: {
+    //             redirectTo: "http://localhost:3000/",
+    //             },
+    //         });
+    
+    //         if (error) {
+    //             throw Error(error.message);
+    //         } else {
+    //             return data
+    //         }
             
-        }
-    }
-
-    const loginWithExternalProvider = async(provider) => {
-        const { error } = await supabase.auth.signInWithOAuth({
-            provider: provider,
-            options: {
-                scopes: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
-            }
-        })
-        if(error){
-            console.log(error);
-        }
-        if(!error){
-            console.log("heyyy");
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    //   };
 
     return (
         <>
@@ -103,11 +138,11 @@ const Login = () => {
                 <div className='loginPage-header'>
                     <div className='loginPage-login'>
                         <form>
-                            <h1>Login to Purple</h1>
-                            <p>Use either email or any of the other providers.</p>
-                            <input ref={emailRef} type='text' placeholder='Username' />
+                            <h1><img src={logo} alt="" />Login to Purple</h1>
+                            <p>Use either email or username to Sign in.</p>
+                            <input ref={emailRef} type='text' placeholder='Email or Username' required/>
                             <input ref={passwordRef} type={(
-                                showPassword ? 'text' : 'password')} placeholder='Password'
+                                showPassword ? 'text' : 'password')} placeholder='Password' required
                                 style={{ marginBottom: '3px' }} />
                             <div className="showPasswordDiv">
                                 <div className="showPasswordBox">
@@ -134,26 +169,27 @@ const Login = () => {
                                 <Link className='dontAccountLink' to='/signUp'>Sign Up</Link>
                             </div>
                         </form>
-                        <div className='signUp-division'>
+                        {/* <div className='signUp-division'>
                             <span></span>
                             <p>or</p>
                             <span></span>
-                        </div>
-                        <div className="signUpProviders">
+                        </div> */}
+                        {/* Coming very Soon... */}
+                        {/* <div className="signUpProviders">
                             <button
                                 onClick={async()=>{
-                                    await loginWithExternalProvider('facebook')
+                                    await loginOauth('facebook')
                                 }}
                                 className='facebook'
                             ><img src={FacebookIcon}/><p>Login with Facebook</p></button>
                             <button
                                 onClick={async()=>{
-                                    await loginWithExternalProvider('google')
+                                    await loginOauth('google')
                                 }}
                                 className='google'
                             ><img src={GoogleIcon}/><p>Login with Google</p></button>
                             <button className='apple'><img src={AppleIcon}/><p>Login with Apple</p></button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className='earth-animation'>

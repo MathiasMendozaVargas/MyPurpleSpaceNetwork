@@ -306,6 +306,14 @@ code {
   margin: 0px 0px 5px 0px;
   font-style: normal;
   font-size: 30px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.loginPage-login form h1 img{
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
 }
 
 .loginPage-login form p{
@@ -398,8 +406,8 @@ code {
 .dontAccount {
   width: 100%;
   text-align: center;
-  margin-top: 10px !important;
-  font-size: 13px;
+  margin: 10px 0px !important;
+  font-size: 14px;
 }
 
 .dontAccountLink {
