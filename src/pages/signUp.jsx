@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import GoogleIcon from '../assets/GoogleIconpng.png'
 import FacebookIcon from '../assets/FacebookIcon.png'
 import AppleIcon from '../assets/AppleIcon.png'
+import logo from '../assets/logo2.png'
 
 // importing Navbar
 import Navbar from '../components/Navbar'
@@ -37,11 +38,15 @@ const SignUp = () => {
 
     const createNewUser = async () => {
         if(passwordRef.current.value !== passwordConfirmRef.current.value){
-            return alert('Passwords do not match!')
+            toast.warning('Passwords do not match!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            })
         }
 
         if(passwordRef.current.value < 6){
-            return alert('Password must be at least 6 characters long!')
+            toast.warning('Password must be at least 6 characters long!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            })
         }
 
         const { data: {user}, error } = await supabase.auth.signUp({
@@ -54,27 +59,9 @@ const SignUp = () => {
         }
 
         if(user){
-            navigate('/login')
+            console.log(user);
         }
     }
-
-    useEffect(() => {
-        const getUsers = async () => {
-            const { data, error } = await supabase
-            .from('users')
-            .select()
-
-            if(error){
-                console.log(error);
-            }
-            
-            console.log(data);
-        }
-        
-        getUsers();
-        
-    }, []
-)
 
     return (
         <>
@@ -83,8 +70,8 @@ const SignUp = () => {
                 <div className='loginPage-header'>
                     <div className='loginPage-login'>
                         <form>
-                            <h1>Sign Up</h1>
-                            <p>Use either email or any of the other providers.</p>
+                            <h1><img src={logo} alt="" />Sign Up</h1>
+                            <p>Please provide your email and setup your password to start.</p>
                             <input ref={emailRef} type='email' placeholder='Email' />
                             <input ref={passwordRef} type={(
                                 showPassword ? 'text' : 'password')} placeholder='Create Password'/>
@@ -92,16 +79,7 @@ const SignUp = () => {
                                 showPassword ? 'text' : 'password')} placeholder='Confirm Password'
                                 style={{marginBottom: '8px'}}/>
                             <div className="showPasswordDiv">
-                                <input type='checkbox' onClick={() => {
-                                    if(showPassword){
-                                        setShowPassword(false);
-                                        console.log(showPassword);
-                                    }
-                                    else{
-                                        setShowPassword(true);
-                                        console.log(showPassword);
-                                    }
-                                }}/>
+                                <input type='checkbox' onClick={() => {setShowPassword(!showPassword)}}/>
                                 <p>Show Password</p>
                             </div>
                             <button type='submit' onClick={(e) => {
@@ -113,7 +91,7 @@ const SignUp = () => {
                                 <Link className='dontAccountLink' to='/signUp'>Sign Up</Link>
                             </div>
                         </form>
-                        <div className='signUp-division'>
+                        {/* <div className='signUp-division'>
                             <span></span>
                             <p>or</p>
                             <span></span>
@@ -122,7 +100,7 @@ const SignUp = () => {
                             <button className='facebook'><img src={FacebookIcon}/><p>Sign up with Facebook</p></button>
                             <button className='google'><img src={GoogleIcon}/><p>Sign up with Google</p></button>
                             <button className='apple'><img src={AppleIcon}/><p>Sign up with Apple</p></button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className='earth-animation'>
