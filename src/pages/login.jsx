@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -81,26 +81,31 @@ const Login = () => {
     }
 
     const loginWithExternalProvider = async(provider) => {
-        const { data: {user}, error } = await supabase.auth.signInWithOAuth({
-            provider: provider
+        const { user, session, error } = await supabase.auth.signInWithOAuth({
+            provider: provider,
         })
-        if(error) {
-            toast.error(error.message)
-            console.log(error);
-            return
-        }
         if(user){
-            dispatch(setUser(user))
-            const user_meta_data = await getUserMetaData(user.id)
-            // checking if user already setup account
-            if(user_meta_data){
-                navigate('/')
-            }
-            else{
-                navigate('/configNewUser')
-            }
+            console.log(user);
+            console.log(session);
         }
     }
+
+    // function handleCallbackResponse(response){
+    //     console.log('Encoded JWT ID Token: ' + response.credential);
+    // }
+
+    // useEffect(()=>{
+    //     // global google
+    //     google.accounts.id.initialize({
+    //         client_id: '573578890932-h5fhig21bhlb9ru2lnr4s4evbntce6nv.apps.googleusercontent.com',
+    //         callback: handleCallbackResponse
+    //     })
+
+    //     google.accounts.id.renderButton(
+    //         document.getElementById('signInGoogle'),
+    //         { theme: 'outline', size: 'large'}
+    //     )
+    // }, [])
 
     return (
         <>
@@ -147,11 +152,19 @@ const Login = () => {
                             <span></span>
                         </div>
                         <div className="signUpProviders">
-                            <button className='facebook'><img src={FacebookIcon}/><p>Login with Facebook</p></button>
                             <button
-                                onClick={()=>loginWithExternalProvider('google')}
+                                onClick={async()=>{
+                                    await loginWithExternalProvider('facebook')
+                                }}
+                                className='facebook'
+                            ><img src={FacebookIcon}/><p>Login with Facebook</p></button>
+                            <button
+                                onClick={async()=>{
+                                    await loginWithExternalProvider('google')
+                                }}
                                 className='google'
                             ><img src={GoogleIcon}/><p>Login with Google</p></button>
+                            {/* <div id='signInGoogle'></div> */}
                             <button className='apple'><img src={AppleIcon}/><p>Login with Apple</p></button>
                         </div>
                     </div>
