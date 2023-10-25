@@ -8,7 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 // media
 import GoogleIcon from '../assets/GoogleIconpng.png'
@@ -34,10 +33,6 @@ const Login = () => {
     // Framer Motion
     const control = useAnimation()
     const [formRef, inView] = useInView()
-
-    // Supabase session
-    const session = useSession()
-    const supabase = useSupabaseClient()
 
     async function getUserMetaData(current_user_id) {
         const { data, error } = await supabase.from('users_data').select()
