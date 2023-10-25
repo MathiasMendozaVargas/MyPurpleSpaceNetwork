@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 // media
 import GoogleIcon from '../assets/GoogleIconpng.png'
@@ -33,6 +34,10 @@ const Login = () => {
     // Framer Motion
     const control = useAnimation()
     const [formRef, inView] = useInView()
+
+    // Supabase session
+    const session = useSession()
+    const supabase = useSupabaseClient()
 
     async function getUserMetaData(current_user_id) {
         const { data, error } = await supabase.from('users_data').select()
@@ -81,31 +86,19 @@ const Login = () => {
     }
 
     const loginWithExternalProvider = async(provider) => {
-        const { user, session, error } = await supabase.auth.signInWithOAuth({
+        const { error } = await supabase.auth.signInWithOAuth({
             provider: provider,
+            options: {
+                scopes: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+            }
         })
-        if(user){
-            console.log(user);
-            console.log(session);
+        if(error){
+            console.log(error);
+        }
+        if(!error){
+            console.log("heyyy");
         }
     }
-
-    // function handleCallbackResponse(response){
-    //     console.log('Encoded JWT ID Token: ' + response.credential);
-    // }
-
-    // useEffect(()=>{
-    //     // global google
-    //     google.accounts.id.initialize({
-    //         client_id: '573578890932-h5fhig21bhlb9ru2lnr4s4evbntce6nv.apps.googleusercontent.com',
-    //         callback: handleCallbackResponse
-    //     })
-
-    //     google.accounts.id.renderButton(
-    //         document.getElementById('signInGoogle'),
-    //         { theme: 'outline', size: 'large'}
-    //     )
-    // }, [])
 
     return (
         <>
@@ -164,7 +157,6 @@ const Login = () => {
                                 }}
                                 className='google'
                             ><img src={GoogleIcon}/><p>Login with Google</p></button>
-                            {/* <div id='signInGoogle'></div> */}
                             <button className='apple'><img src={AppleIcon}/><p>Login with Apple</p></button>
                         </div>
                     </div>
