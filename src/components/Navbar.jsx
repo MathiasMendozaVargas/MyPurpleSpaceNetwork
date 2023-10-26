@@ -26,15 +26,22 @@ function Navbar() {
     };
 
     const getProfilePhoto = async (profile_id) => {
-        try {
-            let filepath = String(profile_id + '/profile')
+        let { data: filename, error } = await supabase.storage.from('profile_photos').list(profile_id, {
+            limit: 2,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' },
+        })
+        if(error){
+            console.log(error);
+        }
+        if(filename){
+            console.log(filename);
+            filename = filename[filename.length-1].name
+            let filepath = `${profile_id}/${filename}`
             const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
             if(data){
-                console.log(data);
                 setProfilePhoto(data.publicUrl)
             }
-        } catch (error) {
-            console.log(error);
         }
     }
 

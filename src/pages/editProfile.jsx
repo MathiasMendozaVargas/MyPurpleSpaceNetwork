@@ -35,30 +35,37 @@ const EditProfile = () => {
     const control = useAnimation()
 
     const updateProfilePhoto = async (user_id, new_photo) => {
-        // Deleting old Image from the database first
-        let filenameN
-        if(oldImage){
-            let filenameNumber = oldImage.split(`${user.id}/profile`)[1]
-            filenameN = filenameNumber
-            let filepath = String(`${user_id}/profile${filenameNumber}`);
-            const {data, error} = await supabase.storage.from('profile_photos').remove([filepath])
-            if(data){
-                // modifying file path on Database so the change is automatically
-                if(filenameNumber === '0'){filenameNumber='1'}
-                else if(filenameNumber==='1'){filenameNumber = '2'}
-                else if(filenameNumber==='2'){filenameNumber = '3'}
-                else if(filenameNumber==='3'){filenameNumber = '0'}
+        try {
+            let filenameN = 0;
+        
+            if (oldImage) {
+                let filenameNumber = oldImage.split(`${user_id}/profile`)[1];
+                filenameN = filenameNumber;
+                let filepath = `${user_id}/profile${filenameNumber}`;
+            
+                const { data, error } = await supabase.storage
+                    .from('profile_photos')
+                    .remove([filepath]);
+            
+                if (data) {
+                    // Modify file path in the Database
+                    filenameN = (parseInt(filenameN, 10) + 1) % 4;
+                }
             }
-        }
-        // Upload new Photo
-        const {e} = await supabase.storage.from('profile_photos').upload(`${user_id}/profile${filenameN}`, new_photo, {
-            cacheControl: 3600,
-            upsert: true
-        })
-        if(e){
-            toast.warning(e, {
-                position: toast.POSITION.TOP_RIGHT
-            })
+        
+            // Upload new Photo
+            const { e } = await supabase.storage.from('profile_photos').upload(`${user_id}/profile${filenameN}`, new_photo, {
+                cacheControl: 3600,
+                upsert: true,
+            });
+        
+            if (e) {
+                toast.warning(e, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -109,14 +116,13 @@ const EditProfile = () => {
             // if we have newImage to update we execute the update photo function
             if(newImage){
                 await updateProfilePhoto(user.id, newImage)
-            }else{
-                toast.success('Profile updated Successfully! 🎊', {
-                    position: toast.POSITION.BOTTOM_LEFT
-                })
-                setTimeout(()=>{
-                    navigate(`/profile/${user.id}`)
-                }, 2000)
             }
+            toast.success('Profile updated Successfully! 🎊', {
+                position: toast.POSITION.BOTTOM_LEFT
+            })
+            setTimeout(()=>{
+                navigate(`/profile/${user.id}`)
+            }, 2000)
         }
     }
 
@@ -130,12 +136,12 @@ const EditProfile = () => {
             console.log(error);
         }
         if(filename){
-            filename = filename[1].name
-                let filepath = `${profile_id}/${filename}`
-                const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
-                if(data){
-                    setOldImage(data.publicUrl)
-                }
+            filename = filename[filename.length-1].name
+            let filepath = `${profile_id}/${filename}`
+            const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
+            if(data){
+                setOldImage(data.publicUrl)
+            }
         }
     }
 

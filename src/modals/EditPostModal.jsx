@@ -23,7 +23,7 @@ const EditPostModal = (props) => {
 
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState(postData.content)
-    const [oldImages, setOldImages] = useState(null)
+    const [oldImages, setOldImages] = useState(props.media ? (props.media) : (null))
     const [newImages, setNewImages] = useState(null)
     
 
@@ -147,12 +147,6 @@ const EditPostModal = (props) => {
     const handleClick = (event) => {
         hiddenFileInput.current.click();
     };
-
-    useEffect(()=>{
-        if(postData.media[0]){
-            getPostMedia(postData.media[0])
-        }
-    }, [])
 
     if(!user){
         return null

@@ -57,7 +57,6 @@ function Home() {
                 {/* Posts */}
                 <div className="home-posts">
                     {posts.map((post) => {
-                        console.log(post);
                         return <PostCard key={post.id} postData={post} getPosts={getAllPost}/>
                     })}
                 </div>

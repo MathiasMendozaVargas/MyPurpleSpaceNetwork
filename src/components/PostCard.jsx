@@ -30,7 +30,7 @@ const PostCard = (props) => {
     const [commentText, setCommentText] = useState('')
     const [nComments, setnComments] = useState(null)
     // Media States
-    const [images, setImages] = useState(null)
+    const [image, setImage] = useState(null)
     // likes states
     const [likes, setLikes] = useState(null)
     const [nLikes, setnLikes] = useState(null)
@@ -72,8 +72,6 @@ const PostCard = (props) => {
         let emoji = String.fromCodePoint(...codeArray)
         setCommentText(commentText + emoji)
     }
-
-    console.log(props);
 
 
     const insertNewParentComment = async (user_id, post_id, comment) => {
@@ -221,28 +219,40 @@ const PostCard = (props) => {
     }
 
     const getProfilePhoto = async (profile_id) => {
-        try {
-            let filepath = String(profile_id + '/profile')
+        let { data: filename, error } = await supabase.storage.from('profile_photos').list(profile_id, {
+            limit: 2,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' },
+        })
+        if(error){
+            console.log(error);
+        }
+        if(filename.length>0){
+            filename = filename[filename.length-1].name
+            let filepath = `${profile_id}/${filename}`
             const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
             if(data){
                 setProfilePhoto(data.publicUrl)
             }
-        } catch (error) {
-            console.log(error);
         }
     }
 
-    const getPostMedia = async(postMedia)=>{
-        if(postMedia){
-            let media = postMedia
-            let new_images = []
-            for(let i=0;i<media.length; i++){
-                const {data:mediaUrl} = supabase.storage.from('post_photos').getPublicUrl(media[i])
-                if(mediaUrl){
-                    new_images.push(mediaUrl)
-                }
+    const getPostMedia = async(author_id, post_id)=>{
+        let { data: filename, error } = await supabase.storage.from('post_photos').list(`${author_id}/${post_id}/`, {
+            limit: 2,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' },
+        })
+        if(error){
+            console.log(error);
+        }
+        if(filename){
+            let fileNumber = filename[filename.length-1].name
+            let filepath = `${author_id}/${post_id}/${fileNumber}`
+            const {data} = supabase.storage.from('post_photos').getPublicUrl(filepath)
+            if(data){
+                setImage(data.publicUrl)
             }
-            setImages(new_images)
         }
     }
 
@@ -300,7 +310,7 @@ const PostCard = (props) => {
         checkIfLikedAndDisliked(post_id)
         getProfilePhoto(author_id)
         if(post.media){
-            getPostMedia(post.media)
+            getPostMedia(author_id, post_id)
         };
         if(inView){
             control.start('visible')
@@ -329,7 +339,7 @@ const PostCard = (props) => {
                 <span className="spanAuthor"><Link className="userLink" to={'/profile/' + author_id}><h4 className="post-author">{author}</h4></Link><p>{timeDiff}</p></span>
                 <div className="right-postCard">
                     <a className="optionsBtn" onClick={() => {setShowOptions(!showOptions)}}>{showOptions ? (<i class="fa-solid fa-xmark"></i>) : (<i className="fa-solid fa-ellipsis"></i>)}</a>
-                    {showEditPost && <EditPostModal postData={props} closeEditPostModal={closeEditPostModal}></EditPostModal>}
+                    {showEditPost && <EditPostModal postData={props} media={image} closeEditPostModal={closeEditPostModal}></EditPostModal>}
                     {showOptions && <PostOptions data={post} openEditPostModal={openEditPostModal} closeEditPostModal={closeEditPostModal} closeOptions={closeOptions}></PostOptions>}
                 </div>
                 <ToastContainer></ToastContainer>
@@ -344,13 +354,10 @@ const PostCard = (props) => {
                 </Link>
             </div>
             {/* Media */}
-            {images && (
+            {image && (
                 <Link style={{textDecoration: 'none', color: 'whitesmoke'}} to={'/posts/' + post_id}>
                     <div className="media">
-                        {images.map((src) => {
-                            console.log(src);
-                            return <img className="img-post" src={src.publicUrl}></img>
-                        })}
+                        <img className="img-post" src={image}></img>
                     </div>
                 </Link> 
             )}

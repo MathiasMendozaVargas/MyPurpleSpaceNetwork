@@ -53,69 +53,45 @@ const EditProfilePhoto = (props) => {
             };
         };
     };
-    
-    const uploadNewProfilePhoto = async (user_id, new_photo) => {
-        if(props.profile_photo !== null){
-            const {e} = await supabase.storage.from('profile_photos').upload(`${user_id}/profile0`, new_photo, {
-                cacheControl: 3600,
-                upsert: true
-            })
-            if(e){
-                toast.warning(e, {
-                    position: toast.POSITION.TOP_RIGHT
-                })
-            }else{
-                toast.success('Profile updated Successfully! 🎊', {
-                    position: toast.POSITION.BOTTOM_LEFT
-                })
-                setTimeout(()=>{
-                    window.location.reload()
-                }, 2000)
-            }
-        }
-    };
+
 
     const updateProfilePhoto = async (user_id, new_photo) => {
-        if(user_id === logged_user.id){
-            let filenameNumber = props.profile_photo.split(`${logged_user.id}/profile`)[1]
-            let filepath = String(`${user_id}/profile${filenameNumber}`);
-            try {
-                const {data, error} = await supabase.storage.from('profile_photos').remove([filepath])
-                if(data){
-                    // modifying file path on Database so the change is automatically
-                    if(filenameNumber === '0'){filenameNumber='1'}
-                    else if(filenameNumber==='1'){filenameNumber = '2'}
-                    else if(filenameNumber==='2'){filenameNumber = '3'}
-                    else if(filenameNumber==='3'){filenameNumber = '0'}
-                    console.log(filenameNumber);
-                    const {e} = await supabase.storage.from('profile_photos').upload(`${user_id}/profile${filenameNumber}`, new_photo, {
-                        cacheControl: 3600,
-                        upsert: true
-                    })
-                    if(e){
-                        toast.warning(e, {
-                            position: toast.POSITION.TOP_RIGHT
-                        })
-                    }else{
-                        console.log(filenameNumber);
-                        toast.success('Profile updated Successfully! 🎊', {
-                            position: toast.POSITION.BOTTOM_LEFT
-                        })
-                        setTimeout(()=>{
-                            window.location.reload()
-                        }, 2000)
-                    }
-                }
-                if(error){
-                    console.log(error);
-                }
-                
-            } catch (error) {
-                console.log(error);   
-            }
-        }
-        else{
+        if (user_id !== logged_user.id) {
             console.log("Permission Denied!");
+            return;
+        }
+        
+        try {
+            let filenameN = 0;
+        
+            if (oldImage) {
+                let filenameNumber = oldImage.split(`${user_id}/profile`)[1];
+                filenameN = filenameNumber;
+                let filepath = `${user_id}/profile${filenameNumber}`;
+            
+                const { data, error } = await supabase.storage
+                    .from('profile_photos')
+                    .remove([filepath]);
+            
+                if (data) {
+                    // Modify file path in the Database
+                    filenameN = (parseInt(filenameN, 10) + 1) % 4;
+                }
+            }
+        
+            // Upload new Photo
+            const { e } = await supabase.storage.from('profile_photos').upload(`${user_id}/profile${filenameN}`, new_photo, {
+                cacheControl: 3600,
+                upsert: true,
+            });
+        
+            if (e) {
+                toast.warning(e, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            }
+        } catch (error) {
+            console.log(error);
         }
     };
     
@@ -154,7 +130,7 @@ const EditProfilePhoto = (props) => {
                 <div className="uploadPicBtn-container">
                     <button className="image-upload-button" onClick={(e)=>{
                         e.preventDefault()
-                        {props.profile_photo ? (updateProfilePhoto(logged_user.id, newImage)) : (uploadNewProfilePhoto(logged_user.id, newImage))}
+                        updateProfilePhoto(logged_user.id, newImage)
                     }}>Upload Photo</button>
                 </div>
             </div>
