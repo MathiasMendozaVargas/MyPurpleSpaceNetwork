@@ -49,7 +49,7 @@ function Navbar() {
         if(user){
             getProfilePhoto(user.id)
         }
-    })
+    }, [])
     
 
     return (

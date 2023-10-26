@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import { setUser } from '../redux/slice/userSlice';
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,6 +28,9 @@ const Login = () => {
     const [session, setSession] = useState(null)
     const emailRef = useRef()
     const passwordRef = useRef()
+
+    // Getting message IF ANY
+    const { newAccount } = useParams()
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -139,8 +142,12 @@ const Login = () => {
                     <div className='loginPage-login'>
                         <form>
                             <h1><img src={logo} alt="" />Login to Purple</h1>
-                            <p>Use either email or username to Sign in.</p>
-                            <input ref={emailRef} type='text' placeholder='Email or Username' required/>
+                            {newAccount ? (
+                                <p>✅ Your account has been created, now please log in with your email and password.</p>
+                            ) : (
+                                <p>Use either email or username to Sign in.</p>
+                            )}
+                            <input ref={emailRef} type='text' placeholder={newAccount ? 'Email' : 'Email or Username'} required/>
                             <input ref={passwordRef} type={(
                                 showPassword ? 'text' : 'password')} placeholder='Password' required
                                 style={{ marginBottom: '3px' }} />

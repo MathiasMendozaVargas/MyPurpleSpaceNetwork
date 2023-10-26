@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRef } from 'react';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { supabase } from '../lib/supabaseClient';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import { Link } from 'react-router-dom';
 
 // media
@@ -31,40 +29,53 @@ const SignUp = () => {
 
     const navigate = useNavigate()
 
-    // Framer Motion
-    const control = useAnimation()
-    const [formRef, inView] = useInView()
-
 
     const createNewUser = async () => {
-        if(passwordRef.current.value !== passwordConfirmRef.current.value){
-            toast.warning('Passwords do not match!', {
-                position: toast.POSITION.BOTTOM_LEFT
-            })
+        if(emailRef.current.value !== null){
+            let isEmail = false
+            for(let i=0; i< emailRef.current.value.length; i++){
+                if(emailRef.current.value[i] === "@"){
+                    isEmail = true
+                }
+            }
+            if(!isEmail){
+                toast.warning('Please enter a valid email address!', {
+                    position: toast.POSITION.BOTTOM_LEFT
+                })    
+            }
+            else if(passwordRef.current.value !== passwordConfirmRef.current.value){
+                toast.warning('Passwords do not match!', {
+                    position: toast.POSITION.BOTTOM_LEFT
+                })
+            }
+    
+            else if(passwordRef.current.value < 6){
+                toast.warning('Password must be at least 6 characters long!', {
+                    position: toast.POSITION.BOTTOM_LEFT
+                })
+            }
+    
+            else{
+                const { data: {user}, error } = await supabase.auth.signUp({
+                    email: emailRef.current.value,
+                    password: passwordRef.current.value
+                })
+    
+                if(error) {
+                    console.log(error);
+                }
+    
+                if(user){
+                    navigate('/login/newAccount')
+                }
+            }
         }
-
-        if(passwordRef.current.value < 6){
-            toast.warning('Password must be at least 6 characters long!', {
-                position: toast.POSITION.BOTTOM_LEFT
-            })
-        }
-
-        const { data: {user}, error } = await supabase.auth.signUp({
-            email: emailRef.current.value,
-            password: passwordRef.current.value
-        })
-
-        if(error) {
-            console.log(error);
-        }
-
-        if(user){
-            console.log(user);
-        }
+        
     }
 
     return (
         <>
+            <ToastContainer></ToastContainer>
             <Navbar/>
             <div className='loginPage'>
                 <div className='loginPage-header'>
@@ -79,7 +90,16 @@ const SignUp = () => {
                                 showPassword ? 'text' : 'password')} placeholder='Confirm Password'
                                 style={{marginBottom: '8px'}}/>
                             <div className="showPasswordDiv">
-                                <input type='checkbox' onClick={() => {setShowPassword(!showPassword)}}/>
+                                <input type='checkbox' onClick={() => {
+                                    if(showPassword){
+                                        setShowPassword(false);
+                                        console.log(showPassword);
+                                    }
+                                    else{
+                                        setShowPassword(true);
+                                        console.log(showPassword);
+                                    }
+                                }}/>
                                 <p>Show Password</p>
                             </div>
                             <button type='submit' onClick={(e) => {

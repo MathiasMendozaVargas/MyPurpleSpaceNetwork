@@ -9,6 +9,9 @@ import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+// 3D Earth Model
+import { StarsCanvas } from '../components/Canvas/Stars';
+
 
 // SignUp Page Template
 const ConfigNewUser = () => {
@@ -22,23 +25,6 @@ const ConfigNewUser = () => {
     const navigate = useNavigate()
     const user = useSelector(state => state.user.user)
 
-    useEffect(() => {
-            const getUsers = async () => {
-                const { data, error } = await supabase
-                .from('users')
-                .select()
-
-                if(error){
-                    console.log(error);
-                }
-                
-                console.log(data);
-            }
-            
-            getUsers();
-            
-        }, []
-    )
 
     async function configNewUsertoDB() {
         const { error } = await supabase.from('users_data').insert({
@@ -48,7 +34,8 @@ const ConfigNewUser = () => {
             age: ageRef.current.value,
             user_id: user.id,
             username: usernameRef.current.value,
-            friends: ['']
+            friends: [''],
+            email: String(user.email)
         })
 
         if(error){
@@ -57,16 +44,13 @@ const ConfigNewUser = () => {
 
         else{
             toast.success('Profile created Succesfuly 🎉', {
-                position: "top-right",
+                position: toast.POSITION.BOTTOM_LEFT,
             })
             setTimeout(() => {
-                navigate('/home')
+                navigate('/')
             }, 2000)
-        }
-
-        
+        }   
     }
-
     
 
     return (
@@ -75,7 +59,7 @@ const ConfigNewUser = () => {
             <div className='loginPage'>
                 <div className='loginPage-header'>
                     <h1 style={{marginTop:'0px'}}>Tell us a little about yourself!</h1>
-                    <h3>Please fill the form so we can get to know you better</h3>
+                    <h3>Please finish to setup your account before you can use the App.</h3>
                     <div className='loginPage-login'>
                         <form>
                             <input ref={usernameRef} type='text' placeholder='Create Username' required />
@@ -100,6 +84,9 @@ const ConfigNewUser = () => {
                         </form>
                         <ToastContainer></ToastContainer>
                     </div>
+                </div>
+                <div className="stars-animation">
+                    <StarsCanvas />
                 </div>
             </div>
         </>

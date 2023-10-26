@@ -198,14 +198,21 @@ const Profile = () => {
     }
 
     const getProfilePhoto = async (profile_id) => {
-        try {
-            let filepath = String(profile_id + '/profile')
+        let { data: filename, error } = await supabase.storage.from('profile_photos').list(profile_id, {
+            limit: 2,
+            offset: 0,
+            sortBy: { column: 'name', order: 'asc' },
+        })
+        if(error){
+            console.log(error);
+        }
+        if(filename){
+            filename = filename[filename.length-1].name
+            let filepath = `${profile_id}/${filename}`
             const {data} = supabase.storage.from('profile_photos').getPublicUrl(filepath)
             if(data){
                 setProfilePhoto(data.publicUrl)
             }
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -282,7 +289,7 @@ const Profile = () => {
                     {showEditProfilePhoto && <EditProfilePhoto profile_photo={profile_photo} getProfilePhoto={getProfilePhoto} closeModal={closeEditProfilePicModal}></EditProfilePhoto>}
                     <div className="profile-info">
                         <h1>{user_data.first_name + ' ' + user_data.last_name}</h1>
-                        <h4>Has {numberFriends} friends!</h4>
+                        <h4>{isLoggedUser ? 'You have ' : 'Has'} {numberFriends} friends!</h4>
                     </div>
                     <div className="profile-btns">
                         <button><i class="fa-solid fa-people-group"></i> All Friends</button>

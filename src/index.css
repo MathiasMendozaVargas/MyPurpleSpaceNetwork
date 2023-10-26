@@ -1996,7 +1996,7 @@ code {
 .img-display {
   width: 200px;
   max-width: 100%;
-  border: 0px !important;
+  border: 2.4px solid black !important;
   border-radius: 50% !important;
 }
 
