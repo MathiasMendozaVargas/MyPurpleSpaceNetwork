@@ -59,19 +59,33 @@ const EditPostModal = (props) => {
     const editPost = async (user_id, post_id) => {
         if(user_id == logged_user.id){
             if(newImages){
-                console.log("Hiiiii");
-                let filePath = String(user_id+'/'+post_id+'/0')
-                console.log(newImages);
-                const {data, e} = await supabase.storage.from('posts_photos').update(filePath, newImages, {
-                    cacheControl: '3600',
+                // Deleting old Image from the database first
+                let filenameN
+                let filepath
+                if(oldImages){
+                    let filenameNumber = oldImages.split(`${user.id}/${post_id}/`)[1]
+                    filenameN = filenameNumber
+                    filepath = `${user_id}/${post_id}/${filenameNumber}`;
+                    const {data, error} = await supabase.storage.from('post_photos').remove([filepath])
+                    if(data){
+                        // Modify file path in the Database
+                        filenameN = (parseInt(filenameN, 10) + 1) % 4;
+                        filepath = `${user_id}/${post_id}/${filenameN}`
+                    }
+                }
+                // Upload new Photo
+                const {e} = await supabase.storage.from('post_photos').upload(filepath, newImages, {
+                    cacheControl: 3600,
                     upsert: true
                 })
                 if(e){
-                    console.log(e);
+                    toast.warning(e, {
+                        position: toast.POSITION.TOP_RIGHT
+                    })
                 }
                 else{
                     let new_media = []
-                    new_media.push(filePath)
+                    new_media.push(filepath)
     
                     const {e} = await supabase.from('posts').update({
                         content: postText,
