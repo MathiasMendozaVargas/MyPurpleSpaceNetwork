@@ -55,7 +55,6 @@ const EditPostModal = (props) => {
         }
     }
 
-
     const editPost = async (user_id, post_id) => {
         if(user_id == logged_user.id){
             if(newImages){
