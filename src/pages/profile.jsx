@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { toast } from "react-toastify";
 
 // Modals
 import CreatePostModal from "../modals/CreatePostModal";
@@ -100,6 +101,89 @@ const Profile = () => {
             }
         }
     }
+
+    // Add Friend Function
+    const addFriend = async (loggedUserId, current_user_id) => {
+        try {
+            // Get the logged-in user's data
+            const { data: usersData, e } = await supabase
+                .from('users_data')
+                .select()
+                .eq('user_id', loggedUserId);
+            if(e){
+                console.error(e);
+            }
+    
+            const loggedUser = usersData[0];
+            const currentFriends = loggedUser.friends || [];
+    
+            if(currentFriends.includes(current_user_id)) {
+                console.log('User is already a friend!');
+                return;
+            }
+    
+            const updatedFriends = [...currentFriends, current_user_id];
+    
+            // Update the friend list in the database
+            const {error: updateError} = await supabase
+                .from('users_data')
+                .update({ friends: updatedFriends })
+                .eq('user_id', loggedUserId);
+    
+            if (updateError) {
+                console.error(updateError);
+                return;
+            }
+    
+            // Reload the page to reflect the changes
+            toast.success('Friend added successfully! 🎊', {
+                position: toast.POSITION.TOP_RIGHT
+            })
+            setTimeout(()=>{
+                window.location.reload()
+            }, 2000)
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+    // Delete friend function
+    const deleteFriend = async (loggedUserId, current_user_id) => {
+        try {
+            // Fetch user data
+            const { data, error } = await supabase.from('users_data').select().eq('user_id', loggedUserId);
+    
+            if (error) {
+                console.log(error);
+                return;
+            }
+    
+            if (data && data.length === 1) {
+                const user = data[0];
+                
+                // Remove the friend from the user's friends list
+                const updatedFriends = user.friends.filter(friendId => friendId !== current_user_id);
+    
+                // Update the user's friends list in the database
+                const { error: updateError } = await supabase.from('users_data').update({
+                    friends: updatedFriends
+                }).eq('user_id', loggedUserId);
+    
+                if (updateError) {
+                    console.log(updateError);
+                } else {
+                    toast.success('Friend Deleted! 🗑️', {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 2000)
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
 
     // Get Number of Friends of the Current User
     const getNumberFriends = async (current_user_id) => {
@@ -293,7 +377,14 @@ const Profile = () => {
                     </div>
                     <div className="profile-btns">
                         <button><i class="fa-solid fa-people-group"></i> All Friends</button>
-                        {isLoggedUser && <Link to={'/editProfile/'+profile_id}><button><i class="fa-solid fa-pen"></i> Edit Profile</button></Link>}
+                        {isLoggedUser ? (
+                            <Link to={'/editProfile/'+profile_id}><button><i class="fa-solid fa-pen"></i> Edit Profile</button></Link>) : (
+                                isFriend ? (
+                                    <button onClick={()=>{deleteFriend(logged_user.id, profile_id)}}><i class="fa-solid fa-user-xmark"></i> Delete Friend</button>
+                                ) : (
+                                    <button onClick={()=>{addFriend(logged_user.id, profile_id)}}><i class="fa-solid fa-user-plus"></i> Add Friend</button>
+                                )
+                            )}
                     </div>
                 </div>
             </div>
