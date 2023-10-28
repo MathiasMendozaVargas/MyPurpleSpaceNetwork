@@ -137,7 +137,7 @@ const Profile = () => {
     
             // Reload the page to reflect the changes
             toast.success('Friend added successfully! 🎊', {
-                position: toast.POSITION.TOP_RIGHT
+                position: toast.POSITION.BOTTOM_LEFT
             })
             setTimeout(()=>{
                 window.location.reload()
@@ -173,7 +173,7 @@ const Profile = () => {
                     console.log(updateError);
                 } else {
                     toast.success('Friend Deleted! 🗑️', {
-                        position: toast.POSITION.TOP_RIGHT
+                        position: toast.POSITION.BOTTOM_LEFT
                     });
                     setTimeout(()=>{
                         window.location.reload()
