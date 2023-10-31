@@ -1,6 +1,5 @@
 
 import Navbar from "../components/Navbar";
-
 import based_profileImg from '../assets/basedProfile.png'
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
