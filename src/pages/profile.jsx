@@ -4,7 +4,6 @@ import based_profileImg from '../assets/basedProfile.png'
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useSelector } from "react-redux";
-
 import PostCard from "../components/PostCard";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
