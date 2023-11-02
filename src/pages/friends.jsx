@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux'
 import { supabase } from '../lib/supabaseClient'
 import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { ToastContainer } from 'react-toastify';
 
 // 3d Stars model
 import { StarsCanvas } from '../components/Canvas/Stars'
@@ -89,6 +90,7 @@ function Friends() {
     return (
         <>
             <Navbar />
+            <ToastContainer></ToastContainer>
             <div className="friends">
                 <div className="header">
                     <h1><i className="fa-solid fa-user-group"></i> My Friends</h1>

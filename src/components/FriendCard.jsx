@@ -52,10 +52,14 @@ const FriendCard = (data) => {
     
                 if (updateError) {
                     console.log(updateError);
-                } else {
-                    toast.success('Friend Deleted!', {
-                        position: toast.POSITION.TOP_RIGHT
-                    });
+                } else{
+                    // Reload the page to reflect the changes
+                    toast.success('Friend deleted! 🗑️', {
+                        position: toast.POSITION.BOTTOM_LEFT
+                    })
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 2000)
                 }
             }
         } catch (e) {
@@ -159,7 +163,6 @@ const FriendCard = (data) => {
                             )}
                         </div>
                     </div>
-                    <ToastContainer></ToastContainer>
                 </div>
             </Link>
         </motion.div>
