@@ -1233,7 +1233,7 @@ code {
   padding-bottom: 60px;
   background-color: white;
   position: relative;
-  z-index: 2;
+  z-index: 0;
 }
 
 .display-posts{
