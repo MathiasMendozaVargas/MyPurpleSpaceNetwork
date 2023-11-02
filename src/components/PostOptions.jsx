@@ -79,11 +79,15 @@ function PostOptions(props) {
                 return;
             }
     
-            // Reload the page to reflect the changes
-            toast.success('Friend added successfully! 🎊', {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            props.closeOptions()
+            else{
+                // Reload the page to reflect the changes
+                toast.success('Friend added successfully! 🎊', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 2000)
+            }
         } catch (e) {
             console.error(e);
         }
@@ -112,12 +116,15 @@ function PostOptions(props) {
     
                 if (updateError) {
                     console.log(updateError);
-                } else {
-                    props.closeOptions()
-                    toast.success('Friend Deleted! 🗑️', {
+                }
+                else{
+                    // Reload the page to reflect the changes
+                    toast.success('Friend deleted! 🗑️', {
                         position: toast.POSITION.TOP_RIGHT
-                    });
-                    window.location.reload()
+                    })
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 2000)
                 }
             }
         } catch (e) {
@@ -132,9 +139,13 @@ function PostOptions(props) {
                 console.log(error);
             }
             else{
-                toast.success('Post Deleted Successfully! 🎊',
-                {position: toast.POSITION.TOP_RIGHT})
-                window.location.reload()
+                // Reload the page to reflect the changes
+                toast.success('Post Deleted Successfully! 🗑️', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 2000)
             }
         } catch (e) {
             console.log(e);
@@ -184,7 +195,7 @@ function PostOptions(props) {
                     });
                     setTimeout(()=>{
                        window.location.reload() 
-                    }, 3000)
+                    }, 2000)
                 }
             }
         } catch (e) {
@@ -223,7 +234,7 @@ function PostOptions(props) {
                     });
                     setTimeout(()=>{
                        window.location.reload() 
-                    }, 3000)
+                    }, 2000)
                 }
             }
         } catch (e) {
