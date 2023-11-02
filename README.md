@@ -5,6 +5,7 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 ## Features 🚀
 
 ### Home Page 🏠
+<p align="center"><img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20105848.png?updatedAt=1698892074758" alt="project-image"></p>
 - The Home Page displays posts from the app.
 - Users can scroll through and interact with posts, including liking, disliking, and commenting.
 
