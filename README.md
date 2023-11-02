@@ -1,4 +1,4 @@
-# My Purple Space Social Media App 💜
+# My Purple Space Social Media App 📱🫂💜
 
 Welcome to My Purple Space, a social media app built with React.js, Supabase, and vanilla CSS. This app allows users to create accounts using their email addresses and set up passwords. Once logged in, users can explore various sections within the app, each offering unique functionalities to enhance their social media experience. 🚀🔮🌟
 
