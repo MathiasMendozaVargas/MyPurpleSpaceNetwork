@@ -10,23 +10,23 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Users can scroll through and interact with posts, including liking, disliking, and commenting.
 
 ### Profile Page 📝
-<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20112009.png?updatedAt=1698892105657">
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20112009.png?updatedAt=1698892105657" width='30%'>
 - The Profile Page is personalized for each user.
 - Users can view their own profile, edit their profile information, upload new posts, and switch between viewing their own posts and saved posts.
 
 ### Friends Page 👫
-<img src="https://github.com/MathiasMendozaVargas/mypurplespace/blob/main/friendsPage.gif">
+<img src="https://github.com/MathiasMendozaVargas/mypurplespace/blob/main/friendsPage.gif" width='30%'>
 - The Friends Page displays the current user's friends.
 - Each friend is presented as a Friend Card component, showcasing their information, profile picture, and an option to delete the friend.
 
 ### Edit Profile Page 🖋️
-<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20135319.png?updatedAt=1698893206048">
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20135319.png?updatedAt=1698893206048" width='30%'>
 - Users can update their profile information, including username, first name, last name, gender, age, and profile photo.
 
 ## Main Components and Modals 🔍
 
 ### Post Card Component 📃
-<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20194918.png?updatedAt=1698893402328">
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20194918.png?updatedAt=1698893402328" width='30%'>
 
 - Displays the author's username, profile photo, and the date of the post.
 - Features an options icon that opens a modal with custom functions, depending on the user's authority over the post.
@@ -35,12 +35,12 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Offers like, dislike, and comment buttons, each indicating the number of corresponding interactions on the post.
 
 ### Create Post Modal 📝
-<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20195651.png?updatedAt=1698893868000">
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20195651.png?updatedAt=1698893868000" width='30%'>
 
 - Allows users to create and publish new posts.
 
 ### Edit Profile Photo Modal 📸
-<img src="https://github.com/MathiasMendozaVargas/mypurplespace/blob/main/EditProfilePhoto.gif">
+<img src="https://github.com/MathiasMendozaVargas/mypurplespace/blob/main/EditProfilePhoto.gif" width='30%'>
 - Enables users to update their profile photo.
 
 ### Edit Post Modal 📝
