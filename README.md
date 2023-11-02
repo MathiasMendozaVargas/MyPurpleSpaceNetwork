@@ -20,7 +20,7 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Each friend is presented as a Friend Card component, showcasing their information, profile picture, and an option to delete the friend.
 
 ### Edit Profile Page 🖋️
-<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20135319.png?updatedAt=1698893206048" width='30%'>
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20135319.png?updatedAt=1698893206048">
 - Users can update their profile information, including username, first name, last name, gender, age, and profile photo.
 
 ## Main Components and Modals 🔍
@@ -40,6 +40,7 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Allows users to create and publish new posts.
 
 ### Edit Profile Photo Modal 📸
+<img src="https://gyazo.com/a4684be2b6a765a3c22a1fc8158fbc41">
 - Enables users to update their profile photo.
 
 ### Edit Post Modal 📝
