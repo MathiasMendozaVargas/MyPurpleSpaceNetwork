@@ -86,7 +86,7 @@ You can explore My Purple Space in action by visiting our  <a href="https://mypu
 ## Technologies Used 💻
 
 <img src='https://skillicons.dev/icons?i=react' width='30px'> React.js: Front-end framework for building the user interface.
-- Supabase: Backend-as-a-Service to handle user authentication and data storage.
+<img src='https://skillicons.dev/icons?i=supabase' width='30px'> Supabase: Backend-as-a-Service to handle user authentication and data storage.
 - Vanilla CSS: Custom styling for a unique app design.
 
 ## Contributing 🤝
