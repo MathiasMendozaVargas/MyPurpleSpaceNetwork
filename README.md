@@ -10,7 +10,7 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Users can scroll through and interact with posts, including liking, disliking, and commenting.
 
 ### Profile Page 📝
-<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20112009.png?updatedAt=1698892105657" alt="project-image" width='70%'>
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20112009.png?updatedAt=1698892105657" alt="project-image" width='30%'>
 - The Profile Page is personalized for each user.
 - Users can view their own profile, edit their profile information, upload new posts, and switch between viewing their own posts and saved posts.
 
