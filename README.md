@@ -81,7 +81,7 @@ The app should now be running locally, and you can access it at `http://localhos
 
 ## Live Demo 🌐
 
-You can explore My Purple Space in action by visiting our live demo [here](#).
+You can explore My Purple Space in action by visiting our  <a href="https://mypurplespace.netlify.app/" target="_blank">live demo</a>.
 
 ## Technologies Used 💻
 
