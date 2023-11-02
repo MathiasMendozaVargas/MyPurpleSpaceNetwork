@@ -35,6 +35,8 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Offers like, dislike, and comment buttons, each indicating the number of corresponding interactions on the post.
 
 ### Create Post Modal 📝
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20195651.png?updatedAt=1698893868000">
+
 - Allows users to create and publish new posts.
 
 ### Edit Profile Photo Modal 📸
