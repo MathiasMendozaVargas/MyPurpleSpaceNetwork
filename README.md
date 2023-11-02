@@ -26,6 +26,7 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 ## Main Components and Modals 🔍
 
 ### Post Card Component 📃
+<img src="https://ik.imagekit.io/r67xuhpwk/Screenshot%202023-11-01%20194918.png?updatedAt=1698893402328" 
 - Displays the author's username, profile photo, and the date of the post.
 - Features an options icon that opens a modal with custom functions, depending on the user's authority over the post.
 - Shows the post content, including text and emojis.
