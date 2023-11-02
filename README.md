@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# My Purple Space Social Media App 💜
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to My Purple Space, a social media app built with React.js, Supabase, and vanilla CSS. This app allows users to create accounts using their email addresses and set up passwords. Once logged in, users can explore various sections within the app, each offering unique functionalities to enhance their social media experience. 🚀🔮🌟
 
-## Available Scripts
+## Features 🚀
 
-In the project directory, you can run:
+### Home Page 🏠
+- The Home Page displays posts from the app.
+- Users can scroll through and interact with posts, including liking, disliking, and commenting.
 
-### `npm start`
+### Profile Page 📝
+- The Profile Page is personalized for each user.
+- Users can view their own profile, edit their profile information, upload new posts, and switch between viewing their own posts and saved posts.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Friends Page 👫
+- The Friends Page displays the current user's friends.
+- Each friend is presented as a Friend Card component, showcasing their information, profile picture, and an option to delete the friend.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Edit Profile Page 🖋️
+- Users can update their profile information, including username, first name, last name, gender, age, and profile photo.
 
-### `npm test`
+## Main Components and Modals 🔍
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Post Card Component 📃
+- Displays the author's username, profile photo, and the date of the post.
+- Features an options icon that opens a modal with custom functions, depending on the user's authority over the post.
+- Shows the post content, including text and emojis.
+- Displays post images if the user has included one.
+- Offers like, dislike, and comment buttons, each indicating the number of corresponding interactions on the post.
 
-### `npm run build`
+### Create Post Modal 📝
+- Allows users to create and publish new posts.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Edit Profile Photo Modal 📸
+- Enables users to update their profile photo.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Edit Post Modal 📝
+- Allows users to edit and update their existing posts.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation 🛠️
 
-### `npm run eject`
+To run My Purple Space on your local machine, follow these steps:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone this repository to your local system:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```
+   git clone https://github.com/your-username/my-purple-space.git
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Change directory to the project folder:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```
+   cd my-purple-space
+   ```
 
-## Learn More
+3. Install the required dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Set up a Supabase project and obtain the necessary credentials. Update the Supabase configuration in the app.
 
-### Code Splitting
+5. Start the development server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```
+   npm start
+   ```
 
-### Analyzing the Bundle Size
+The app should now be running locally, and you can access it at `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Live Demo 🌐
 
-### Making a Progressive Web App
+You can explore My Purple Space in action by visiting our live demo [here](#).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Technologies Used 💻
 
-### Advanced Configuration
+- React.js: Front-end framework for building the user interface.
+- Supabase: Backend-as-a-Service to handle user authentication and data storage.
+- Vanilla CSS: Custom styling for a unique app design.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contributing 🤝
 
-### Deployment
+We welcome contributions to My Purple Space! If you'd like to enhance or fix any part of the app, please follow our [contributing guidelines](CONTRIBUTING.md).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## License 📜
 
-### `npm run build` fails to minify
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Happy socializing in your own Purple Space! 💜🚀
