@@ -44,6 +44,7 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Enables users to update their profile photo.
 
 ### Edit Post Modal 📝
+<img src="https://github.com/MathiasMendozaVargas/mypurplespace/blob/main/EditPost.gif" width='30%'>
 - Allows users to edit and update their existing posts.
 
 ## Installation 🛠️
