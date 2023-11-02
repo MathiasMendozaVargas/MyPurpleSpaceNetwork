@@ -82,7 +82,7 @@ function PostOptions(props) {
             else{
                 // Reload the page to reflect the changes
                 toast.success('Friend added successfully! 🎊', {
-                    position: toast.POSITION.TOP_RIGHT
+                    position: toast.POSITION.BOTTOM_LEFT
                 })
                 setTimeout(()=>{
                     window.location.reload()
@@ -120,7 +120,7 @@ function PostOptions(props) {
                 else{
                     // Reload the page to reflect the changes
                     toast.success('Friend deleted! 🗑️', {
-                        position: toast.POSITION.TOP_RIGHT
+                        position: toast.POSITION.BOTTOM_LEFT
                     })
                     setTimeout(()=>{
                         window.location.reload()
@@ -141,7 +141,7 @@ function PostOptions(props) {
             else{
                 // Reload the page to reflect the changes
                 toast.success('Post Deleted Successfully! 🗑️', {
-                    position: toast.POSITION.TOP_RIGHT
+                    position: toast.POSITION.BOTTOM_LEFT
                 })
                 setTimeout(()=>{
                     window.location.reload()
@@ -249,6 +249,7 @@ function PostOptions(props) {
 
     return(
         <>
+            <ToastContainer></ToastContainer>
             <div className="box-connector"></div>
             <div className="options-post">
             {isAuthor ? (
