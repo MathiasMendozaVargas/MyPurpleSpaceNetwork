@@ -91,10 +91,10 @@ You can explore My Purple Space in action by visiting our  <a href="https://mypu
 
 ## Contributing 🤝
 
-We welcome contributions to My Purple Space! If you'd like to enhance or fix any part of the app, please follow our [contributing guidelines](CONTRIBUTING.md).
+We welcome contributions to My Purple Space! If you'd like to enhance or fix any part of the app.
 
 ## License 📜
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 Happy socializing in your own Purple Space! 💜🚀
