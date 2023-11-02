@@ -15,6 +15,7 @@ Welcome to My Purple Space, a social media app built with React.js, Supabase, an
 - Users can view their own profile, edit their profile information, upload new posts, and switch between viewing their own posts and saved posts.
 
 ### Friends Page 👫
+<img src="https://ik.imagekit.io/r67xuhpwk/c584a64e723e06217e931681f65007ea.gif?updatedAt=1698892684781" alt="project-image" width='30%'>
 - The Friends Page displays the current user's friends.
 - Each friend is presented as a Friend Card component, showcasing their information, profile picture, and an option to delete the friend.
 
