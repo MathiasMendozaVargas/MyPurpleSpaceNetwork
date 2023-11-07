@@ -89,6 +89,14 @@ const EditProfilePhoto = (props) => {
                 toast.warning(e, {
                     position: toast.POSITION.TOP_RIGHT,
                 });
+            } else{
+                // Reload the page to reflect the changes
+                toast.success('Profile Photo Updated! ✅', {
+                    position: toast.POSITION.BOTTOM_LEFT
+                })
+                setTimeout(()=>{
+                    window.location.reload()
+                }, 2000)
             }
         } catch (error) {
             console.log(error);

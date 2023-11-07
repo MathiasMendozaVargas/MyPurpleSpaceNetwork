@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { ToastContainer, toast, cssTransition } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from 'framer-motion';
 
 // importing Navbar
 import Navbar from '../components/Navbar'
@@ -51,6 +52,11 @@ const ConfigNewUser = () => {
             }, 2000)
         }   
     }
+
+    const titleAnimation = {
+        hidden: { opacity: 0, y: -50},
+        visible: { opacity: 1, y: 0 , transition: {duration: 0.34}, delay: 1},
+    };
     
 
     return (
@@ -58,8 +64,15 @@ const ConfigNewUser = () => {
             <Navbar/>
             <div className='loginPage'>
                 <div className='loginPage-header'>
-                    <h1 style={{marginTop:'0px'}}>Tell us a little about yourself!</h1>
-                    <h3>Please finish to setup your account before you can use the App.</h3>
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={titleAnimation}
+                    >
+                        <h1 style={{ marginTop: '0px' }}>Tell us a little about yourself!</h1>
+                        <h3>Please finish to setup your account before you can use the App.</h3>
+                    </motion.div>
+                    
                     <div className='loginPage-login'>
                         <form>
                             <input ref={usernameRef} type='text' placeholder='Create Username' required />
