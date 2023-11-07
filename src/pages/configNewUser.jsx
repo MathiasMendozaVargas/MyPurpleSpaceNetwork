@@ -57,6 +57,11 @@ const ConfigNewUser = () => {
         hidden: { opacity: 0, y: -50},
         visible: { opacity: 1, y: 0 , transition: {duration: 0.34}, delay: 1},
     };
+
+    const formAnimation = {
+        hidden: { scale: 0 },
+        visible: { scale: 1, transition: {duration: 0.34}, delay: 1},
+    };
     
 
     return (
@@ -73,7 +78,12 @@ const ConfigNewUser = () => {
                         <h3>Please finish to setup your account before you can use the App.</h3>
                     </motion.div>
                     
-                    <div className='loginPage-login'>
+                    <motion.div
+                        className='loginPage-login'
+                        initial="hidden"
+                        animate="visible"
+                        variants={formAnimation}
+                    >
                         <form>
                             <input ref={usernameRef} type='text' placeholder='Create Username' required />
                             <input ref={firstNameRef} type='text' placeholder='First Name' required />
@@ -95,8 +105,8 @@ const ConfigNewUser = () => {
                                 await configNewUsertoDB();
                                 }}>Complete Profile!</button>
                         </form>
-                        <ToastContainer></ToastContainer>
-                    </div>
+                    </motion.div>
+                    <ToastContainer></ToastContainer>
                 </div>
                 <div className="stars-animation">
                     <StarsCanvas />
