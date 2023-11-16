@@ -77,7 +77,7 @@ const Login = () => {
                 if(data.length>0){
                     email = data[0].email
                 }
-                // if User is not entering valid email address
+                // if User is not entering valid email
                 else{
                     return toast.error('Enter a valid email', {
                         position: toast.POSITION.BOTTOM_LEFT
