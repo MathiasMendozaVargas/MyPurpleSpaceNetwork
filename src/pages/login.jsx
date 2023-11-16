@@ -74,7 +74,16 @@ const Login = () => {
                 let username = emailRef.current.value
                 // look for user's email on DB using the username provided
                 const { data, error } = await supabase.from('users_data').select('email').eq('username', username)
-                email = data[0].email
+                if(data.length>0){
+                    email = data[0].email
+                }
+                // if User is not entering valid email address
+                else{
+                    return toast.error('Enter a valid email', {
+                        position: toast.POSITION.BOTTOM_LEFT
+                    })
+                    
+                }
             }
 
             const {data: {user}, error } = await supabase.auth.signInWithPassword({
@@ -83,12 +92,13 @@ const Login = () => {
             })
     
             if(error) {
-                toast.error(error.message)
-                console.log(error);
-                return
+                toast.error(error.message, {
+                     position: toast.POSITION.BOTTOM_LEFT
+                })
             }
     
             if(user){
+                console.log(user);
                 dispatch(setUser(user))
                 const user_meta_data = await getUserMetaData(user.id)
                 // checking if user already setup account
@@ -103,8 +113,7 @@ const Login = () => {
                 }
                 else{
                     navigate('/configNewUser')
-                }
-                
+                }   
             }
         }else{
             toast.warning('Please fill all the fields!', {
