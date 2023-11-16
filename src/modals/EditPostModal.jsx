@@ -62,13 +62,14 @@ const EditPostModal = (props) => {
                 // Deleting old Image from the database first
                 let filenameN
                 let filepath
-                if(oldImages){
+                if(props.media){
                     let filenameNumber = oldImages.split(`${user.id}/${post_id}/`)[1]
                     filenameN = filenameNumber
                     filepath = `${user_id}/${post_id}/${filenameNumber}`;
+                    // deleting old Image from db storage
                     const {data, error} = await supabase.storage.from('post_photos').remove([filepath])
                     if(data){
-                        // Modify file path in the Database
+                        // Modify file path with the updated file name number 
                         filenameN = (parseInt(filenameN, 10) + 1) % 4;
                         filepath = `${user_id}/${post_id}/${filenameN}`
                     }
@@ -80,7 +81,7 @@ const EditPostModal = (props) => {
                 })
                 if(e){
                     toast.warning(e, {
-                        position: toast.POSITION.TOP_RIGHT
+                        position: toast.POSITION.BOTTOM_LEFT
                     })
                 }
                 else{
@@ -96,7 +97,7 @@ const EditPostModal = (props) => {
                     }
                     else{
                         toast.success('Post Updated Successfully! 🎊', {
-                            position:"top-right"
+                            position:"bottom-left"
                         })
                         setTimeout(()=>{
                             window.location.reload()
@@ -105,19 +106,48 @@ const EditPostModal = (props) => {
                 }
             }
             if(!newImages){
-                const {e} = await supabase.from('posts').update({
-                    content: postText
-                }).eq('id', post_id)
-                if(e){
-                    console.log(e);
+                // Checking if user removed old Picture from the post and we need to delete it from the storage
+                if(!oldImages){
+                    let filenameNumber = props.media.split(`${user.id}/${post_id}/`)[1]
+                    let filepath = `${user_id}/${post_id}/${filenameNumber}`;
+                    // deleting old Image from db storage
+                    const {data, error} = await supabase.storage.from('post_photos').remove([filepath])
+
+                    // update post table and removing storage reference from it
+                    if(data){
+                        const {e} = await supabase.from('posts').update({
+                            content: postText,
+                            media: null
+                        }).eq('id', post_id)
+                        if(e){
+                            console.log(e);
+                        }
+                        else{
+                            toast.success('Post Updated Successfully! 🎊', {
+                                position:"bottom-left"
+                            })
+                            setTimeout(()=>{
+                                window.location.reload()
+                            }, 2000)
+                        }
+                    }
                 }
+                // if user is not updating or removing old picture, we just update the postText
                 else{
-                    toast.success('Post Updated Successfully! 🎊', {
-                        position:"bottom-left"
-                    })
-                    setTimeout(()=>{
-                        window.location.reload()
-                    }, 2000)
+                    const {e} = await supabase.from('posts').update({
+                        content: postText,
+                    }).eq('id', post_id)
+                    if(e){
+                        console.log(e);
+                    }
+                    else{
+                        toast.success('Post Updated Successfully! 🎊', {
+                            position:"bottom-left"
+                        })
+                        setTimeout(()=>{
+                            window.location.reload()
+                        }, 2000)
+                    }
                 }
             }
     
