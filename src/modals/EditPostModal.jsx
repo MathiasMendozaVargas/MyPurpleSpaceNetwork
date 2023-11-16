@@ -197,7 +197,6 @@ const EditPostModal = (props) => {
             <div className="extra-btns">
                 <button onClick={() => {setShowEmojis(!showEmojis)}} className="emojis"><i class="fa-solid fa-face-smile"></i></button>
                 <button onClick={handleClick} className='emojis'><i class="fa-solid fa-images"></i></button>
-                <button className='emojis'><i class="fa-solid fa-video"></i></button>
                 <input
                     id="image-upload-input"
                     type="file"
