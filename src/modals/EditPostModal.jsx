@@ -153,7 +153,6 @@ const EditPostModal = (props) => {
             });
         
             setNewImages(newFile);
-            setOldImages(null)
             };
         };
     };
@@ -189,9 +188,10 @@ const EditPostModal = (props) => {
             {oldImages || newImages ? (
                 <div className='media'>
                     <a onClick={()=>setShowDeleteModal(true)}><i class="fa-solid fa-circle-xmark"></i></a>
-                    {oldImages ? (
-                        <img src={oldImages} className='post-image'></img>
-                    ): (<img src={URL.createObjectURL(newImages)} className='post-image'></img>)}
+                    {newImages ? (
+                        <img src={URL.createObjectURL(newImages)} className='post-image'></img>
+                        
+                    ): (<img src={oldImages} className='post-image'></img>)}
                 </div>
             ):(null)}
             <div className="extra-btns">
