@@ -984,10 +984,10 @@ code {
   top: 50%;
   left: 50%;
   width: 400px;
-  min-height: fit-content;
+  max-height: 80vh;
   z-index: 2;
   overflow-y: auto;
-  transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -45%) !important;
   padding: 0px 22px 15px 13px;
   border-radius: 10px;
   background-color: rgb(139, 5, 139);

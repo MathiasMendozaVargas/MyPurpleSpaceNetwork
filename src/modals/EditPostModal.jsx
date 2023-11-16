@@ -158,6 +158,15 @@ const EditPostModal = (props) => {
         };
     };
 
+    const closeDeletePhotoModal = () => {
+        showDeleteModal(false)
+    }
+
+    const erasePhoto = () => {
+        setOldImages(null)
+        setNewImages(null)
+    }
+
     const handleClick = (event) => {
         hiddenFileInput.current.click();
     };
@@ -172,10 +181,10 @@ const EditPostModal = (props) => {
                 <a onClick={props.closeEditPostModal}><i class="fa-solid fa-circle-xmark"></i></a>
                 <h2><i class="fa-solid fa-feather"></i> Edit your purple </h2>
             </div>
-            <textarea value={postText} onChange={(e) => {setPostText(e.target.value)}} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
+            <textarea value={postText} onChange={() => showDeleteModal(true)} name="contentPost" id="contentPost" cols="30" rows="10"></textarea>
             {oldImages || newImages ? (
                 <div className='media'>
-                    <a onClick={(e)=>{e.preventDefault(); setOldImages(null); setNewImages(null)}}><i class="fa-solid fa-circle-xmark"></i></a>
+                    <a onClick={(e)=>{e.preventDefault(); }}><i class="fa-solid fa-circle-xmark"></i></a>
                     {oldImages ? (
                         <img src={oldImages} className='post-image'></img>
                     ): (<img src={URL.createObjectURL(newImages)} className='post-image'></img>)}
@@ -201,6 +210,9 @@ const EditPostModal = (props) => {
                 e.preventDefault();
                 editPost(logged_user.id, post_id)
             } }><i class="fa-solid fa-paper-plane"></i> Update Purple</button>
+            {showDeleteModal && (
+                <DeleteModal context={'Are you sure you want to delete the photo from the post?'} icon={'fa-solid fa-broom-ball'} closeModal={closeDeletePhotoModal} deleteFunction={erasePhoto}/>
+            )}
         </div>
     )
 }
