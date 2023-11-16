@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 
+// Modals
+import DeleteModal from './DeleteModal';
+
 
 // Login Page Template
 const EditPostModal = (props) => {
@@ -19,12 +22,11 @@ const EditPostModal = (props) => {
     const hiddenFileInput = useRef()
     const user = useSelector(state => state.user.user)
 
-    console.log(postData);
-
     const [showEmojis, setShowEmojis] = useState(false)
     const [postText, setPostText] = useState(postData.content)
     const [oldImages, setOldImages] = useState(props.media ? (props.media) : (null))
     const [newImages, setNewImages] = useState(null)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
     
 
     // Post References
@@ -38,7 +40,6 @@ const EditPostModal = (props) => {
         let emoji = String.fromCodePoint(...codeArray)
         setPostText(postText + emoji)
     }
-    console.log(postData.media[0]);
 
     const getPostMedia = async (media) => {
         // work on multi media later
@@ -112,7 +113,7 @@ const EditPostModal = (props) => {
                 }
                 else{
                     toast.success('Post Updated Successfully! 🎊', {
-                        position:"top-right"
+                        position:"bottom-left"
                     })
                     setTimeout(()=>{
                         window.location.reload()
